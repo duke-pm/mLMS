@@ -1,0 +1,19 @@
+{
+  "common": {
+    "app_name": "LMS",
+    "welcome_holder_1": "Login",
+    "skip": "Skip"
+  },
+  "intro": {
+    "intro_1_title": "Numerous free trial courses",
+    "intro_1_content": "Free courses for you to find your way to learning",
+    "intro_2_title": "Quick and easy learning",
+    "intro_2_content": "Easy and fast learning at any time to help you improve various skills",
+    "intro_3_title": "Create your own study plan",
+    "intro_3_content": "Study according to the study plan, make study more motivated"
+  },
+  "sign_in": {
+    "user_name": "E-mail",
+    "password": "Password"
+  }
+}
