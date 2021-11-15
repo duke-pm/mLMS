@@ -12,3 +12,5 @@ export const LOGIN = 'LOGIN';
 export const LANGUAGE = 'LANGUAGE';
 export const DEFAULT_LANGUAGE_CODE = 'vi';
 export const DEFAULT_FORMAT_DATE_1 = 'YYYY-MM-DD';
+export const LIGHT = 'light';
+export const DARK = 'dark';

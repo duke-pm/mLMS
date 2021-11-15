@@ -11,8 +11,13 @@
     "intro_3_title": "Create your own study plan",
     "intro_3_content": "Study according to the study plan, make study more motivated"
   },
-  "sign_in": {
+  "log_in": {
+    "title": "Log In",
     "user_name": "E-mail",
-    "password": "Password"
+    "password": "Password",
+    "is_forgot_password": "Forgot password?",
+    "dont_have_account": "Don't have an account?",
+    "sign_up": "Sign up",
+    "login_with_socials": "Or login with"
   }
 }

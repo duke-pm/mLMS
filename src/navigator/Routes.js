@@ -8,6 +8,8 @@
 import IntroScreen from '~/screens/intro';
 /** AUTH */
 import LoginScreen from '~/screens/authentication/login';
+import SignUpScreen from '~/screens/authentication/signup';
+import ForgotPasswordScreen from '~/screens/authentication/forgot_password';
 
 const Routes = {
   INTRO: {
@@ -15,9 +17,18 @@ const Routes = {
     path: IntroScreen,
   },
   AUTHENTICATION: {
+    name: 'AuthMain',
     LOGIN_IN: {
       name: 'LoginScreen',
       path: LoginScreen,
+    },
+    SIGN_UP: {
+      name: 'SignUpScreen',
+      path: SignUpScreen,
+    },
+    FORGOT_PASSWORD: {
+      name: 'ForgotPassword',
+      path: ForgotPasswordScreen
     },
   },
 };

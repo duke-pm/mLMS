@@ -2,7 +2,12 @@
   "common": {
     "app_name": "LMS",
     "welcome_holder_1": "Login",
-    "skip": "Skip"
+    "skip": "Skip",
+    "success": "Successfully",
+    "error": "Error"
+  },
+  "error": {
+    "format_email": "Format e-mail is not correct!"
   },
   "intro": {
     "intro_1_title": "Numerous free trial courses",
@@ -12,8 +17,39 @@
     "intro_3_title": "Create your own study plan",
     "intro_3_content": "Study according to the study plan, make study more motivated"
   },
-  "sign_in": {
-    "user_name": "E-mail",
-    "password": "Password"
+  "log_in": {
+    "title": "Log In",
+    "input_label_username": "User name",
+    "input_holder_username": "Your user name",
+    "input_label_password": "Password",
+    "input_holder_password": "Your password",
+    "is_forgot_password": "Forgot password?",
+    "dont_have_account": "Don't have an account?",
+    "sign_up": "Sign up",
+    "login_with_socials": "Or login with"
+  },
+  "sign_up": {
+    "title": "Sign Up",
+    "caption": "Enter your details below & free sign up",
+    "input_label_username": "User name",
+    "input_holder_username": "Your user name",
+    "input_label_email": "E-mail",
+    "input_holder_email": "Your e-mail",
+    "input_label_phone": "Phone number",
+    "input_holder_phone": "Your phone number",
+    "input_label_password": "Password",
+    "input_holder_password": "Your password",
+    "policy": "By creating an account you have to agree with our them & condication",
+    "have_account": "Already have an account?",
+    "log_in": "Log in"
+  },
+  "forgot_password": {
+    "title": "Forgot Password",
+    "input_label_email": "E-mail",
+    "input_holder_email": "Your e-mail",
+    "send": "Send",
+    "go_back": "Go back",
+    "success_send": "We sent you an e-mail which contains a link to reset your password!",
+    "error_send": "Something went wrong! Please try again!"
   }
 }

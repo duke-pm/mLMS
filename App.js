@@ -19,7 +19,7 @@ import {
 } from '@react-navigation/native';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { ApplicationProvider, IconRegistry, Text } from '@ui-kitten/components';
+import { ApplicationProvider, IconRegistry, Text, ModalService } from '@ui-kitten/components';
 import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 import {useColorScheme, StatusBar} from 'react-native';
@@ -36,6 +36,8 @@ import { default as mapping } from './assets/themes/mapping.json';
 /** REDUX */
 import Store from './src/redux/store';
 
+ModalService.setShouldUseTopInsets = true;
+
 const linking = {
   prefixes: Configs.prefixesDeepLink,
   config: {screens: Configs.routePath},
@@ -48,10 +50,9 @@ const MyDarkTheme = {
   },
   cColors: {
     ...DarkTheme.colors,
-    bgApp: colors.BG_APP_DARK,
-    bgInputFocus: colors.BG_INPUT_FOCUS_DARK,
-    text: colors.TXT_DARK,
-    icon: colors.ICON_DARK,
+    bgAppleLogin: colors.BG_APPLE_LOGIN_DARK,
+
+    icoAppleLogin: colors.ICO_APPLE_LOGIN_DARK,
   },
 };
 const MyDefaultTheme = {
@@ -61,10 +62,9 @@ const MyDefaultTheme = {
   },
   cColors: {
     ...DefaultTheme.colors,
-    bgApp: colors.BG_APP_LIGHT,
-    bgInputFocus: colors.BG_INPUT_FOCUS_LIGHT,
-    text: colors.TXT_LIGHT,
-    icon: colors.ICON_LIGHT,
+    bgAppleLogin: colors.BG_APPLE_LOGIN_LIGHT,
+
+    icoAppleLogin: colors.ICO_APPLE_LOGIN_LIGHT,
   },
 };
 
@@ -75,7 +75,7 @@ const App = () => {
     checked: false,
     connected: true,
   });
-  const [theme, setTheme] = useState('light');
+  const [themeApp, setThemeApp] = useState('light');
 
   /*****************
    ** HANDLE FUNC **
@@ -85,8 +85,8 @@ const App = () => {
   };
 
   const onToggleTheme = () => {
-    const nextTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(nextTheme);
+    const nextTheme = themeApp === 'light' ? 'dark' : 'light';
+    setThemeApp(nextTheme);
   };
 
   /**********
@@ -137,10 +137,10 @@ const App = () => {
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
-      <ThemeContext.Provider value={{ theme, onToggleTheme }}>
+      <ThemeContext.Provider value={{ themeApp, onToggleTheme }}>
         <ApplicationProvider
           {...eva}
-          theme={eva[theme]}
+          theme={{...eva[themeApp]}}
           customMapping={mapping}>
           <NavigationContainer
             theme={isDark ? MyDarkTheme : MyDefaultTheme}

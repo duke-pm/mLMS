@@ -1,22 +1,32 @@
 /**
  ** Name: Intro screen
- ** Author: DTP-Education
+ ** Author: IT-Team
  ** CreateAt: 2021
  ** Description: Description of Intro.js
  **/
 import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {StyleSheet, SafeAreaView, Image} from 'react-native';
-import {Layout, Text, TopNavigation, ViewPager, Button} from '@ui-kitten/components';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {StyleSheet, StatusBar, Image, LayoutAnimation, UIManager} from 'react-native';
+import {useTheme, Layout, Text, TopNavigation, ViewPager, Button} from '@ui-kitten/components';
 /* COMMON */
+import {IS_ANDROID, moderateScale, sW, resetRoute} from '~/utils/helper';
 import {colors, cStyles} from '~/utils/style';
 import Assets from '~/utils/asset/Assets';
-import {moderateScale, sW} from '~/utils/helper';
-/* REDUX */
+import Routes from '~/navigator/Routes';
 
+/** All init */
+if (IS_ANDROID) {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
+const safeAreaScreen = ['left', 'right', 'top', 'bottom'];
 
 function Intro(props) {
+  const theme = useTheme();
   const {t} = useTranslation();
+  const {navigation} = props;
 
   /** Use state */
   const [pageIndex, setPageIndex] = useState(0);
@@ -24,7 +34,18 @@ function Intro(props) {
   /*****************
    ** HANDLE FUNC **
    *****************/
-  const handleChangePage = newIndex => setPageIndex(newIndex);
+  const handleChangePage = newIndex => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+    setPageIndex(newIndex);
+  };
+
+  const handleGoLogin = () => {
+    resetRoute(navigation, Routes.AUTHENTICATION.name);
+  };
+
+  const handleGoSignup = () => {
+    resetRoute(navigation, Routes.AUTHENTICATION.name);
+  };
   
   /**********
    ** FUNC **
@@ -33,21 +54,27 @@ function Intro(props) {
   /****************
    ** LIFE CYCLE **
    ****************/
+  useEffect(() => {
+    StatusBar.setBarStyle('dark-content', true);
+    IS_ANDROID && StatusBar.setTranslucent(false);
+  }, []);
 
   /************
    ** RENDER **
    ************/
   return (
-    <SafeAreaView style={cStyles.flex1}>
-      <Layout style={cStyles.flex1}>
+    <SafeAreaView
+      style={[cStyles.flex1, {backgroundColor: theme['background-basic-color-1']}]}
+      edges={safeAreaScreen}>
+      <Layout style={cStyles.flex1} level='1'>
         <TopNavigation accessoryRight={
-          <Button appearance='ghost'>Skip</Button>
+          <Button appearance='ghost' onPress={handleGoLogin}>Skip</Button>
         } />
 
         <ViewPager
           selectedIndex={pageIndex}
           onSelect={handleChangePage}>
-          <Layout style={cStyles.itemsCenter}>
+          <Layout style={cStyles.itemsCenter} level='1'>
             <Layout style={styles.con_layout}>
               <Image style={[cStyles.mt40, styles.img_intro]} source={Assets.imgIntro1} resizeMode={'contain'} />
               <Text style={[cStyles.textCenter, cStyles.mt36]} category='h5'>{t('intro:intro_1_title')}</Text>
@@ -55,7 +82,7 @@ function Intro(props) {
             </Layout>
           </Layout>
           
-          <Layout style={cStyles.itemsCenter}>
+          <Layout style={cStyles.itemsCenter} level='1'>
             <Layout style={styles.con_layout}>
               <Image style={[cStyles.mt40, styles.img_intro]} source={Assets.imgIntro2} resizeMode={'contain'} />
               <Text style={[cStyles.textCenter, cStyles.mt36]} category='h5'>{t('intro:intro_2_title')}</Text>
@@ -63,17 +90,17 @@ function Intro(props) {
             </Layout>
           </Layout>
 
-          <Layout style={cStyles.itemsCenter}>
+          <Layout style={cStyles.itemsCenter} level='1'>
             <Layout style={styles.con_layout}>
               <Image style={[cStyles.mt40, styles.img_intro]} source={Assets.imgIntro3} resizeMode={'contain'} />
               <Text style={[cStyles.textCenter, cStyles.mt36]} category='h5'>{t('intro:intro_3_title')}</Text>
               <Text style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t('intro:intro_3_content')}</Text>
 
               <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyEvenly, cStyles.mt40]}>
-                <Button style={styles.btn_main} appearance='filled'>
+                <Button style={styles.btn_main} appearance='filled' onPress={handleGoSignup}>
                   Sign up
                 </Button>
-                <Button style={styles.btn_main} appearance='outline'>
+                <Button style={styles.btn_main} appearance='outline' onPress={handleGoLogin}>
                   Log in
                 </Button>
               </Layout>
@@ -81,8 +108,8 @@ function Intro(props) {
           </Layout>
         </ViewPager>
 
-        <Layout style={[cStyles.flex1, cStyles.itemsCenter]}>
-          <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.mt40]}>
+        <Layout style={[cStyles.flex1, cStyles.itemsCenter, cStyles.justifyEnd]} level='1'>
+          <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.mb24]}>
             <Layout style={[
               cStyles.mx6,
               cStyles.rounded1,

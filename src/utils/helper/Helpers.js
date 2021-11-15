@@ -58,6 +58,16 @@ export function validatEemail(data) {
   return false;
 }
 
+export function validation(value, type) {
+  let checked = false;
+  if (type === 'email') {
+    if (regex.test(value)) {
+      checked = true;
+    }
+  }
+  return checked;
+};
+
 // export function alert(t, message, onPressOK) {
 //   return Alert.alert(
 //     t('common:app_name'),
@@ -70,12 +80,12 @@ export function validatEemail(data) {
 //   );
 // }
 
-// export function resetRoute(navigation, routeName, params) {
-//   return navigation.reset({
-//     index: 0,
-//     routes: [{name: routeName, params}],
-//   });
-// }
+export function resetRoute(navigation, routeName, params) {
+  return navigation.reset({
+    index: 0,
+    routes: [{name: routeName, params}],
+  });
+}
 
 // export async function askPermissionsCalendar() {
 //   let permission = IS_ANDROID
