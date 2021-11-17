@@ -4,10 +4,13 @@
     "welcome_holder_1": "Login",
     "skip": "Skip",
     "success": "Successfully",
-    "error": "Error"
+    "error": "Error",
+    "character": "character"
   },
   "error": {
-    "format_email": "Format e-mail is not correct!"
+    "format_email": "Format e-mail is not correct!",
+    "empty_length": "This field cannot empty!",
+    "min_length": "Min length is"
   },
   "intro": {
     "intro_1_title": "Numerous free trial courses",
@@ -45,11 +48,20 @@
   },
   "forgot_password": {
     "title": "Forgot Password",
+    "caption": "Enter your e-mail address below and we will send you a link to reset your password.",
     "input_label_email": "E-mail",
     "input_holder_email": "Your e-mail",
-    "send": "Send",
+    "send": "Send Password Reset",
     "go_back": "Go back",
     "success_send": "We sent you an e-mail which contains a link to reset your password!",
     "error_send": "Something went wrong! Please try again!"
+  },
+  "reset_password": {
+    "title": "Reset Password",
+    "caption": "Enter your new password below and we will reset to it.",
+    "input_label_password": "New Password",
+    "input_holder_password": "New your password",
+    "save": "Save",
+    "go_back": "Go back"
   }
 }

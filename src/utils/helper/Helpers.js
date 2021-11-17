@@ -58,7 +58,7 @@ export function validatEemail(data) {
   return false;
 }
 
-export function validation(value, type) {
+export function validate(value, type) {
   let checked = false;
   if (type === 'email') {
     if (regex.test(value)) {

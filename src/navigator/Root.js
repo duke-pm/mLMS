@@ -36,6 +36,10 @@ export function AuthMain(props) {
         name={Routes.AUTHENTICATION.FORGOT_PASSWORD.name}
         component={Routes.AUTHENTICATION.FORGOT_PASSWORD.path}
       />
+      <StackAuth.Screen
+        name={Routes.AUTHENTICATION.RESET_PASSWORD.name}
+        component={Routes.AUTHENTICATION.RESET_PASSWORD.path}
+      />
     </StackAuth.Navigator>
   );
 }

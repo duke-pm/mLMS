@@ -21,15 +21,16 @@ import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { ApplicationProvider, IconRegistry, Text, ModalService } from '@ui-kitten/components';
 import NetInfo from '@react-native-community/netinfo';
-import axios from 'axios';
+import FlashMessage from 'react-native-flash-message';
 import {useColorScheme, StatusBar} from 'react-native';
+import axios from 'axios';
 /** COMPONENTS */
 import Navigator from '~/navigator/Navigator';
 /** COMMON */
 import Configs from '~/configs';
 import {ThemeContext} from '~/configs/theme-context';
 import {colors} from '~/utils/style';
-import {IS_ANDROID} from '~/utils/helper';
+import {IS_ANDROID, IS_IOS} from '~/utils/helper';
 import jwtServiceConfig from '~/services/jwtServiceConfig';
 import { default as theme } from './assets/themes/theme.json';
 import { default as mapping } from './assets/themes/mapping.json';
@@ -149,6 +150,7 @@ const App = () => {
             <Provider store={Store}>
               <SafeAreaProvider initialMetrics={initialWindowMetrics}>
                 <Navigator />
+                <FlashMessage position="top" autoHide floating /> 
               </SafeAreaProvider>
             </Provider>
           </NavigationContainer>

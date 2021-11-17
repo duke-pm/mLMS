@@ -4,48 +4,42 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {createRef, useState, useEffect, useContext} from 'react';
+import React, {useRef, useState, useEffect, useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   useTheme, Layout, TopNavigation, Toggle, Text,
-  Input, Button, Icon, Divider
+  Divider
 } from '@ui-kitten/components';
 import {
   StatusBar, StyleSheet, UIManager, View, TouchableWithoutFeedback
 } from 'react-native';
-import IoniIcon from 'react-native-vector-icons/Ionicons';
+import {showMessage} from "react-native-flash-message";
 /* COMPONENTS */
-
+import CButtonSocial, {SOCIAL_NAME} from '~/components/CButtonSocial';
+import CForm from '~/components/CForm';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {DARK, LIGHT} from '~/configs/constants';
 import {ThemeContext} from '~/configs/theme-context';
-import {IS_ANDROID, moderateScale} from '~/utils/helper';
-import {colors, cStyles} from '~/utils/style';
+import {IS_ANDROID} from '~/utils/helper';
+import {cStyles} from '~/utils/style';
 /* REDUX */
 
 
-/** All init */
 if (IS_ANDROID) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 }
+
+/** All init */
 const INPUT_NAME = {
   USER_NAME: 'userName',
   PASSWORD: 'password'
 };
-const SOCIAL_NAME = {
-  APPLE: 'apple',
-  FACEBOOK: 'facebook',
-  GOOGLE: 'google',
-};
 const safeAreaScreen = ['left', 'right', 'top'];
-/** All ref */
-let userNameRef = createRef();
-let passwordRef = createRef();
 
 const RenderTopLeft = trans => {
   return (
@@ -67,73 +61,6 @@ const RenderTopRight = darkmodeToggle => {
   )
 };
 
-const RenderIconSocial = (name, iconColor) => {
-  return (
-    <IoniIcon
-      name={name}
-      size={moderateScale(20)}
-      color={iconColor}
-    />
-  )
-};
-
-function Form(props) {
-  const {t} = useTranslation();
-  const themeContext = useContext(ThemeContext);
-
-  /** Use state */
-  const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const [value, setValue] = useState({
-    userName: '',
-    password: '',
-  });
-
-  /*****************
-   ** HANDLE FUNC **
-   *****************/
-  const handleChangeValue = (iInput, nValue) => {
-    setValue({...value, [iInput]: nValue});
-  };
-  
-  const toggleSecureEntry = () => {
-    setSecureTextEntry(!secureTextEntry);
-  };
-
-  const onRenderIcon = (props) => (
-    <TouchableWithoutFeedback onPress={toggleSecureEntry}>
-      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
-    </TouchableWithoutFeedback>
-  );
-
-  /************
-   ** RENDER **
-   ************/
-  return (
-    <>
-      <Input
-        nativeID={INPUT_NAME.USER_NAME}
-        value={value.userName}
-        label={t('log_in:input_label_username')}
-        placeholder={t('log_in:input_holder_username')}
-        keyboardAppearance={themeContext.theme}
-        onChangeText={newValue => handleChangeValue(INPUT_NAME.USER_NAME, newValue)}
-      />
-
-      <Input
-        style={cStyles.mt24}
-        nativeID={INPUT_NAME.PASSWORD}
-        value={value.password}
-        label={t('log_in:input_label_password')}
-        placeholder={t('log_in:input_holder_password')}
-        accessoryRight={onRenderIcon}
-        secureTextEntry={secureTextEntry}
-        keyboardAppearance={themeContext.theme}
-        onChangeText={newValue => handleChangeValue(INPUT_NAME.PASSWORD, newValue)}
-      />
-    </>
-  )
-};
-
 const useToggleState = (initialState = false) => {
   const themeContext = useContext(ThemeContext);
   const [checked, setChecked] = useState(initialState);
@@ -142,7 +69,6 @@ const useToggleState = (initialState = false) => {
     themeContext.onToggleTheme();
     setChecked(isChecked);
   };
-
   return { checked, onChange: onCheckedChange };
 };
 
@@ -151,14 +77,19 @@ function Login(props) {
   const theme = useTheme();
   const themeContext = useContext(ThemeContext);
   const {navigation} = props;
-  const bgLoginApple = themeContext.theme === LIGHT 
-    ? colors.BG_APPLE_LOGIN_LIGHT
-    : colors.BG_APPLE_LOGIN_DARK;
-  const icoLoginApple = themeContext.theme === LIGHT
-    ? colors.ICO_APPLE_LOGIN_LIGHT
-    : colors.ICO_APPLE_LOGIN_DARK;
+
+  /** use ref */
+  const formRef = useRef();
 
   /** Use State */
+  const [loading, setLoading] = useState({
+    main: false,
+    submit: false,
+  });
+  const [values, setValues] = useState({
+    userName: '',
+    password: '',
+  });
   const darkmodeToggle = useToggleState();
 
   /*****************
@@ -174,37 +105,34 @@ function Login(props) {
     navigation.navigate(Routes.AUTHENTICATION.SIGN_UP.name);
   };
 
-  const handleLoginWithSocial = socialName => {
-    console.log('[LOG] ===  ===> Login with', socialName);
-  };
-
-  const handleValidation = () => {
-    console.log('[LOG] ===  ===> Check validation');
-    onSubmitLogin();
-  };
-
   /**********
    ** FUNC **
    **********/
   const onSubmitLogin = () => {
     console.log('[LOG] ===  ===> Submit login');
+    showMessage({
+      icon: 'danger',
+      message: 'Wrong Username or password',
+      description: 'Please check your informations again.',
+      type: 'danger',
+    });
   };
 
   /****************
    ** LIFE CYCLE **
    ****************/
   useEffect(() => {
-    if (themeContext.theme === LIGHT) {
+    if (themeContext.themeApp === LIGHT) {
       StatusBar.setBarStyle('dark-content', true);
       IS_ANDROID &&
         StatusBar.setBackgroundColor(theme['background-basic-color-1'], true);
     }
-    if (themeContext.theme === DARK) {
+    if (themeContext.themeApp === DARK) {
       StatusBar.setBarStyle('light-content', true);
       IS_ANDROID &&
         StatusBar.setBackgroundColor(theme['background-basic-color-1'], true);
     }
-  }, [themeContext.theme]);
+  }, [themeContext.themeApp]);
 
   /************
    ** RENDER **
@@ -228,30 +156,70 @@ function Login(props) {
               cStyles.mt16,
               cStyles.roundedTopLeft5,
               cStyles.roundedTopRight5,
-              cStyles.p32]}
+              cStyles.py16,
+              cStyles.px32,
+            ]}
             level='3'>
             {/** Form input */}
-            <Form level='3' />
-
-            {/** Is forgot password ? */}
-            <View style={[cStyles.itemsEnd, cStyles.mt16]}>
-              <TouchableWithoutFeedback onPress={handleGoForgotPassword}>
-                <Text style={{color: theme['color-primary-500']}} category={'p1'}>{t('log_in:is_forgot_password')}</Text>
-              </TouchableWithoutFeedback>
-            </View>
-
-            {/** Button */}
-            <Button style={cStyles.mt24} appearance='filled' onPress={handleValidation}>
-              Login
-            </Button>
+            <CForm
+              ref={formRef}
+              level='3'
+              inputs={[
+                {
+                  id: INPUT_NAME.USER_NAME,
+                  disabled: loading.main || loading.submit,
+                  label: 'log_in:input_label_username',
+                  holder: 'log_in:input_holder_username',
+                  value: values.userName,
+                  required: true,
+                  password: false,
+                  email: false,
+                  phone: false,
+                  number: false,
+                  next: true,
+                  return: 'next',
+                },
+                {
+                  id: INPUT_NAME.PASSWORD,
+                  disabled: loading.main || loading.submit,
+                  label: 'log_in:input_label_password',
+                  holder: 'log_in:input_holder_password',
+                  value: values.password,
+                  required: true,
+                  password: true,
+                  email: false,
+                  phone: false,
+                  number: false,
+                  next: false,
+                  return: 'done',
+                  validate: {type: 'min_length', helper: '6'},
+                },
+              ]}
+              customAddingForm={
+                <View style={[cStyles.itemsEnd, cStyles.mt16]}>
+                  <TouchableWithoutFeedback onPress={handleGoForgotPassword}>
+                    <Text
+                      style={[cStyles.textUnderline, {color: theme['color-primary-500']}]}
+                      category={'p1'}>
+                      {t('log_in:is_forgot_password')}
+                    </Text>
+                  </TouchableWithoutFeedback>
+                </View>
+              }
+              labelButton={'log_in:title'}
+              onSubmit={onSubmitLogin}
+            />
 
             {/** Sign up ? */}
-            <View style={[cStyles.itemsCenter, cStyles.mt24]}>
-              <Text category={'p1'}>{t('log_in:dont_have_account')}
-                <TouchableWithoutFeedback onPress={handleSignUp}>
-                  <Text style={{color: theme['color-primary-500']}} category={'p1'}> {t('log_in:sign_up')}</Text>
-                </TouchableWithoutFeedback>
-              </Text>
+            <View style={[cStyles.row, cStyles.itemsEnd, cStyles.justifyCenter, cStyles.mt24]}>
+              <Text category='p1'>{t('log_in:dont_have_account')}</Text>
+              <TouchableWithoutFeedback onPress={handleSignUp}>
+                <Text 
+                  style={[cStyles.textUnderline, cStyles.ml6, {color: theme['color-primary-500']}]}
+                  category={'p1'}>
+                  {t('log_in:sign_up')}
+                </Text>
+              </TouchableWithoutFeedback>
             </View>
 
             {/** Login with other socials */}
@@ -262,26 +230,9 @@ function Login(props) {
             </View>
 
             <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyEvenly, cStyles.mt24]}>
-              <Button 
-                style={[cStyles.rounded5, styles.btn_social_main, {backgroundColor: bgLoginApple}]}
-                appearance='ghost'
-                accessoryLeft={RenderIconSocial('logo-apple', icoLoginApple)}
-                onPress={() => handleLoginWithSocial(SOCIAL_NAME.APPLE)}
-              />
-
-              <Button
-                style={[cStyles.rounded5, styles.btn_social_main, {backgroundColor: colors.FACEBOOK}]}
-                appearance='ghost'
-                accessoryLeft={RenderIconSocial('logo-facebook', colors.WHITE)}
-                onPress={() => handleLoginWithSocial(SOCIAL_NAME.FACEBOOK)}
-              />
-
-              <Button
-                style={[cStyles.rounded5, styles.btn_social_main, {backgroundColor: colors.GOOGLE}]}
-                appearance='ghost'
-                accessoryLeft={RenderIconSocial('logo-google', colors.WHITE)}
-                onPress={() => handleLoginWithSocial(SOCIAL_NAME.GOOGLE)}
-              />
+              <CButtonSocial type={SOCIAL_NAME.APPLE} />
+              <CButtonSocial type={SOCIAL_NAME.FACEBOOK} />
+              <CButtonSocial type={SOCIAL_NAME.GOOGLE} />
             </View>
           </Layout>
         </Layout>
@@ -291,10 +242,6 @@ function Login(props) {
 }
 
 const styles = StyleSheet.create({
-  btn_social_main: {
-    height: moderateScale(50),
-    width: moderateScale(50),
-  },
 });
 
 export default Login;

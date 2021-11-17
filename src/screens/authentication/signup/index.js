@@ -4,18 +4,18 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useContext, useState, useEffect} from 'react';
-import { useTranslation } from 'react-i18next';
+import React, {useRef, useState, useEffect} from 'react';
+import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import { TopNavigation, Layout, useTheme, Text, Input, Icon, Button, CheckBox } from '@ui-kitten/components';
-import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {TopNavigation, Layout, useTheme, Text, CheckBox } from '@ui-kitten/components';
+import {TouchableWithoutFeedback, View} from 'react-native';
+import {showMessage} from "react-native-flash-message";
 /* COMPONENTS */
-
+import CForm from '~/components/CForm';
 /* COMMON */
 import Routes from '~/navigator/Routes';
-import {ThemeContext} from '~/configs/theme-context';
-import { cStyles } from '~/utils/style';
+import {cStyles} from '~/utils/style';
 /* REDUX */
 
 
@@ -23,7 +23,7 @@ import { cStyles } from '~/utils/style';
 const INPUT_NAME = {
   USER_NAME: 'userName',
   EMAIL: 'email',
-  PHONE: '',
+  PHONE: 'phone',
   PASSWORD: 'password',
 };
 const safeAreaScreen = ['left', 'right', 'top'];
@@ -39,13 +39,25 @@ const RenderTopLeft = trans => {
   )
 };
 
-function Form(props) {
-  const {t} = useTranslation();
-  const themeContext = useContext(ThemeContext);
-
+const useCheckboxState = (initialCheck = false) => {
   /** Use state */
-  const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const [value, setValue] = useState({
+  const [checked, setChecked] = useState(initialCheck);
+
+  return { checked, onChange: setChecked };
+};
+
+function SignUp(props) {
+  const {t} = useTranslation();
+  const theme = useTheme();
+  const {navigation} = props;
+
+  /** use ref */
+  const formRef = useRef();
+
+  /** Use State */
+  const [loading, setLoading] = useState(false);
+  const policyCheckbox = useCheckboxState();
+  const [values, setValues] = useState({
     userName: '',
     email: '',
     phone: '',
@@ -55,102 +67,9 @@ function Form(props) {
   /*****************
    ** HANDLE FUNC **
    *****************/
-  const handleChangeValue = (iInput, nValue) => {
-    setValue({...value, [iInput]: nValue});
-  };
-  
-  const toggleSecureEntry = () => {
-    setSecureTextEntry(!secureTextEntry);
-  };
-
-  const onRenderIcon = (props) => (
-    <TouchableWithoutFeedback onPress={toggleSecureEntry}>
-      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
-    </TouchableWithoutFeedback>
-  );
-
-  /************
-   ** RENDER **
-   ************/
-  return (
-    <>
-      <Input
-        nativeID={INPUT_NAME.USER_NAME}
-        value={value.userName}
-        label={t('sign_up:input_label_username')}
-        placeholder={t('sign_up:input_holder_username')}
-        returnKeyType={'next'}
-        keyboardAppearance={themeContext.theme}
-        onChangeText={newValue => handleChangeValue(INPUT_NAME.USER_NAME, newValue)}
-      />
-
-      <Input
-        style={cStyles.mt24}
-        nativeID={INPUT_NAME.EMAIL}
-        value={value.email}
-        label={t('sign_up:input_label_email')}
-        placeholder={t('sign_up:input_holder_email')}
-        keyboardType={'email-address'}
-        returnKeyType={'next'}
-        keyboardAppearance={themeContext.theme}
-        onChangeText={newValue => handleChangeValue(INPUT_NAME.EMAIL, newValue)}
-      />
-
-      <Input
-        style={cStyles.mt24}
-        nativeID={INPUT_NAME.PHONE}
-        value={value.phone}
-        label={t('sign_up:input_label_phone')}
-        placeholder={t('sign_up:input_holder_phone')}
-        keyboardType={'phone-pad'}
-        returnKeyType={'next'}
-        keyboardAppearance={themeContext.theme}
-        onChangeText={newValue => handleChangeValue(INPUT_NAME.PHONE, newValue)}
-      />
-
-      <Input
-        style={cStyles.mt24}
-        nativeID={INPUT_NAME.PASSWORD}
-        value={value.password}
-        label={t('sign_up:input_label_password')}
-        placeholder={t('sign_up:input_holder_password')}
-        accessoryRight={onRenderIcon}
-        secureTextEntry={secureTextEntry}
-        returnKeyType={'done'}
-        keyboardAppearance={themeContext.theme}
-        onChangeText={newValue => handleChangeValue(INPUT_NAME.PASSWORD, newValue)}
-      />
-    </>
-  )
-};
-
-const useCheckboxState = (initialCheck = false) => {
-  /** Use state */
-  const [checked, setChecked] = useState(initialCheck);
-
-  return { checked, onChange: setChecked };
-};
-
-
-function SignUp(props) {
-  const {t} = useTranslation();
-  const theme = useTheme();
-  const {navigation} = props;
-
-  /** Use State */
-  const policyCheckbox = useCheckboxState();
-
-  /*****************
-   ** HANDLE FUNC **
-   *****************/
   const handleLogIn = () => {
     console.log('[LOG] ===  ===> Go to Log in');
     navigation.navigate(Routes.AUTHENTICATION.LOGIN_IN.name);
-  };
-
-  const handleValidation = () => {
-    console.log('[LOG] ===  ===> Check validation');
-    onSubmitSignUp();
   };
 
   /**********
@@ -158,11 +77,20 @@ function SignUp(props) {
    **********/
   const onSubmitSignUp = () => {
     console.log('[LOG] ===  ===> Submit signup');
+    showMessage({
+      icon: 'danger',
+      message: 'Wrong Username or password',
+      description: 'Please check your informations again.',
+      type: 'danger',
+    });
   };
 
   /****************
    ** LIFE CYCLE **
    ****************/
+  useEffect(() => {
+
+  }, []);
 
   /************
    ** RENDER **
@@ -183,36 +111,99 @@ function SignUp(props) {
               cStyles.mt16,
               cStyles.roundedTopLeft5,
               cStyles.roundedTopRight5,
-              cStyles.p32]}
+              cStyles.py16,
+              cStyles.px32,
+            ]}
             level='3'>
             {/** Form input */}
-            <Form level='3' />
-
-            {/** Check policy */}
-            <CheckBox
-              style={cStyles.mt24}
-              status='info'
-              {...policyCheckbox}>
-              {t('sign_up:policy')}
-            </CheckBox>
-
-            {/** Button */}
-            <Button
-              style={cStyles.mt24}
-              appearance='filled'
-              disabled={!policyCheckbox.checked}
-              onPress={handleValidation}
-            >
-              {t('sign_up:title')}
-            </Button>
+            <CForm
+              ref={formRef}
+              loading={loading}
+              level='3'
+              inputs={[
+                {
+                  id: INPUT_NAME.USER_NAME,
+                  disabled: loading,
+                  label: 'sign_up:input_label_username',
+                  holder: 'sign_up:input_holder_username',
+                  value: values.userName,
+                  required: true,
+                  password: false,
+                  email: false,
+                  phone: false,
+                  number: false,
+                  next: true,
+                  return: 'next',
+                },
+                {
+                  id: INPUT_NAME.EMAIL,
+                  disabled: loading,
+                  label: 'sign_up:input_label_email',
+                  holder: 'sign_up:input_holder_email',
+                  value: values.email,
+                  required: true,
+                  password: false,
+                  email: true,
+                  phone: false,
+                  number: false,
+                  next: true,
+                  return: 'next',
+                  validate: {type: 'email', helper: ''},
+                },
+                {
+                  id: INPUT_NAME.PHONE,
+                  disabled: loading,
+                  label: 'sign_up:input_label_phone',
+                  holder: 'sign_up:input_holder_phone',
+                  value: values.phone,
+                  required: true,
+                  password: false,
+                  email: false,
+                  phone: true,
+                  number: false,
+                  next: true,
+                  return: 'next',
+                  validate: {type: 'min_length', helper: '10'},
+                },
+                {
+                  id: INPUT_NAME.PASSWORD,
+                  disabled: loading,
+                  label: 'sign_up:input_label_password',
+                  holder: 'sign_up:input_holder_password',
+                  value: values.password,
+                  required: true,
+                  password: true,
+                  email: false,
+                  phone: false,
+                  number: false,
+                  next: false,
+                  return: 'done',
+                  validate: {type: 'min_length', helper: '6'},
+                },
+              ]}
+              customAddingForm={
+                <CheckBox
+                  style={cStyles.mt24}
+                  status='basic'
+                  {...policyCheckbox}>
+                  {t('sign_up:policy')}
+                </CheckBox>
+              }
+              labelButton={'sign_up:title'}
+              disabledButton={!policyCheckbox.checked}
+              onSubmit={onSubmitSignUp}
+            />
 
             {/** Log in ? */}
-            <View style={[cStyles.itemsCenter, cStyles.mt24]}>
-              <Text category={'p1'}>{t('sign_up:have_account')}
-                <TouchableWithoutFeedback onPress={handleLogIn}>
-                  <Text style={{color: theme['color-primary-500']}} category={'p1'}> {t('sign_up:log_in')}</Text>
-                </TouchableWithoutFeedback>
-              </Text>
+            <View style={[cStyles.row, cStyles.itemsEnd, cStyles.justifyCenter, cStyles.mt24]}>
+              <Text category='p1'>{t('sign_up:have_account')}</Text>
+              <TouchableWithoutFeedback onPress={handleLogIn}>
+                <Text 
+                  style={[cStyles.textUnderline, cStyles.ml6, {color: theme['color-primary-500']}]}
+                  category={'p1'}>
+                  {t('sign_up:log_in')}
+                </Text>
+              </TouchableWithoutFeedback>
             </View>
           </Layout>
         </Layout>
