@@ -33,7 +33,7 @@
   },
   "sign_up": {
     "title": "Sign Up",
-    "caption": "Enter your details below & free sign up",
+    "subtitle": "Enter your details below & free sign up",
     "input_label_username": "User name",
     "input_holder_username": "Your user name",
     "input_label_email": "E-mail",

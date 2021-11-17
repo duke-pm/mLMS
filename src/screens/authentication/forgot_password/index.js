@@ -8,14 +8,14 @@ import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useTheme, TopNavigation, Layout, Text, Spinner, Button, Modal, Card} from '@ui-kitten/components';
+import {useTheme, Layout, Text, Button, Modal, Card} from '@ui-kitten/components';
 import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
 /* COMPONENTS */
+import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {colors, cStyles} from '~/utils/style';
-import {validate} from '~/utils/helper';
 /* REDUX */
 
 
@@ -24,16 +24,6 @@ const INPUT_NAME = {
   EMAIL: 'email',
 };
 const safeAreaScreen = ['left', 'right', 'top'];
-
-const RenderTopLeft = trans => {
-  return (
-    <React.Fragment>
-      <View style={cStyles.ml28}>
-        <Text category={'h2'}>{trans('forgot_password:title')}</Text>
-      </View>
-    </React.Fragment>
-  )
-};
 
 function ForgotPassword(props) {
   const {t} = useTranslation();
@@ -118,7 +108,7 @@ function ForgotPassword(props) {
         <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1}>
           <Layout style={cStyles.flex1}>
             {/** Header */}
-            <TopNavigation accessoryLeft={RenderTopLeft(t)} />
+            <CTopNavigation back leftTitle={'forgot_password:title'} />
 
             {/** Content prepare send */}
             <Layout

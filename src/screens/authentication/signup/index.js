@@ -8,13 +8,13 @@ import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {TopNavigation, Layout, useTheme, Text, CheckBox } from '@ui-kitten/components';
+import {Layout, useTheme, Text, CheckBox} from '@ui-kitten/components';
 import {TouchableWithoutFeedback, View} from 'react-native';
 import {showMessage} from "react-native-flash-message";
 /* COMPONENTS */
+import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
 /* COMMON */
-import Routes from '~/navigator/Routes';
 import {cStyles} from '~/utils/style';
 /* REDUX */
 
@@ -27,17 +27,6 @@ const INPUT_NAME = {
   PASSWORD: 'password',
 };
 const safeAreaScreen = ['left', 'right', 'top'];
-
-const RenderTopLeft = trans => {
-  return (
-    <React.Fragment>
-      <View style={cStyles.ml28}>
-        <Text category={'h2'}>{trans('sign_up:title')}</Text>
-        <Text style={cStyles.mt6} category={'c1'}>{trans('sign_up:caption')}</Text>
-      </View>
-    </React.Fragment>
-  )
-};
 
 const useCheckboxState = (initialCheck = false) => {
   /** Use state */
@@ -67,9 +56,8 @@ function SignUp(props) {
   /*****************
    ** HANDLE FUNC **
    *****************/
-  const handleLogIn = () => {
-    console.log('[LOG] ===  ===> Go to Log in');
-    navigation.navigate(Routes.AUTHENTICATION.LOGIN_IN.name);
+  const handleGoBackLogIn = () => {
+    navigation.goBack();
   };
 
   /**********
@@ -102,7 +90,11 @@ function SignUp(props) {
       <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1}>
         <Layout style={cStyles.flex1}>
           {/** Header */}
-          <TopNavigation accessoryLeft={RenderTopLeft(t)} />
+          <CTopNavigation
+            back
+            leftTitle={'sign_up:title'}
+            leftSubtitle={'sign_up:subtitle'}
+          />
 
           {/** Content */}
           <Layout
@@ -197,7 +189,7 @@ function SignUp(props) {
             {/** Log in ? */}
             <View style={[cStyles.row, cStyles.itemsEnd, cStyles.justifyCenter, cStyles.mt24]}>
               <Text category='p1'>{t('sign_up:have_account')}</Text>
-              <TouchableWithoutFeedback onPress={handleLogIn}>
+              <TouchableWithoutFeedback onPress={handleGoBackLogIn}>
                 <Text 
                   style={[cStyles.textUnderline, cStyles.ml6, {color: theme['color-primary-500']}]}
                   category={'p1'}>

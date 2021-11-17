@@ -8,16 +8,14 @@ import React, {useRef, useState, useEffect, useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {
-  useTheme, Layout, TopNavigation, Toggle, Text,
-  Divider
-} from '@ui-kitten/components';
+import {useTheme, Layout, Text, Divider} from '@ui-kitten/components';
 import {
   StatusBar, StyleSheet, UIManager, View, TouchableWithoutFeedback
 } from 'react-native';
 import {showMessage} from "react-native-flash-message";
 /* COMPONENTS */
 import CButtonSocial, {SOCIAL_NAME} from '~/components/CButtonSocial';
+import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
 /* COMMON */
 import Routes from '~/navigator/Routes';
@@ -41,37 +39,6 @@ const INPUT_NAME = {
 };
 const safeAreaScreen = ['left', 'right', 'top'];
 
-const RenderTopLeft = trans => {
-  return (
-    <React.Fragment>
-      <View style={cStyles.ml28}>
-        <Text category={'h2'}>{trans('log_in:title')}</Text>
-      </View>
-    </React.Fragment>
-  )
-};
-
-const RenderTopRight = darkmodeToggle => {
-  return (
-    <React.Fragment>
-      <Toggle {...darkmodeToggle}>
-        {evaProps => <Text {...evaProps}>{'Dark'}</Text>}
-      </Toggle>
-    </React.Fragment>
-  )
-};
-
-const useToggleState = (initialState = false) => {
-  const themeContext = useContext(ThemeContext);
-  const [checked, setChecked] = useState(initialState);
-
-  const onCheckedChange = (isChecked) => {
-    themeContext.onToggleTheme();
-    setChecked(isChecked);
-  };
-  return { checked, onChange: onCheckedChange };
-};
-
 function Login(props) {
   const {t} = useTranslation();
   const theme = useTheme();
@@ -90,7 +57,6 @@ function Login(props) {
     userName: '',
     password: '',
   });
-  const darkmodeToggle = useToggleState();
 
   /*****************
    ** HANDLE FUNC **
@@ -144,10 +110,7 @@ function Login(props) {
       <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1}>
         <Layout style={cStyles.flex1} level='1'>
           {/** Header */}
-          <TopNavigation
-            accessoryLeft={RenderTopLeft(t)}
-            accessoryRight={RenderTopRight(darkmodeToggle)}
-          />
+          <CTopNavigation darkmode leftTitle={'log_in:title'} />
 
           {/** Content */}
           <Layout
