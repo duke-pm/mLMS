@@ -6,11 +6,10 @@
  **/
 import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTheme, Layout, Text, Button, Modal, Card} from '@ui-kitten/components';
 import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
 /* COMPONENTS */
+import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
 /* COMMON */
@@ -23,7 +22,6 @@ import {colors, cStyles} from '~/utils/style';
 const INPUT_NAME = {
   EMAIL: 'email',
 };
-const safeAreaScreen = ['left', 'right', 'top'];
 
 function ForgotPassword(props) {
   const {t} = useTranslation();
@@ -102,94 +100,88 @@ function ForgotPassword(props) {
    ** RENDER **
    ************/
   return (
-    <SafeAreaView
-      style={[cStyles.flex1, {backgroundColor: theme['background-basic-color-1']}]}
-      edges={safeAreaScreen}>
-        <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1}>
-          <Layout style={cStyles.flex1}>
-            {/** Header */}
-            <CTopNavigation back leftTitle={'forgot_password:title'} />
+    <CContainer safeArea={['top']}>
+      {/** Header */}
+      <CTopNavigation back leftTitle={'forgot_password:title'} />
 
-            {/** Content prepare send */}
-            <Layout
-              style={[
-                cStyles.flex1,
-                cStyles.mt16,
-                cStyles.roundedTopLeft5,
-                cStyles.roundedTopRight5,
-                cStyles.py16,
-                cStyles.px32,
-              ]}
-              level={'3'}>
-              {/** Caption */}
-              <View style={cStyles.mt16}>
-                <Text style={cStyles.textCenter} category='p1'>{t('forgot_password:caption')}</Text>  
-              </View>
+      {/** Content prepare send */}
+      <Layout
+        style={[
+          cStyles.flex1,
+          cStyles.mt16,
+          cStyles.roundedTopLeft5,
+          cStyles.roundedTopRight5,
+          cStyles.py16,
+          cStyles.px32,
+        ]}
+        level={'3'}>
+        {/** Caption */}
+        <View style={cStyles.mt16}>
+          <Text style={cStyles.textCenter} category='p1'>{t('forgot_password:caption')}</Text>  
+        </View>
 
-              <CForm
-                ref={formRef}
-                loading={loading}
-                level='3'
-                inputs={[
-                  {
-                    id: INPUT_NAME.EMAIL,
-                    disabled: loading,
-                    label: 'forgot_password:input_label_email',
-                    holder: 'forgot_password:input_holder_email',
-                    value: values.email,
-                    required: true,
-                    password: false,
-                    email: true,
-                    phone: false,
-                    number: false,
-                    next: false,
-                    return: 'send',
-                    validate: {type: 'email', helper: ''},
-                  },
-                ]}
-                leftButton={loading}
-                labelButton={'forgot_password:send'}
-                onSubmit={onSubmitSend}
-              />
+        <CForm
+          ref={formRef}
+          loading={loading}
+          level='3'
+          inputs={[
+            {
+              id: INPUT_NAME.EMAIL,
+              disabled: loading,
+              label: 'forgot_password:input_label_email',
+              holder: 'forgot_password:input_holder_email',
+              value: values.email,
+              required: true,
+              password: false,
+              email: true,
+              phone: false,
+              number: false,
+              next: false,
+              return: 'send',
+              validate: {type: 'email', helper: ''},
+            },
+          ]}
+          leftButton={loading}
+          labelButton={'forgot_password:send'}
+          onSubmit={onSubmitSend}
+        />
 
-              <Button
-                style={cStyles.mt24}
-                appearance='filled'
-                onPress={handleGoResetPassword}>
-                {'Go Reset Password Screen'}
-              </Button>
+        <Button
+          style={cStyles.mt24}
+          appearance='filled'
+          onPress={handleGoResetPassword}>
+          {'Go Reset Password Screen'}
+        </Button>
 
-              {/** Log in ? */}
-              <View style={[cStyles.itemsCenter, cStyles.mt24]}>
-                <TouchableWithoutFeedback disabled={loading} onPress={handleGoBackLogIn}>
-                  <Text
-                    style={[cStyles.textUnderline, {color: theme['color-primary-500']}]}
-                    category={'p1'}>
-                    {t('forgot_password:go_back')}
-                  </Text>
-                </TouchableWithoutFeedback>
-              </View>
-            </Layout>
+        {/** Log in ? */}
+        <View style={[cStyles.itemsCenter, cStyles.mt24]}>
+          <TouchableWithoutFeedback disabled={loading} onPress={handleGoBackLogIn}>
+            <Text
+              style={[cStyles.textUnderline, {color: theme['color-primary-500']}]}
+              category={'p1'}>
+              {t('forgot_password:go_back')}
+            </Text>
+          </TouchableWithoutFeedback>
+        </View>
+      </Layout>
 
-            {/** Alert send success */}
-            <Modal
-              visible={showAlert.status}
-              backdropStyle={styles.con_backdrop}
-              onBackdropPress={undefined}>
-              <Card disabled style={cStyles.mx24}>
-                <Text category={'s1'}>{t(showAlert.success ? 'common:success' : 'common:error')}</Text>
+      {/** Alert send success */}
+      <Modal
+        visible={showAlert.status}
+        backdropStyle={styles.con_backdrop}
+        onBackdropPress={undefined}>
+        <Card disabled style={cStyles.mx24}>
+          <Text category={'s1'}>{t(showAlert.success ? 'common:success' : 'common:error')}</Text>
 
-                <Text style={cStyles.mt10} category={'p1'}>{showAlert.content}</Text>
+          <Text style={cStyles.mt10} category={'p1'}>{showAlert.content}</Text>
 
-                <Button style={cStyles.mt16} onPress={handleDissmisAlert}>
-                  {t('forgot_password:go_back')}
-                </Button>
-              </Card>
-            </Modal>
-          </Layout>
-        </KeyboardAwareScrollView>
-    </SafeAreaView>
-  );
+          <Button style={cStyles.mt16} onPress={handleDissmisAlert}>
+            {t('forgot_password:go_back')}
+          </Button>
+        </Card>
+      </Modal>
+    </CContainer>
+  )
 }
 
 const styles = StyleSheet.create({

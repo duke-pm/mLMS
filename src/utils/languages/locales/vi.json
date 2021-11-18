@@ -1,67 +1,67 @@
 {
   "common": {
     "app_name": "LMS",
-    "welcome_holder_1": "Login",
-    "skip": "Skip",
-    "success": "Successfully",
-    "error": "Error",
-    "character": "character"
+    "skip": "Bỏ qua",
+    "success": "Thành công",
+    "error": "Lỗi",
+    "character": "ký tự",
+    "dark_mode": "Chế độ tối"
   },
   "error": {
-    "format_email": "Format e-mail is not correct!",
-    "empty_length": "This field cannot empty!",
-    "min_length": "Min length is"
+    "format_email": "Định dạng e-mail! chưa chính xác!",
+    "empty_length": "Mục này không thể trống!",
+    "min_length": "Độ dài tối thiểu là"
   },
   "intro": {
-    "intro_1_title": "Numerous free trial courses",
-    "intro_1_content": "Free courses for you to find your way to learning",
-    "intro_2_title": "Quick and easy learning",
-    "intro_2_content": "Easy and fast learning at any time to help you improve various skills",
-    "intro_3_title": "Create your own study plan",
-    "intro_3_content": "Study according to the study plan, make study more motivated"
+    "intro_1_title": "Lorem ipsum dolor sit amet",
+    "intro_1_content": "Pellentesque at orci nec arcu finibus facilisis eu ac est",
+    "intro_2_title": "Duis eget tellus id massa pulvinar tempor",
+    "intro_2_content": "Proin tempor, massa in interdum venenatis, lorem dui egestas ligula, eget tincidunt justo enim at felis",
+    "intro_3_title": "Cras finibus id libero nec pellentesque",
+    "intro_3_content": "Nunc dui nunc, luctus sed tristique quis, semper scelerisque velit"
   },
   "log_in": {
-    "title": "Log In",
-    "input_label_username": "User name",
-    "input_holder_username": "Your user name",
-    "input_label_password": "Password",
-    "input_holder_password": "Your password",
-    "is_forgot_password": "Forgot password?",
-    "dont_have_account": "Don't have an account?",
-    "sign_up": "Sign up",
-    "login_with_socials": "Or login with"
+    "title": "Đăng nhập",
+    "input_label_username": "Tên đăng nhập",
+    "input_holder_username": "Tên đăng nhập của bạn",
+    "input_label_password": "Mật khẩu",
+    "input_holder_password": "Mật khẩu của bạn",
+    "is_forgot_password": "Quân mật khẩu?",
+    "dont_have_account": "Bạn chưa có tài khoản?",
+    "sign_up": "Đăng ký",
+    "login_with_socials": "Hoặc đăng nhập với"
   },
   "sign_up": {
-    "title": "Sign Up",
-    "subtitle": "Enter your details below & free sign up",
-    "input_label_username": "User name",
-    "input_holder_username": "Your user name",
+    "title": "Đăng ký",
+    "subtitle": "Nhập thông tin bên dưới và đăng ký miễn phí",
+    "input_label_username": "Tên đăng nhập",
+    "input_holder_username": "Tên đăng nhập của bạn",
     "input_label_email": "E-mail",
-    "input_holder_email": "Your e-mail",
-    "input_label_phone": "Phone number",
-    "input_holder_phone": "Your phone number",
-    "input_label_password": "Password",
-    "input_holder_password": "Your password",
-    "policy": "By creating an account you have to agree with our them & condication",
-    "have_account": "Already have an account?",
-    "log_in": "Log in"
+    "input_holder_email": "E-mail của bạn",
+    "input_label_phone": "Số điện thoại",
+    "input_holder_phone": "Số điện thoại của bạn",
+    "input_label_password": "Mật khẩu",
+    "input_holder_password": "Mật khẩu của bạn",
+    "policy": "Bằng cách tạo một tài khoản, bạn đã đồng ý với điều khoản & điều kiện của chúng tôi",
+    "have_account": "Bạn đã có tài khoản?",
+    "log_in": "Đăng nhập"
   },
   "forgot_password": {
-    "title": "Forgot Password",
-    "caption": "Enter your e-mail address below and we will send you a link to reset your password.",
+    "title": "Quân mật khẩu",
+    "caption": "Nhập địa chỉ e-mail của bạn vào bên dưới và chúng tôi sẽ gửi một liên kết để bạn đặt lại mật khẩu mới",
     "input_label_email": "E-mail",
-    "input_holder_email": "Your e-mail",
-    "send": "Send Password Reset",
-    "go_back": "Go back",
-    "success_send": "We sent you an e-mail which contains a link to reset your password!",
-    "error_send": "Something went wrong! Please try again!"
+    "input_holder_email": "E-mail của bạn",
+    "send": "Gửi đặt lại mật khẩu",
+    "go_back": "Quay lại",
+    "success_send": "Chúng tôi đã gửi một e-mail có chứa liên kết để bạn có thể đặt lại mật khẩu mới",
+    "error_send": "Đã xảy ra lỗi! Vui lòng thử lại sau!"
   },
   "reset_password": {
-    "title": "Reset Password",
-    "caption": "Enter your new password below and we will reset to it.",
-    "input_label_password": "New Password",
-    "input_holder_password": "New your password",
-    "save": "Save",
-    "go_back": "Go back"
+    "title": "Cập nhật mật khẩu",
+    "caption": "Nhập mật khẩu mới bên dưới và chúng tôi sẽ đặt lại cho bạn",
+    "input_label_password": "Mật khẩu mới",
+    "input_holder_password": "Mật khẩu mới của bạn",
+    "save": "Lưu",
+    "go_back": "Quay lại"
   }
 }

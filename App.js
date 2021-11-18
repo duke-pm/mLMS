@@ -8,32 +8,26 @@ import 'react-native-gesture-handler';
 import '~/utils/languages/config-i18n';
 import React, {useEffect, useState} from 'react';
 import {Provider} from 'react-redux';
-import {
-  SafeAreaProvider,
-  initialWindowMetrics,
-} from 'react-native-safe-area-context';
-import {
-  NavigationContainer,
-  DarkTheme,
-  DefaultTheme,
-} from '@react-navigation/native';
-import * as eva from '@eva-design/eva';
-import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { ApplicationProvider, IconRegistry, Text, ModalService } from '@ui-kitten/components';
+import {SafeAreaProvider, initialWindowMetrics} from 'react-native-safe-area-context';
+import {NavigationContainer, DarkTheme, DefaultTheme} from '@react-navigation/native';
+import {ApplicationProvider, IconRegistry, Text, ModalService} from '@ui-kitten/components';
+import {EvaIconsPack} from '@ui-kitten/eva-icons';
+import {useColorScheme, StatusBar} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import FlashMessage from 'react-native-flash-message';
-import {useColorScheme, StatusBar} from 'react-native';
 import axios from 'axios';
+import * as eva from '@eva-design/eva';
 /** COMPONENTS */
 import Navigator from '~/navigator/Navigator';
 /** COMMON */
 import Configs from '~/configs';
-import {ThemeContext} from '~/configs/theme-context';
 import {colors} from '~/utils/style';
-import {IS_ANDROID, IS_IOS} from '~/utils/helper';
+import {ThemeContext} from '~/configs/theme-context';
+import {getLocalInfo, IS_ANDROID} from '~/utils/helper';
+import {AST_DARK_MODE, DARK} from '~/configs/constants';
 import jwtServiceConfig from '~/services/jwtServiceConfig';
-import { default as theme } from './assets/themes/theme.json';
-import { default as mapping } from './assets/themes/mapping.json';
+import {default as theme} from './assets/themes/theme.json';
+import {default as mapping} from './assets/themes/mapping.json';
 /** REDUX */
 import Store from './src/redux/store';
 
@@ -114,12 +108,23 @@ const App = () => {
   /****************
    ** LIFE CYCLE **
    ****************/
-   useEffect(() => {
+   useEffect(async () => {
+    /** Set config network */
     setDefaultAxios();
     NetInfo.addEventListener(handleNetInfo);
+
+    /** Set status bar */
     if (IS_ANDROID) {
       StatusBar.setTranslucent(true);
       StatusBar.setBackgroundColor(colors.TRANSPARENT, true);
+    }
+
+    /** Check dark mode */
+    let astDarkMode = await getLocalInfo(AST_DARK_MODE);
+    if (astDarkMode) {
+      if (astDarkMode === DARK) {
+        onToggleTheme();
+      }
     }
   }, []);
 

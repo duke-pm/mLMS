@@ -1,11 +1,11 @@
 {
   "common": {
     "app_name": "LMS",
-    "welcome_holder_1": "Login",
     "skip": "Skip",
     "success": "Successfully",
     "error": "Error",
-    "character": "character"
+    "character": "character",
+    "dark_mode": "Dark mode"
   },
   "error": {
     "format_email": "Format e-mail is not correct!",

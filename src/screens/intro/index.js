@@ -6,14 +6,16 @@
  **/
 import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {StyleSheet, StatusBar, Image, LayoutAnimation, UIManager} from 'react-native';
-import {useTheme, Layout, Text, TopNavigation, ViewPager, Button} from '@ui-kitten/components';
+import {Layout, Text, ViewPager, Button} from '@ui-kitten/components';
+import {StyleSheet, StatusBar, Image, LayoutAnimation, UIManager, View} from 'react-native';
+/** COMPONENTS */
+import CContainer from '~/components/CContainer';
+import CTopNavigation from '~/components/CTopNavigation';
 /* COMMON */
 import {IS_ANDROID, moderateScale, sW, resetRoute} from '~/utils/helper';
-import {colors, cStyles} from '~/utils/style';
-import Assets from '~/utils/asset/Assets';
 import Routes from '~/navigator/Routes';
+import Assets from '~/utils/asset/Assets';
+import {colors, cStyles} from '~/utils/style';
 
 /** All init */
 if (IS_ANDROID) {
@@ -21,10 +23,37 @@ if (IS_ANDROID) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 }
-const safeAreaScreen = ['left', 'right', 'top', 'bottom'];
 
+/*********************
+ ** OTHER COMPONENT **  
+ *********************/
+const RenderButtonFooter = (t, onPress) => {
+  return (
+    <View style={[cStyles.mt40, cStyles.mx40]}>
+      <Button appearance='outline' onPress={onPress}>
+        {t('log_in:title')}
+      </Button>
+    </View>
+  )
+}
+
+const RenderPageIntro = (t, image, title, caption, footer = null) => {
+  return (
+    <View style={cStyles.itemsCenter}>
+      <View style={styles.con_layout}>
+        <Image style={[cStyles.mt40, styles.img_intro]} source={image} resizeMode={'contain'} />
+        <Text style={[cStyles.textCenter, cStyles.mt36]} category='h5'>{t(title)}</Text>
+        <Text style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t(caption)}</Text>
+        {footer}
+      </View>
+    </View>
+  );
+}
+
+/********************
+ ** MAIN COMPONENT **  
+ ********************/
 function Intro(props) {
-  const theme = useTheme();
   const {t} = useTranslation();
   const {navigation} = props;
 
@@ -40,10 +69,6 @@ function Intro(props) {
   };
 
   const handleGoLogin = () => {
-    resetRoute(navigation, Routes.AUTHENTICATION.name);
-  };
-
-  const handleGoSignup = () => {
     resetRoute(navigation, Routes.AUTHENTICATION.name);
   };
   
@@ -63,76 +88,50 @@ function Intro(props) {
    ** RENDER **
    ************/
   return (
-    <SafeAreaView
-      style={[cStyles.flex1, {backgroundColor: theme['background-basic-color-1']}]}
-      edges={safeAreaScreen}>
-      <Layout style={cStyles.flex1} level='1'>
-        <TopNavigation accessoryRight={
-          <Button appearance='ghost' onPress={handleGoLogin}>Skip</Button>
-        } />
+    <CContainer safeArea={['top', 'bottom']}>
+      {/** Header */}
+      <CTopNavigation
+        customRightComponent={
+          <Button appearance='ghost' onPress={handleGoLogin}>{t('common:skip')}</Button>
+        }
+      />
 
-        <ViewPager
-          selectedIndex={pageIndex}
-          onSelect={handleChangePage}>
-          <Layout style={cStyles.itemsCenter} level='1'>
-            <Layout style={styles.con_layout}>
-              <Image style={[cStyles.mt40, styles.img_intro]} source={Assets.imgIntro1} resizeMode={'contain'} />
-              <Text style={[cStyles.textCenter, cStyles.mt36]} category='h5'>{t('intro:intro_1_title')}</Text>
-              <Text style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t('intro:intro_1_content')}</Text>
-            </Layout>
-          </Layout>
-          
-          <Layout style={cStyles.itemsCenter} level='1'>
-            <Layout style={styles.con_layout}>
-              <Image style={[cStyles.mt40, styles.img_intro]} source={Assets.imgIntro2} resizeMode={'contain'} />
-              <Text style={[cStyles.textCenter, cStyles.mt36]} category='h5'>{t('intro:intro_2_title')}</Text>
-              <Text style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t('intro:intro_2_content')}</Text>
-            </Layout>
-          </Layout>
+      {/** Content */}
+      <ViewPager
+        selectedIndex={pageIndex}
+        onSelect={handleChangePage}>
+        {RenderPageIntro(t, Assets.imgIntro1, 'intro:intro_1_title', 'intro:intro_1_content')}
+        {RenderPageIntro(t, Assets.imgIntro2, 'intro:intro_2_title', 'intro:intro_2_content')}
+        {RenderPageIntro(t, Assets.imgIntro3,'intro:intro_3_title','intro:intro_3_content',
+          RenderButtonFooter(t, handleGoLogin) )
+        }
+      </ViewPager>
 
-          <Layout style={cStyles.itemsCenter} level='1'>
-            <Layout style={styles.con_layout}>
-              <Image style={[cStyles.mt40, styles.img_intro]} source={Assets.imgIntro3} resizeMode={'contain'} />
-              <Text style={[cStyles.textCenter, cStyles.mt36]} category='h5'>{t('intro:intro_3_title')}</Text>
-              <Text style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t('intro:intro_3_content')}</Text>
-
-              <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyEvenly, cStyles.mt40]}>
-                <Button style={styles.btn_main} appearance='filled' onPress={handleGoSignup}>
-                  Sign up
-                </Button>
-                <Button style={styles.btn_main} appearance='outline' onPress={handleGoLogin}>
-                  Log in
-                </Button>
-              </Layout>
-            </Layout>
-          </Layout>
-        </ViewPager>
-
-        <Layout style={[cStyles.flex1, cStyles.itemsCenter, cStyles.justifyEnd]} level='1'>
-          <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.mb24]}>
-            <Layout style={[
-              cStyles.mx6,
-              cStyles.rounded1,
-              styles.con_page_unactive,
-              pageIndex === 0 && styles.con_page_active]}
-            />
-            <Layout style={[
-              cStyles.mx6,
-              cStyles.rounded1,
-              styles.con_page_unactive,
-              pageIndex === 1 && styles.con_page_active]}
-            />
-            <Layout style={[
-              cStyles.mx6,
-              cStyles.rounded1,
-              styles.con_page_unactive,
-              pageIndex === 2 && styles.con_page_active]}
-            />
-          </Layout>
+      {/** Dot paging */}
+      <Layout style={[cStyles.flex1, cStyles.itemsCenter, cStyles.justifyEnd]} level='1'>
+        <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.mb24]}>
+          <Layout style={[
+            cStyles.mx6,
+            cStyles.rounded1,
+            styles.con_page_unactive,
+            pageIndex === 0 && styles.con_page_active]}
+          />
+          <Layout style={[
+            cStyles.mx6,
+            cStyles.rounded1,
+            styles.con_page_unactive,
+            pageIndex === 1 && styles.con_page_active]}
+          />
+          <Layout style={[
+            cStyles.mx6,
+            cStyles.rounded1,
+            styles.con_page_unactive,
+            pageIndex === 2 && styles.con_page_active]}
+          />
         </Layout>
       </Layout>
-    </SafeAreaView>
-  );
+    </CContainer>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -142,9 +141,6 @@ const styles = StyleSheet.create({
   img_intro: {
     height: sW('75%'),
     width: sW('75%'),
-  },
-  btn_main: {
-    width: sW('30%'),
   },
   con_page_unactive: {
     height: moderateScale(4),

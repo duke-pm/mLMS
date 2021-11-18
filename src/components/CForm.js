@@ -11,11 +11,17 @@ import React, {
 } from 'react';
 import {useTranslation} from 'react-i18next';
 import {Input, Button, Icon, Spinner} from '@ui-kitten/components';
-import {TouchableWithoutFeedback, View} from 'react-native';
+import {TouchableWithoutFeedback, View, UIManager, LayoutAnimation} from 'react-native';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
 import {cStyles} from '~/utils/style';
-import {validatEemail} from '~/utils/helper';
+import {IS_ANDROID, validatEemail} from '~/utils/helper';
+
+if (IS_ANDROID) {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 /*********************
  ** OTHER COMPONENT **
@@ -197,6 +203,7 @@ const CForm = forwardRef((props, ref) => {
         tmpValues.push(tmpValue);
         tmpErrors.push(tmpError);
       }
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       setValues(tmpValues);
       setErrors(tmpErrors);
     }

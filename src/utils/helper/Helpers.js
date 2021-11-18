@@ -160,42 +160,42 @@ export function resetRoute(navigation, routeName, params) {
 //   return result;
 // }
 
-// /** LOCAL INFORMATION */
-// export async function saveLocalInfo({key, value}) {
-//   try {
-//     await AsyncStorage.setItem(key, JSON.stringify(value));
-//   } catch (error) {
-//     return false;
-//   }
-// }
+/** LOCAL INFORMATION */
+export async function saveLocalInfo({key, value}) {
+  try {
+    await AsyncStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    return false;
+  }
+}
 
-// export async function getLocalInfo(key) {
-//   try {
-//     const data = await AsyncStorage.getItem(key);
-//     if (data) {
-//       return JSON.parse(data);
-//     }
-//     return null;
-//   } catch (error) {
-//     return false;
-//   }
-// }
+export async function getLocalInfo(key) {
+  try {
+    const data = await AsyncStorage.getItem(key);
+    if (data) {
+      return JSON.parse(data);
+    }
+    return null;
+  } catch (error) {
+    return false;
+  }
+}
 
-// export async function removeLocalInfo(key) {
-//   try {
-//     await AsyncStorage.removeItem(key);
-//   } catch (error) {
-//     return false;
-//   }
-// }
+export async function removeLocalInfo(key) {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (error) {
+    return false;
+  }
+}
 
-// export async function clearLocalInfo(key) {
-//   try {
-//     await AsyncStorage.clear();
-//   } catch (error) {
-//     return false;
-//   }
-// }
+export async function clearLocalInfo() {
+  try {
+    await AsyncStorage.clear();
+  } catch (error) {
+    return false;
+  }
+}
 
 // /** SECRET INFORMATION */
 // export async function saveSecretInfo({key, value}) {
