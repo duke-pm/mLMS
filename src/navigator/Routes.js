@@ -11,6 +11,8 @@ import LoginScreen from '~/screens/authentication/login';
 import SignUpScreen from '~/screens/authentication/signup';
 import ForgotPasswordScreen from '~/screens/authentication/forgot_password';
 import ResetPasswordScreen from '~/screens/authentication/reset_password';
+/** MAIN */
+import HomeScreen from '~/screens/home';
 
 const Routes = {
   INTRO: {
@@ -35,6 +37,10 @@ const Routes = {
       name: 'ResetPassword',
       path: ResetPasswordScreen
     },
+  },
+  HOME: {
+    name: 'HOME',
+    path: HomeScreen,
   },
 };
 

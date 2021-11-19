@@ -5,7 +5,11 @@
     "success": "Successfully",
     "error": "Error",
     "character": "character",
-    "dark_mode": "Dark mode"
+    "dark_mode": "Dark mode",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "go_back": "Go back",
+    "done": "Done"
   },
   "error": {
     "format_email": "Format e-mail is not correct!",
@@ -44,7 +48,9 @@
     "input_holder_password": "Your password",
     "policy": "By creating an account you have to agree with our them & condication",
     "have_account": "Already have an account?",
-    "log_in": "Log in"
+    "log_in": "Log in",
+    "success_caption": "Congratulations, you have completed your registration!",
+    "error_send": "Something went wrong! Please try again!"
   },
   "forgot_password": {
     "title": "Forgot Password",
@@ -52,16 +58,18 @@
     "input_label_email": "E-mail",
     "input_holder_email": "Your e-mail",
     "send": "Send Password Reset",
-    "go_back": "Go back",
-    "success_send": "We sent you an e-mail which contains a link to reset your password!",
+    "success_sub_title": "Check your e-mail",
+    "success_caption": "We sent you an e-mail which contains a link to reset your password!",
     "error_send": "Something went wrong! Please try again!"
   },
   "reset_password": {
     "title": "Reset Password",
-    "caption": "Enter your new password below and we will reset to it.",
+    "caption": "Enter your new password below",
     "input_label_password": "New Password",
     "input_holder_password": "New your password",
     "save": "Save",
-    "go_back": "Go back"
+    "success_sub_title": "Change successfully",
+    "success_caption": "We changed successfully, please login with new password",
+    "error_send": "Something went wrong! Please try again!"
   }
 }

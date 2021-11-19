@@ -123,6 +123,20 @@ const CForm = forwardRef((props, ref) => {
             tmpIsError = true;
           }
         }
+        if (values[i].validate === 'email') {
+          let isTrueValue = validatEemail(values[i].value.trim());
+          if (!isTrueValue) {
+            tmpIsError = true;
+            tmpErrors[i].status = true;
+            tmpErrors[i].type = 'format_email';
+            tmpErrors[i].helper = t('error:format_email');
+          } else {
+            tmpIsError = false;
+            tmpErrors[i].status = false;
+            tmpErrors[i].type = '';
+            tmpErrors[i].helper = '';
+          }
+        }
       }
       if (tmpIsError) {
         return setErrors(tmpErrors);
@@ -193,6 +207,7 @@ const CForm = forwardRef((props, ref) => {
           id: tmpInput.id,
           value: tmpInput.value,
           required: tmpInput.required,
+          validate: tmpInput.validate ? tmpInput.validate.type : '',
           secureTextEntry: tmpInput.password,
         };
         tmpError = {

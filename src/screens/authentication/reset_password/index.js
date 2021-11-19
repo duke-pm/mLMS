@@ -6,10 +6,8 @@
  **/
 import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {
-  useTheme, Layout, Text, Button, Modal, Card,
-} from '@ui-kitten/components';
-import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {Layout, Text, Button} from '@ui-kitten/components';
+import {StyleSheet, View} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
@@ -26,7 +24,6 @@ const INPUT_NAME = {
 
 function ResetPassword(props) {
   const {t} = useTranslation();
-  const theme = useTheme();
   const {navigation} = props;
 
   /** use ref */
@@ -46,12 +43,8 @@ function ResetPassword(props) {
   /*****************
    ** HANDLE FUNC **
    *****************/
-  const handleGoBackLogIn = () => {
+  const handleGoBack = () => {
     navigation.goBack();
-  };
-
-  const handleDissmisAlert = () => {
-    handleGoBackLogIn();
   };
 
   /**********
@@ -93,83 +86,87 @@ function ResetPassword(props) {
       {/** Header */}
       <CTopNavigation back leftTitle={'reset_password:title'} />
 
-      <Layout
-        style={[
-          cStyles.flex1,
-          cStyles.mt16,
-          cStyles.roundedTopLeft5,
-          cStyles.roundedTopRight5,
-          cStyles.py16,
-          cStyles.px32,
-        ]}
-        level='3'>
-        {/** Caption */}
-        <View style={cStyles.mt16}>
-          <Text style={cStyles.textCenter} category='p1'>{t('reset_password:caption')}</Text>  
-        </View>
-
-        {/** Form input */}
-        <CForm
-          ref={formRef}
-          loading={loading}
-          level='3'
-          inputs={[
-            {
-              id: INPUT_NAME.PASSWORD,
-              disabled: loading,
-              label: 'reset_password:input_label_password',
-              holder: 'reset_password:input_holder_password',
-              value: values.password,
-              required: true,
-              password: true,
-              email: false,
-              phone: false,
-              number: false,
-              next: false,
-              return: 'done',
-              validate: {type: 'min_length', helper: '6'},
-            },
+      {/** Content prepare send */}
+      {!showAlert.success && (
+        <Layout
+          style={[
+            cStyles.flex1,
+            cStyles.mt16,
+            cStyles.roundedTopLeft5,
+            cStyles.roundedTopRight5,
+            cStyles.py16,
+            cStyles.px32,
           ]}
-          leftButton={loading}
-          labelButton={'reset_password:save'}
-          onSubmit={onSubmitSave}
-        />
+          level='3'>
+          {/** Caption */}
+          <View style={cStyles.mt16}>
+            <Text style={cStyles.textCenter} category='p1'>{t('reset_password:caption')}</Text>  
+          </View>
 
-        {/** Log in ? */}
-        <View style={[cStyles.itemsCenter, cStyles.mt24]}>
-          <TouchableWithoutFeedback disabled={loading} onPress={handleGoBackLogIn}>
-            <Text
-              style={[cStyles.textUnderline, {color: theme['color-primary-500']}]}
-              category={'p1'}>
-              {t('reset_password:go_back')}
-            </Text>
-          </TouchableWithoutFeedback>
-        </View>
-      </Layout>
+          {/** Form input */}
+          <CForm
+            ref={formRef}
+            loading={loading}
+            level='3'
+            inputs={[
+              {
+                id: INPUT_NAME.PASSWORD,
+                disabled: loading,
+                label: 'reset_password:input_label_password',
+                holder: 'reset_password:input_holder_password',
+                value: values.password,
+                required: true,
+                password: true,
+                email: false,
+                phone: false,
+                number: false,
+                next: false,
+                return: 'done',
+                validate: {type: 'min_length', helper: '6'},
+              },
+            ]}
+            leftButton={loading}
+            labelButton={'reset_password:save'}
+            onSubmit={onSubmitSave}
+          />
+        </Layout>
+      )}
 
-      {/** Alert send success */}
-      <Modal
-        visible={showAlert.status}
-        backdropStyle={styles.con_backdrop}
-        onBackdropPress={undefined}>
-        <Card disabled style={cStyles.mx24}>
-          <Text category={'s1'}>{t(showAlert.success ? 'common:success' : 'common:error')}</Text>
+      {/** Content when success */}
+      {showAlert.success && (
+        <Layout
+          style={[
+            cStyles.flex1,
+            cStyles.mt16,
+            cStyles.roundedTopLeft5,
+            cStyles.roundedTopRight5,
+            cStyles.py16,
+            cStyles.px32,
+          ]}
+          level={'3'}>
+          <View style={[cStyles.itemsCenter, cStyles.mt60]}>
+            <IoniIcon name={'checkmark-circle-outline'} size={moderateScale(150)} color={colors.PRIMARY}  />
+          </View>
 
-          <Text style={cStyles.mt10} category={'p1'}>{showAlert.content}</Text>
+          {/** Sub-title & Caption */}
+          <View style={cStyles.mt16}>
+            <Text style={cStyles.textCenter} category='s1'>{t('reset_password:success_sub_title')}</Text>
+            <Text style={[cStyles.mt16, cStyles.textCenter]} category='p1'>{t('reset_password:success_caption')}</Text>  
+          </View>
 
-          <Button style={cStyles.mt16} onPress={handleDissmisAlert}>
-            {t('reset_password:go_back')}
+          <Button
+            style={cStyles.mt24}
+            appearance='outline'
+            onPress={handleGoBack}>
+            {t('common:go_back')}
           </Button>
-        </Card>
-      </Modal>
+        </Layout>
+      )}
     </CContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  con_backdrop: {
-    backgroundColor: colors.BG_BACKDROP,
-  },
 });
 
 export default ResetPassword;

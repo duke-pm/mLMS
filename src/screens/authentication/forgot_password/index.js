@@ -6,8 +6,10 @@
  **/
 import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useTheme, Layout, Text, Button, Modal, Card} from '@ui-kitten/components';
-import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {Layout, Text, Button} from '@ui-kitten/components';
+import {StyleSheet, View, LayoutAnimation, UIManager} from 'react-native';
+import IoniIcon from 'react-native-vector-icons/Ionicons';
+import {showMessage} from 'react-native-flash-message';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
@@ -15,8 +17,15 @@ import CForm from '~/components/CForm';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {colors, cStyles} from '~/utils/style';
+import {IS_ANDROID, moderateScale} from '~/utils/helper';
 /* REDUX */
 
+
+if (IS_ANDROID) {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 /** All init */
 const INPUT_NAME = {
@@ -25,7 +34,6 @@ const INPUT_NAME = {
 
 function ForgotPassword(props) {
   const {t} = useTranslation();
-  const theme = useTheme();
   const {navigation} = props;
   
   /** use ref */
@@ -37,42 +45,28 @@ function ForgotPassword(props) {
     email: '',
   });
   const [showAlert, setShowAlert] = useState({
-    status: false,
     success: false,
+    error: false,
     content: '',
   });
 
   /*****************
    ** HANDLE FUNC **
    *****************/
-  const handleGoResetPassword = () => {
-    navigation.navigate(Routes.AUTHENTICATION.RESET_PASSWORD.name);
-  };
-
-  const handleGoBackLogIn = () => {
+  const handleGoBack = () => {
     navigation.goBack();
-  };
-
-  const handleDissmisAlert = () => {
-    if (showAlert.success) {
-      handleGoBackLogIn();
-    } else {
-      setShowAlert({
-        status: false,
-        success: false,
-        content: '',
-      });
-    }
   };
 
   /**********
    ** FUNC **
    **********/
   const onSubmitSend = () => {
+    setLoading(true);
     console.log('[LOG] ===  ===> Submit send');
     setTimeout(() => {
       setLoading(false);
       let rdAlert = Math.random();
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       if (rdAlert > 0.5) {
         setShowAlert({
           status: true,
@@ -80,10 +74,11 @@ function ForgotPassword(props) {
           content: t('forgot_password:success_send'),
         });
       } else {
-        setShowAlert({
-          status: true,
-          success: false,
-          content: t('forgot_password:error_send'),
+        showMessage({
+          message: t('common:error'),
+          description: t('forgot_password:error_send'),
+          type: 'danger',
+          icon: 'danger',
         });
       }
     }, 2000);
@@ -93,7 +88,6 @@ function ForgotPassword(props) {
    ** LIFE CYCLE **
    ****************/
   useEffect(() => {
-
   }, []);
 
   /************
@@ -105,89 +99,85 @@ function ForgotPassword(props) {
       <CTopNavigation back leftTitle={'forgot_password:title'} />
 
       {/** Content prepare send */}
-      <Layout
-        style={[
-          cStyles.flex1,
-          cStyles.mt16,
-          cStyles.roundedTopLeft5,
-          cStyles.roundedTopRight5,
-          cStyles.py16,
-          cStyles.px32,
-        ]}
-        level={'3'}>
-        {/** Caption */}
-        <View style={cStyles.mt16}>
-          <Text style={cStyles.textCenter} category='p1'>{t('forgot_password:caption')}</Text>  
-        </View>
-
-        <CForm
-          ref={formRef}
-          loading={loading}
-          level='3'
-          inputs={[
-            {
-              id: INPUT_NAME.EMAIL,
-              disabled: loading,
-              label: 'forgot_password:input_label_email',
-              holder: 'forgot_password:input_holder_email',
-              value: values.email,
-              required: true,
-              password: false,
-              email: true,
-              phone: false,
-              number: false,
-              next: false,
-              return: 'send',
-              validate: {type: 'email', helper: ''},
-            },
+      {showAlert.content === '' && (
+        <Layout
+          style={[
+            cStyles.flex1,
+            cStyles.mt16,
+            cStyles.roundedTopLeft5,
+            cStyles.roundedTopRight5,
+            cStyles.py16,
+            cStyles.px32,
           ]}
-          leftButton={loading}
-          labelButton={'forgot_password:send'}
-          onSubmit={onSubmitSend}
-        />
+          level={'3'}>
+          {/** Caption */}
+          <View style={cStyles.mt16}>
+            <Text style={cStyles.textCenter} category='p1'>{t('forgot_password:caption')}</Text>
+          </View>
 
-        <Button
-          style={cStyles.mt24}
-          appearance='filled'
-          onPress={handleGoResetPassword}>
-          {'Go Reset Password Screen'}
-        </Button>
+          <CForm
+            ref={formRef}
+            loading={loading}
+            level='3'
+            inputs={[
+              {
+                id: INPUT_NAME.EMAIL,
+                disabled: loading,
+                label: 'forgot_password:input_label_email',
+                holder: 'forgot_password:input_holder_email',
+                value: values.email,
+                required: true,
+                password: false,
+                email: true,
+                phone: false,
+                number: false,
+                next: false,
+                return: 'send',
+                validate: {type: 'email', helper: ''},
+              },
+            ]}
+            leftButton={loading}
+            labelButton={'forgot_password:send'}
+            onSubmit={onSubmitSend}
+          />
+        </Layout>
+      )}
 
-        {/** Log in ? */}
-        <View style={[cStyles.itemsCenter, cStyles.mt24]}>
-          <TouchableWithoutFeedback disabled={loading} onPress={handleGoBackLogIn}>
-            <Text
-              style={[cStyles.textUnderline, {color: theme['color-primary-500']}]}
-              category={'p1'}>
-              {t('forgot_password:go_back')}
-            </Text>
-          </TouchableWithoutFeedback>
-        </View>
-      </Layout>
+      {/** Content when success */}
+      {showAlert.success && (
+        <Layout
+          style={[
+            cStyles.flex1,
+            cStyles.mt16,
+            cStyles.roundedTopLeft5,
+            cStyles.roundedTopRight5,
+            cStyles.py16,
+            cStyles.px32,
+          ]}
+          level={'3'}>
+          <View style={[cStyles.itemsCenter, cStyles.mt60]}>
+            <IoniIcon name={'checkmark-circle-outline'} size={moderateScale(150)} color={colors.PRIMARY}  />
+          </View>
 
-      {/** Alert send success */}
-      <Modal
-        visible={showAlert.status}
-        backdropStyle={styles.con_backdrop}
-        onBackdropPress={undefined}>
-        <Card disabled style={cStyles.mx24}>
-          <Text category={'s1'}>{t(showAlert.success ? 'common:success' : 'common:error')}</Text>
+          {/** Sub-title & Caption */}
+          <View style={cStyles.mt16}>
+            <Text style={cStyles.textCenter} category='s1'>{t('forgot_password:success_sub_title')}</Text>
+            <Text style={[cStyles.mt16, cStyles.textCenter]} category='p1'>{t('forgot_password:success_caption')}</Text>  
+          </View>
 
-          <Text style={cStyles.mt10} category={'p1'}>{showAlert.content}</Text>
-
-          <Button style={cStyles.mt16} onPress={handleDissmisAlert}>
-            {t('forgot_password:go_back')}
+          <Button
+            style={cStyles.mt24}
+            appearance='outline'
+            onPress={handleGoBack}>
+            {t('common:go_back')}
           </Button>
-        </Card>
-      </Modal>
+        </Layout>
+      )}
     </CContainer>
   )
 }
 
 const styles = StyleSheet.create({
-  con_backdrop: {
-    backgroundColor: colors.BG_BACKDROP,
-  },
 });
 
 export default ForgotPassword;

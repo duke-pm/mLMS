@@ -5,7 +5,11 @@
     "success": "Thành công",
     "error": "Lỗi",
     "character": "ký tự",
-    "dark_mode": "Chế độ tối"
+    "dark_mode": "Chế độ tối",
+    "ok": "OK",
+    "cancel": "Đóng",
+    "go_back": "Quay lại",
+    "done": "Xong"
   },
   "error": {
     "format_email": "Định dạng e-mail! chưa chính xác!",
@@ -26,7 +30,7 @@
     "input_holder_username": "Tên đăng nhập của bạn",
     "input_label_password": "Mật khẩu",
     "input_holder_password": "Mật khẩu của bạn",
-    "is_forgot_password": "Quân mật khẩu?",
+    "is_forgot_password": "Quên mật khẩu?",
     "dont_have_account": "Bạn chưa có tài khoản?",
     "sign_up": "Đăng ký",
     "login_with_socials": "Hoặc đăng nhập với"
@@ -44,24 +48,31 @@
     "input_holder_password": "Mật khẩu của bạn",
     "policy": "Bằng cách tạo một tài khoản, bạn đã đồng ý với điều khoản & điều kiện của chúng tôi",
     "have_account": "Bạn đã có tài khoản?",
-    "log_in": "Đăng nhập"
+    "log_in": "Đăng nhập",
+    "success_caption": "Xin chúc mừng, bạn đã hoàn thành việc đăng ký!",
+    "error_send": "Đã xảy ra lỗi! Vui lòng thử lại sau!"
   },
   "forgot_password": {
-    "title": "Quân mật khẩu",
+    "title": "Quên mật khẩu",
     "caption": "Nhập địa chỉ e-mail của bạn vào bên dưới và chúng tôi sẽ gửi một liên kết để bạn đặt lại mật khẩu mới",
     "input_label_email": "E-mail",
     "input_holder_email": "E-mail của bạn",
     "send": "Gửi đặt lại mật khẩu",
-    "go_back": "Quay lại",
-    "success_send": "Chúng tôi đã gửi một e-mail có chứa liên kết để bạn có thể đặt lại mật khẩu mới",
+    "success_sub_title": "Kiểm tra e-mail của bạn",
+    "success_caption": "Chúng tôi đã gửi một e-mail có chứa liên kết để bạn có thể đặt lại mật khẩu mới",
     "error_send": "Đã xảy ra lỗi! Vui lòng thử lại sau!"
   },
   "reset_password": {
     "title": "Cập nhật mật khẩu",
-    "caption": "Nhập mật khẩu mới bên dưới và chúng tôi sẽ đặt lại cho bạn",
+    "caption": "Nhập mật khẩu mới vào bên dưới",
     "input_label_password": "Mật khẩu mới",
     "input_holder_password": "Mật khẩu mới của bạn",
     "save": "Lưu",
-    "go_back": "Quay lại"
+    "success_sub_title": "Thay đổi thành công",
+    "success_caption": "Chúng tôi đã thay đổi thành công, vui lòng đăng nhập với mật khẩu mới",
+    "error_send": "Đã xảy ra lỗi! Vui lòng thử lại sau!"
+  },
+  "home": {
+    "title": "Trang chủ"
   }
 }

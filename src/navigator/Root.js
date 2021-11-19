@@ -59,6 +59,10 @@ export function RootMain(props) {
         name={Routes.AUTHENTICATION.name}
         component={AuthMain}
       />
+      <StackMain.Screen
+        name={Routes.HOME.name}
+        component={Routes.HOME.path}
+      />
     </StackMain.Navigator>
   );
 }

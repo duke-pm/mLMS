@@ -31,9 +31,9 @@ const RenderTopLeft = (t, title, subtitle, onPress) => {
           <TopNavigationAction icon={BackIcon} onPress={onPress} />
         )}
         <View>
-          <Text category='h2'>{t(title)}</Text>
+          <Text category='h4'>{t(title)}</Text>
           {subtitle && (
-            <Text style={cStyles.mt6} category='c1'>{t(subtitle)}</Text>
+            <Text category='c1'>{t(subtitle)}</Text>
           )}
         </View>
       </View>
@@ -94,6 +94,7 @@ function CTopNavigation(props) {
     subtitle = '',
     leftTitle = null,
     leftSubtitle = null,
+    alignment = 'center',
     customLeftComponent = null,
     customRightComponent = null,
   } = props;
@@ -126,6 +127,7 @@ function CTopNavigation(props) {
     <TopNavigation
       title={title !== '' ? t(title) : ''}
       subtitle={subtitle !== '' ? t(subtitle) : ''}
+      alignment={alignment}
       accessoryLeft={leftComponent}
       accessoryRight={rightComponent}
     />
@@ -139,6 +141,7 @@ CTopNavigation.propTypes = {
   subtitle: PropTypes.string,
   leftTitle: PropTypes.string,
   leftSubtitle: PropTypes.string,
+  alignment: PropTypes.oneOf(['center', 'start']),
   customLeftComponent: PropTypes.element,
   customRightComponent: PropTypes.element,
 };

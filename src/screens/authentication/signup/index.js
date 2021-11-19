@@ -15,6 +15,7 @@ import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
 /* COMMON */
 import {cStyles} from '~/utils/style';
+import CAlert from '~/components/CAlert';
 /* REDUX */
 
 
@@ -42,8 +43,14 @@ function SignUp(props) {
   const formRef = useRef();
 
   /** Use State */
-  const [loading, setLoading] = useState(false);
   const policyCheckbox = useCheckboxState();
+  const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState({
+    status: false,
+    success: false,
+    error: false,
+    content: '',
+  });
   const [values, setValues] = useState({
     userName: '',
     email: '',
@@ -63,12 +70,26 @@ function SignUp(props) {
    **********/
   const onSubmitSignUp = () => {
     console.log('[LOG] ===  ===> Submit signup');
-    showMessage({
-      icon: 'danger',
-      message: 'Wrong Username or password',
-      description: 'Please check your informations again.',
-      type: 'danger',
-    });
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+
+      let rdAlert = Math.random();
+      if (rdAlert > 0.5) {
+        setShowAlert({
+          status: true,
+          success: true,
+          content: t('sign_up:success_caption')
+        });
+      } else {
+        showMessage({
+          message: t('common:error'),
+          description: t('sign_up:error_send'),
+          type: 'danger',
+          icon: 'danger',
+        });
+      }
+    }, 1500);
   };
 
   /****************
@@ -102,95 +123,94 @@ function SignUp(props) {
         ]}
         level='3'>
         {/** Form input */}
-        <CForm
-          ref={formRef}
-          loading={loading}
-          level='3'
-          inputs={[
-            {
-              id: INPUT_NAME.USER_NAME,
-              disabled: loading,
-              label: 'sign_up:input_label_username',
-              holder: 'sign_up:input_holder_username',
-              value: values.userName,
-              required: true,
-              password: false,
-              email: false,
-              phone: false,
-              number: false,
-              next: true,
-              return: 'next',
-            },
-            {
-              id: INPUT_NAME.EMAIL,
-              disabled: loading,
-              label: 'sign_up:input_label_email',
-              holder: 'sign_up:input_holder_email',
-              value: values.email,
-              required: true,
-              password: false,
-              email: true,
-              phone: false,
-              number: false,
-              next: true,
-              return: 'next',
-              validate: {type: 'email', helper: ''},
-            },
-            {
-              id: INPUT_NAME.PHONE,
-              disabled: loading,
-              label: 'sign_up:input_label_phone',
-              holder: 'sign_up:input_holder_phone',
-              value: values.phone,
-              required: true,
-              password: false,
-              email: false,
-              phone: true,
-              number: false,
-              next: true,
-              return: 'next',
-              validate: {type: 'min_length', helper: '10'},
-            },
-            {
-              id: INPUT_NAME.PASSWORD,
-              disabled: loading,
-              label: 'sign_up:input_label_password',
-              holder: 'sign_up:input_holder_password',
-              value: values.password,
-              required: true,
-              password: true,
-              email: false,
-              phone: false,
-              number: false,
-              next: false,
-              return: 'done',
-              validate: {type: 'min_length', helper: '6'},
-            },
-          ]}
-          customAddingForm={
-            <CheckBox
-              style={cStyles.mt24}
-              status='basic'
-              {...policyCheckbox}>
-              {t('sign_up:policy')}
-            </CheckBox>
-          }
-          labelButton={'sign_up:title'}
-          disabledButton={!policyCheckbox.checked}
-          onSubmit={onSubmitSignUp}
-        />
+        {!showAlert.status && (
+          <CForm
+            ref={formRef}
+            loading={loading}
+            level='3'
+            inputs={[
+              {
+                id: INPUT_NAME.USER_NAME,
+                disabled: loading,
+                label: 'sign_up:input_label_username',
+                holder: 'sign_up:input_holder_username',
+                value: values.userName,
+                required: true,
+                password: false,
+                email: false,
+                phone: false,
+                number: false,
+                next: true,
+                return: 'next',
+              },
+              {
+                id: INPUT_NAME.EMAIL,
+                disabled: loading,
+                label: 'sign_up:input_label_email',
+                holder: 'sign_up:input_holder_email',
+                value: values.email,
+                required: true,
+                password: false,
+                email: true,
+                phone: false,
+                number: false,
+                next: true,
+                return: 'next',
+                validate: {type: 'email', helper: ''},
+              },
+              {
+                id: INPUT_NAME.PHONE,
+                disabled: loading,
+                label: 'sign_up:input_label_phone',
+                holder: 'sign_up:input_holder_phone',
+                value: values.phone,
+                required: true,
+                password: false,
+                email: false,
+                phone: true,
+                number: false,
+                next: true,
+                return: 'next',
+                validate: {type: 'min_length', helper: '10'},
+              },
+              {
+                id: INPUT_NAME.PASSWORD,
+                disabled: loading,
+                label: 'sign_up:input_label_password',
+                holder: 'sign_up:input_holder_password',
+                value: values.password,
+                required: true,
+                password: true,
+                email: false,
+                phone: false,
+                number: false,
+                next: false,
+                return: 'done',
+                validate: {type: 'min_length', helper: '6'},
+              },
+            ]}
+            customAddingForm={
+              <CheckBox
+                style={cStyles.mt24}
+                status='basic'
+                {...policyCheckbox}>
+                {t('sign_up:policy')}
+              </CheckBox>
+            }
+            labelButton={'sign_up:title'}
+            disabledButton={!policyCheckbox.checked}
+            onSubmit={onSubmitSignUp}
+          />
+        )}
 
-        {/** Log in ? */}
-        <View style={[cStyles.row, cStyles.itemsEnd, cStyles.justifyCenter, cStyles.mt24]}>
-          <Text category='p1'>{t('sign_up:have_account')}</Text>
-          <TouchableWithoutFeedback onPress={handleGoBackLogIn}>
-            <Text 
-              style={[cStyles.textUnderline, cStyles.ml6, {color: theme['color-primary-500']}]}
-              category={'p1'}>
-              {t('sign_up:log_in')}
-            </Text>
-          </TouchableWithoutFeedback>
-        </View>
+        <CAlert
+          show={showAlert.status}
+          success={showAlert.success}
+          error={showAlert.error}
+          message={showAlert.content}
+          textOk={'common:done'}
+          onOk={handleGoBackLogIn}
+        />
       </Layout>
     </CContainer>
   )
