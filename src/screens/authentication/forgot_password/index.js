@@ -122,6 +122,7 @@ function ForgotPassword(props) {
             inputs={[
               {
                 id: INPUT_NAME.EMAIL,
+                type: 'text',
                 disabled: loading,
                 label: 'forgot_password:input_label_email',
                 holder: 'forgot_password:input_holder_email',
@@ -133,7 +134,7 @@ function ForgotPassword(props) {
                 number: false,
                 next: false,
                 return: 'send',
-                validate: {type: 'email', helper: ''},
+                validate: {type: 'format_email', helper: ''},
               },
             ]}
             leftButton={loading}

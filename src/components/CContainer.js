@@ -22,6 +22,8 @@ function CContainer(props) {
   const themeContext = useContext(ThemeContext);
   const {
     safeArea = [],
+    padder = false,
+    headerComponent = null,
     children = null,
   } = props;
   
@@ -50,8 +52,9 @@ function CContainer(props) {
     <SafeAreaView
       style={[cStyles.flex1, {backgroundColor: theme['background-basic-color-1']}]}
       edges={safeAreaScreen}>
+      {headerComponent}
       <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1}>
-        <Layout style={cStyles.flex1} level='1'>
+        <Layout style={[cStyles.flex1, padder && cStyles.px16, padder && cStyles.py10]} level='1'>
           {children}
         </Layout>
       </KeyboardAwareScrollView>
@@ -61,6 +64,8 @@ function CContainer(props) {
 
 CContainer.propTypes = {
   safeArea: PropTypes.array,
+  padder: PropTypes.bool,
+  headerComponent: PropTypes.element,
   children: PropTypes.element,
 }
 

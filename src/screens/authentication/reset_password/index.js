@@ -111,6 +111,7 @@ function ResetPassword(props) {
             inputs={[
               {
                 id: INPUT_NAME.PASSWORD,
+                type: 'text',
                 disabled: loading,
                 label: 'reset_password:input_label_password',
                 holder: 'reset_password:input_holder_password',

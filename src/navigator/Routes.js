@@ -13,35 +13,41 @@ import ForgotPasswordScreen from '~/screens/authentication/forgot_password';
 import ResetPasswordScreen from '~/screens/authentication/reset_password';
 /** MAIN */
 import HomeScreen from '~/screens/home';
+import AccountScreen from '~/screens/account';
 
 const Routes = {
   INTRO: {
     name: 'IntroScreen',
     path: IntroScreen,
   },
-  AUTHENTICATION: {
-    name: 'AuthMain',
-    LOGIN_IN: {
-      name: 'LoginScreen',
-      path: LoginScreen,
+  LOGIN_IN: {
+    name: 'LoginScreen',
+    path: LoginScreen,
+  },
+  SIGN_UP: {
+    name: 'SignUpScreen',
+    path: SignUpScreen,
+  },
+  FORGOT_PASSWORD: {
+    name: 'ForgotPassword',
+    path: ForgotPasswordScreen
+  },
+  RESET_PASSWORD: {
+    name: 'ResetPassword',
+    path: ResetPasswordScreen
+  },
+  TAB: {
+    name: 'TabMain',
+    HOME: {
+      name: 'HOME',
+      path: HomeScreen,
     },
-    SIGN_UP: {
-      name: 'SignUpScreen',
-      path: SignUpScreen,
-    },
-    FORGOT_PASSWORD: {
-      name: 'ForgotPassword',
-      path: ForgotPasswordScreen
-    },
-    RESET_PASSWORD: {
-      name: 'ResetPassword',
-      path: ResetPasswordScreen
+    ACCOUNT: {
+      name: 'ACCOUNT',
+      path: AccountScreen,
     },
   },
-  HOME: {
-    name: 'HOME',
-    path: HomeScreen,
-  },
+  
 };
 
 export default Routes;

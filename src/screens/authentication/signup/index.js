@@ -13,9 +13,9 @@ import {showMessage} from "react-native-flash-message";
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
+import CAlert from '~/components/CAlert';
 /* COMMON */
 import {cStyles} from '~/utils/style';
-import CAlert from '~/components/CAlert';
 /* REDUX */
 
 
@@ -74,21 +74,21 @@ function SignUp(props) {
     setTimeout(() => {
       setLoading(false);
 
-      let rdAlert = Math.random();
-      if (rdAlert > 0.5) {
+      // let rdAlert = Math.random();
+      // if (rdAlert > 0.5) {
         setShowAlert({
           status: true,
           success: true,
           content: t('sign_up:success_caption')
         });
-      } else {
-        showMessage({
-          message: t('common:error'),
-          description: t('sign_up:error_send'),
-          type: 'danger',
-          icon: 'danger',
-        });
-      }
+      // } else {
+      //   showMessage({
+      //     message: t('common:error'),
+      //     description: t('sign_up:error_send'),
+      //     type: 'danger',
+      //     icon: 'danger',
+      //   });
+      // }
     }, 1500);
   };
 
@@ -131,6 +131,7 @@ function SignUp(props) {
             inputs={[
               {
                 id: INPUT_NAME.USER_NAME,
+                type: 'text',
                 disabled: loading,
                 label: 'sign_up:input_label_username',
                 holder: 'sign_up:input_holder_username',
@@ -145,6 +146,7 @@ function SignUp(props) {
               },
               {
                 id: INPUT_NAME.EMAIL,
+                type: 'text',
                 disabled: loading,
                 label: 'sign_up:input_label_email',
                 holder: 'sign_up:input_holder_email',
@@ -156,10 +158,11 @@ function SignUp(props) {
                 number: false,
                 next: true,
                 return: 'next',
-                validate: {type: 'email', helper: ''},
+                validate: {type: 'format_email', helper: ''},
               },
               {
                 id: INPUT_NAME.PHONE,
+                type: 'text',
                 disabled: loading,
                 label: 'sign_up:input_label_phone',
                 holder: 'sign_up:input_holder_phone',
@@ -175,6 +178,7 @@ function SignUp(props) {
               },
               {
                 id: INPUT_NAME.PASSWORD,
+                type: 'text',
                 disabled: loading,
                 label: 'sign_up:input_label_password',
                 holder: 'sign_up:input_holder_password',
@@ -193,12 +197,13 @@ function SignUp(props) {
               <CheckBox
                 style={cStyles.mt24}
                 status='basic'
+                disabled={loading}
                 {...policyCheckbox}>
                 {t('sign_up:policy')}
               </CheckBox>
             }
+            disabledButton={!policyCheckbox.checked || loading}
             labelButton={'sign_up:title'}
-            disabledButton={!policyCheckbox.checked}
             onSubmit={onSubmitSignUp}
           />
         )}

@@ -6,7 +6,7 @@
  **/
 import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useTheme, Layout, Text, Divider} from '@ui-kitten/components';
+import {useTheme, Layout, Text, Divider, Button} from '@ui-kitten/components';
 import {View, TouchableWithoutFeedback} from 'react-native';
 import {showMessage} from "react-native-flash-message";
 /* COMPONENTS */
@@ -17,6 +17,7 @@ import CButtonSocial, {SOCIAL_NAME} from '~/components/CButtonSocial';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {cStyles} from '~/utils/style';
+import { resetRoute } from '~/utils/helper';
 /* REDUX */
 
 
@@ -35,10 +36,7 @@ function Login(props) {
   const formRef = useRef();
 
   /** Use State */
-  const [loading, setLoading] = useState({
-    main: false,
-    submit: false,
-  });
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     userName: '',
     password: '',
@@ -49,12 +47,12 @@ function Login(props) {
    *****************/
   const handleGoForgotPassword = () => {
     console.log('[LOG] ===  ===> Go to forgot password');
-    navigation.navigate(Routes.AUTHENTICATION.FORGOT_PASSWORD.name);
+    navigation.navigate(Routes.FORGOT_PASSWORD.name);
   };
 
   const handleSignUp = () => {
     console.log('[LOG] ===  ===> Go to Sign up');
-    navigation.navigate(Routes.AUTHENTICATION.SIGN_UP.name);
+    navigation.navigate(Routes.SIGN_UP.name);
   };
 
   /**********
@@ -62,20 +60,17 @@ function Login(props) {
    **********/
   const onSubmitLogin = () => {
     console.log('[LOG] ===  ===> Submit login');
-    showMessage({
-      icon: 'danger',
-      message: 'Wrong Username or password',
-      description: 'Please check your informations again.',
-      type: 'danger',
-    });
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      resetRoute(navigation, Routes.TAB.name);
+    }, 2000);
   };
 
   /****************
    ** LIFE CYCLE **
    ****************/
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
 
   /************
    ** RENDER **
@@ -99,11 +94,13 @@ function Login(props) {
         {/** Form input */}
         <CForm
           ref={formRef}
+          loading={loading}
           level='3'
           inputs={[
             {
               id: INPUT_NAME.USER_NAME,
-              disabled: loading.main || loading.submit,
+              type: 'text',
+              disabled: loading,
               label: 'log_in:input_label_username',
               holder: 'log_in:input_holder_username',
               value: values.userName,
@@ -117,7 +114,8 @@ function Login(props) {
             },
             {
               id: INPUT_NAME.PASSWORD,
-              disabled: loading.main || loading.submit,
+              type: 'text',
+              disabled: loading,
               label: 'log_in:input_label_password',
               holder: 'log_in:input_holder_password',
               value: values.password,
@@ -142,6 +140,7 @@ function Login(props) {
               </TouchableWithoutFeedback>
             </View>
           }
+          disabledButton={loading}
           labelButton={'log_in:title'}
           onSubmit={onSubmitLogin}
         />

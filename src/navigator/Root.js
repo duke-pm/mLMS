@@ -6,42 +6,45 @@
  **/
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useTheme} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {enableScreens} from 'react-native-screens';
+import IoniIcon from 'react-native-vector-icons/Ionicons';
 /** COMMON */
 import Routes from './Routes';
-import {cStyles} from '~/utils/style';
 
 /** INIT NAVIGATOR OF APP */
 enableScreens(true);
 const StackMain = createNativeStackNavigator();
-const StackAuth = createNativeStackNavigator();
+const TabMain = createBottomTabNavigator();
 
-export function AuthMain(props) {
+export function BottomTabMain(props) {
   return (
-    <StackAuth.Navigator
-      initialRouteName={Routes.AUTHENTICATION.LOGIN_IN.name}
-      screenOptions={{
+    <TabMain.Navigator
+      initialRouteName={Routes.TAB.HOME.name}
+      backBehavior={'history'}
+      screenOptions={({route}) => ({
         headerShown: false,
-      }}>
-      <StackAuth.Screen
-        name={Routes.AUTHENTICATION.LOGIN_IN.name}
-        component={Routes.AUTHENTICATION.LOGIN_IN.path}
+        lazy: true,
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName = focused ? 'home' : 'home-outline';
+          switch (route.name) {
+            case Routes.TAB.ACCOUNT.name:
+              iconName = focused ? 'person' : 'person-outline';
+              break;
+          }
+          return <IoniIcon name={iconName} size={size} color={color} />;
+        },
+      })}>
+      <TabMain.Screen
+        name={Routes.TAB.HOME.name}
+        component={Routes.TAB.HOME.path}
       />
-      <StackAuth.Screen
-        name={Routes.AUTHENTICATION.SIGN_UP.name}
-        component={Routes.AUTHENTICATION.SIGN_UP.path}
+      <TabMain.Screen
+        name={Routes.TAB.ACCOUNT.name}
+        component={Routes.TAB.ACCOUNT.path}
       />
-      <StackAuth.Screen
-        name={Routes.AUTHENTICATION.FORGOT_PASSWORD.name}
-        component={Routes.AUTHENTICATION.FORGOT_PASSWORD.path}
-      />
-      <StackAuth.Screen
-        name={Routes.AUTHENTICATION.RESET_PASSWORD.name}
-        component={Routes.AUTHENTICATION.RESET_PASSWORD.path}
-      />
-    </StackAuth.Navigator>
-  );
+    </TabMain.Navigator>
+  )
 }
 
 export function RootMain(props) {
@@ -56,12 +59,24 @@ export function RootMain(props) {
         component={Routes.INTRO.path}
       />
       <StackMain.Screen
-        name={Routes.AUTHENTICATION.name}
-        component={AuthMain}
+        name={Routes.LOGIN_IN.name}
+        component={Routes.LOGIN_IN.path}
       />
       <StackMain.Screen
-        name={Routes.HOME.name}
-        component={Routes.HOME.path}
+        name={Routes.SIGN_UP.name}
+        component={Routes.SIGN_UP.path}
+      />
+      <StackMain.Screen
+        name={Routes.FORGOT_PASSWORD.name}
+        component={Routes.FORGOT_PASSWORD.path}
+      />
+      <StackMain.Screen
+        name={Routes.RESET_PASSWORD.name}
+        component={Routes.RESET_PASSWORD.path}
+      />
+      <StackMain.Screen
+        name={Routes.TAB.name}
+        component={BottomTabMain}
       />
     </StackMain.Navigator>
   );

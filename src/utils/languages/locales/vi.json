@@ -33,7 +33,8 @@
     "is_forgot_password": "Quên mật khẩu?",
     "dont_have_account": "Bạn chưa có tài khoản?",
     "sign_up": "Đăng ký",
-    "login_with_socials": "Hoặc đăng nhập với"
+    "login_with_socials": "Hoặc đăng nhập với",
+    "login_with": "Đăng nhập với"
   },
   "sign_up": {
     "title": "Đăng ký",
@@ -74,5 +75,8 @@
   },
   "home": {
     "title": "Trang chủ"
+  },
+  "account": {
+    "title": "Tài khoản"
   }
 }

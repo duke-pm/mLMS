@@ -10,12 +10,13 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import {useTranslation} from 'react-i18next';
-import {Input, Button, Icon, Spinner} from '@ui-kitten/components';
+import {Input, Button, Icon, Spinner, Text, Select, SelectItem, Toggle, RadioGroup, Radio, useTheme} from '@ui-kitten/components';
 import {TouchableWithoutFeedback, View, UIManager, LayoutAnimation} from 'react-native';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
 import {cStyles} from '~/utils/style';
 import {IS_ANDROID, validatEemail} from '~/utils/helper';
+import { FONTS } from '~/utils/style/Styles';
 
 if (IS_ANDROID) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -43,6 +44,7 @@ const RenderLoadingIndicator = (props) => (
  ********************/
 const CForm = forwardRef((props, ref) => {
   const {t} = useTranslation();
+  const theme = useTheme();
   const themeContext = useContext(ThemeContext);
   const {
     containerStyle = {},
@@ -52,10 +54,13 @@ const CForm = forwardRef((props, ref) => {
       {
         style: {},
         id: 'input-1',
+        type: '',
+        position: '',
         disabled: false,
         label: '',
         holder: '',
         value: '',
+        values: [],
         required: true,
         email: false,
         phone: false,
@@ -76,6 +81,7 @@ const CForm = forwardRef((props, ref) => {
   /** Use state */
   const [values, setValues] = useState(null);
   const [errors, setErrors] = useState(null);
+  const [visible, setVisible] = useState(false);
 
   /*****************
    ** HANDLE FUNC **
@@ -98,96 +104,87 @@ const CForm = forwardRef((props, ref) => {
     }
   };
 
+  const handleSelectedIndex = (idxInput, newIndex) => {
+    let tmpValues = [...values];
+    tmpValues[idxInput].value = newIndex;
+    setValues(tmpValues);
+  };
+
+  const handleToggle = idxInput => {
+    let tmpValues = [...values];
+    tmpValues[idxInput].value = !tmpValues[idxInput].value;
+    setValues(tmpValues);
+  };
+
   /**********
    ** FUNC **
    **********/
-  const onCheckValidate = (idxInput, validate) => {
+  const onCheckValidate = () => {
     let tmpIsError = false;
+    let i, tmpErrors = [...errors];
 
-    /** Check empty */
-    if (!idxInput) {
-      let i = 0, tmpErrors = [...errors];
-      for (i; i < values.length; i++) {
-        if (values[i].required) {
-          if (values[i].value.trim() === '') {
-            tmpIsError = true;
-            tmpErrors[i].status = true;
-            tmpErrors[i].type = 'required';
-            tmpErrors[i].helper = t('error:empty_length');
-          } else if (values[i].value.trim() !== '' && tmpErrors[i].type === 'required') {
-            tmpIsError = false;
-            tmpErrors[i].status = false;
-            tmpErrors[i].type = '';
-            tmpErrors[i].helper = '';
-          } else if (tmpErrors[i].status) {
-            tmpIsError = true;
-          }
-        }
-        if (values[i].validate === 'email') {
-          let isTrueValue = validatEemail(values[i].value.trim());
-          if (!isTrueValue) {
-            tmpIsError = true;
-            tmpErrors[i].status = true;
-            tmpErrors[i].type = 'format_email';
-            tmpErrors[i].helper = t('error:format_email');
-          } else {
-            tmpIsError = false;
-            tmpErrors[i].status = false;
-            tmpErrors[i].type = '';
-            tmpErrors[i].helper = '';
-          }
+    for (i = 0; i < values.length; i++) {
+      /** Check required */
+      if (values[i].required) {
+        if (values[i].value.trim() === '') {
+          tmpIsError = true;
+          tmpErrors[i].status = true;
+          tmpErrors[i].type = 'required';
+          tmpErrors[i].helper = t('error:empty_length');
+        } else if (values[i].value.trim() !== '' && tmpErrors[i].type === 'required') {
+          tmpIsError = false;
+          tmpErrors[i].status = false;
+          tmpErrors[i].type = '';
+          tmpErrors[i].helper = '';
+        } else if (tmpErrors[i].status) {
+          tmpIsError = true;
         }
       }
-      if (tmpIsError) {
-        return setErrors(tmpErrors);
-      } else {
-        setErrors(tmpErrors);
-      }
-    }
 
-    if (validate) {
       /** Check is email */
-      if (validate.type === 'email') {
-        let isTrueValue = validatEemail(values[idxInput].value.trim());
-        let tmpErrors = [...errors];
+      if (values[i].validate === 'format_email') {
+        let isTrueValue = validatEemail(values[i].value.trim());
         if (!isTrueValue) {
           tmpIsError = true;
-          tmpErrors[idxInput].status = true;
-          tmpErrors[idxInput].type = 'format_email';
-          tmpErrors[idxInput].helper = t('error:format_email');
-        } else {
+          tmpErrors[i].status = true;
+          tmpErrors[i].type = 'format_email';
+          tmpErrors[i].helper = t('error:format_email');
+        } else if (tmpErrors[i].type === 'format_email') {
           tmpIsError = false;
-          tmpErrors[idxInput].status = false;
-          tmpErrors[idxInput].type = '';
-          tmpErrors[idxInput].helper = '';
+          tmpErrors[i].status = false;
+          tmpErrors[i].type = '';
+          tmpErrors[i].helper = '';
+        } else if (tmpErrors[i].status){
+          tmpIsError = true;
         }
-        return setErrors(tmpErrors);
       }
 
       /** Check min length */
-      if (validate.type === 'min_length') {
-        let isTrueValue = values[idxInput].value.trim();
-        isTrueValue = isTrueValue.length >= Number(validate.helper);
-        let tmpErrors = [...errors];
+      if (values[i].validate === 'min_length') {
+        let isTrueValue = values[i].value.trim();
+        isTrueValue = isTrueValue.length >= Number(values[i].validateHelper);
         if (!isTrueValue) {
           tmpIsError = true;
-          tmpErrors[idxInput].status = true;
-          tmpErrors[idxInput].type = 'min_length';
-          tmpErrors[idxInput].helper = 
+          tmpErrors[i].status = true;
+          tmpErrors[i].type = 'min_length';
+          tmpErrors[i].helper = 
             t('error:min_length') + ' ' +
-              validate.helper + ' ' +
-              t('common:character');
-        } else {
+            values[i].validateHelper + ' ' +
+            t('common:character');
+        } else if (tmpErrors[i].type === 'min_length') {
           tmpIsError = false;
-          tmpErrors[idxInput].status = false;
-          tmpErrors[idxInput].type = '';
-          tmpErrors[idxInput].helper = '';
+          tmpErrors[i].status = false;
+          tmpErrors[i].type = '';
+          tmpErrors[i].helper = '';
+        } else if (tmpErrors[i].status){
+          tmpIsError = true;
         }
-        return setErrors(tmpErrors);
       }
+      if (tmpIsError) return setErrors(tmpErrors);
+      
     }
     if (!tmpIsError) return onSubmit(values);
-    return;
+    else return setErrors(tmpErrors); 
   };
 
   /****************
@@ -206,13 +203,15 @@ const CForm = forwardRef((props, ref) => {
           ref: tmpInputRef,
           id: tmpInput.id,
           value: tmpInput.value,
+          values: tmpInput.values,
           required: tmpInput.required,
           validate: tmpInput.validate ? tmpInput.validate.type : '',
+          validateHelper: tmpInput.validate ? tmpInput.validate.helper : '',
           secureTextEntry: tmpInput.password,
         };
         tmpError = {
           status: false,
-          type: tmpInput.required ? 'required' : '',
+          type: tmpInput.required ? 'required' : tmpInput.validate ? tmpInput.validate.type : '',
           helper: '',
         };
         tmpValues.push(tmpValue);
@@ -247,51 +246,103 @@ const CForm = forwardRef((props, ref) => {
         if (item.phone) kbType = 'phone-pad';
         if (item.number) kbType = 'number-pad';
 
-        return (
-          <Input
-            key={item.id + '_' + index}
-            ref={values[index].ref}
-            style={cStyles.mt24}
-            nativeID={item.id}
-            disabled={item.disabled}
-            value={values[index].value}
-            label={t(item.label)}
-            placeholder={t(item.holder)}
-            keyboardAppearance={themeContext.themeApp}
-            keyboardType={kbType}
-            returnKeyType={item.return}
-            secureTextEntry={values[index].secureTextEntry}
-            accessoryRight={item.password
-              ? props => RenderIconPassword(props, values[index].secureTextEntry, () => onToggleSecureEntry(index))
-              : undefined
-            }
-            status={errors && errors[index].status ? 'danger' : 'basic'}
-            caption={errors && errors[index].status ? errors[index].helper : undefined}
-            onChangeText={newValue => handleChangeValue(index, newValue)}
-            onSubmitEditing={() => handleSubmitEditing(index, item.next)}
-            onEndEditing={() => onCheckValidate(index, item.validate)}
-          />
-        )
+        if (item.type === 'text') {
+          return (
+            <Input
+              key={item.type + item.id + '_' + index}
+              ref={values[index].ref}
+              style={[cStyles.mt24, item.style]}
+              nativeID={item.id}
+              disabled={item.disabled}
+              value={values[index].value}
+              label={t(item.label)}
+              placeholder={t(item.holder)}
+              keyboardAppearance={themeContext.themeApp}
+              keyboardType={kbType}
+              returnKeyType={item.return}
+              secureTextEntry={values[index].secureTextEntry}
+              accessoryRight={item.password
+                ? props => RenderIconPassword(props, values[index].secureTextEntry, () => onToggleSecureEntry(index))
+                : undefined
+              }
+              status={errors && errors[index].status ? 'danger' : 'basic'}
+              caption={errors && errors[index].status ? errors[index].helper : undefined}
+              onChangeText={newValue => handleChangeValue(index, newValue)}
+              onSubmitEditing={() => handleSubmitEditing(index, item.next)}
+            />
+          )
+        }
+        if (item.type === 'select') {
+          return (
+            <Select
+              style={item.style}
+              label={item.label}
+              caption={errors && errors[index].status ? errors[index].helper : undefined}
+              placeholder='Select one of below...'
+              disabled={loading}
+              selectedIndex={values[index].value}
+              onSelect={idxSelect => handleSelectedIndex(index, idxSelect)}>
+              {item.values.map((itemSelect, indexSelect) => {
+                return <SelectItem key={itemSelect + indexSelect} title={itemSelect} />
+              })}
+            </Select>
+          )
+        }
+        if (item.type === 'toggle') {
+          return (
+            <View style={[
+              item.position === 'left' && cStyles.itemsStart,
+              item.position === 'right' && cStyles.itemsEnd,
+              item.position === 'center' && cStyles.itemsCenter,
+              item.style
+            ]}>
+              <Toggle
+                disabled={loading}
+                checked={values[index].value}
+                onChange={() => handleToggle(index)}>
+                {item.label}
+              </Toggle>
+            </View>
+          )
+        }
+        if (item.type === 'radio') {
+          return (
+            <View style={[item.style]}>
+              <Text style={{color: theme['color-basic-600']}} category={'label'}>{item.label}</Text>
+              <RadioGroup
+                selectedIndex={values[index].value}
+                onChange={indexRadio => handleSelectedIndex(index, indexRadio)}>
+              {item.values.map((itemRadio, indexRadio) => {
+                return <Radio key={itemRadio + indexRadio}>{itemRadio}</Radio>
+              })}
+              </RadioGroup>
+            </View>
+          )
+        }
+        return null;
       })}
 
       {/** Custom adding for form */}
       {customAddingForm}
 
       {/** Button */}
-      <Button
-        style={cStyles.mt24}
-        appearance={typeButton}
-        accessoryLeft={loading && RenderLoadingIndicator}
-        disabled={disabledButton}
-        onPress={() => onCheckValidate()}>
-        {t(labelButton)}
-      </Button>
+      {labelButton !== '' && (
+        <Button
+          style={cStyles.mt24}
+          appearance={typeButton}
+          accessoryLeft={loading && RenderLoadingIndicator}
+          disabled={disabledButton}
+          onPress={onCheckValidate}>
+          {t(labelButton)}
+        </Button>
+      )}
     </View>
   );
 });
 
 CForm.propTypes = {
   containerStyle: PropTypes.object,
+  type: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   level: PropTypes.string,
   inputs: PropTypes.array.isRequired,

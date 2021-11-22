@@ -14,6 +14,12 @@ const PLATFORM = {
   ANDROID: 'android',
   IOS: 'ios',
 };
+export const FONTS = {
+  light: 'Poppins-Light',
+  regular: 'Poppins-Regular',
+  medium: 'Poppins-Medium',
+  bold: 'Poppins-SemiBold',
+};
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -21,6 +27,7 @@ const platform = Platform.OS;
 const toolbarHeight = platform === PLATFORM.IOS ? 52 : 56;
 const toolbarHeight1 = 88;
 const toolbarDefaultBorder = Colors.PRIMARY;
+
 
 const main = {
   flex1: {flex: 1},

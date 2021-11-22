@@ -27,10 +27,13 @@ if (IS_ANDROID) {
 /*********************
  ** OTHER COMPONENT **  
  *********************/
-const RenderButtonFooter = (t, onPress) => {
+const RenderButtonFooter = (t, onPressLeft, onPressRight) => {
   return (
-    <View style={[cStyles.mt40, cStyles.mx40]}>
-      <Button appearance='outline' onPress={onPress}>
+    <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt40]}>
+      <Button style={styles.btn_main} appearance='filled' onPress={onPressLeft}>
+        {t('sign_up:title')}
+      </Button>
+      <Button style={styles.btn_main} appearance='outline' onPress={onPressRight}>
         {t('log_in:title')}
       </Button>
     </View>
@@ -69,7 +72,11 @@ function Intro(props) {
   };
 
   const handleGoLogin = () => {
-    resetRoute(navigation, Routes.AUTHENTICATION.name);
+    resetRoute(navigation, Routes.LOGIN_IN.name);
+  };
+
+  const handleGoSignUp = () => {
+    resetRoute(navigation, Routes.SIGN_UP.name);
   };
   
   /**********
@@ -103,7 +110,7 @@ function Intro(props) {
         {RenderPageIntro(t, Assets.imgIntro1, 'intro:intro_1_title', 'intro:intro_1_content')}
         {RenderPageIntro(t, Assets.imgIntro2, 'intro:intro_2_title', 'intro:intro_2_content')}
         {RenderPageIntro(t, Assets.imgIntro3,'intro:intro_3_title','intro:intro_3_content',
-          RenderButtonFooter(t, handleGoLogin) )
+          RenderButtonFooter(t, handleGoSignUp, handleGoLogin) )
         }
       </ViewPager>
 
@@ -152,6 +159,9 @@ const styles = StyleSheet.create({
     width: moderateScale(20),
     backgroundColor: colors.PRIMARY,
   },
+  btn_main: {
+    width: sW('32%'),
+  }
 });
 
 export default Intro;
