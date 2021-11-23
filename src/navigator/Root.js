@@ -11,6 +11,7 @@ import {enableScreens} from 'react-native-screens';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 /** COMMON */
 import Routes from './Routes';
+import { useTheme } from '@ui-kitten/components';
 
 /** INIT NAVIGATOR OF APP */
 enableScreens(true);
@@ -18,11 +19,17 @@ const StackMain = createNativeStackNavigator();
 const TabMain = createBottomTabNavigator();
 
 export function BottomTabMain(props) {
+  const theme = useTheme();
   return (
     <TabMain.Navigator
       initialRouteName={Routes.TAB.HOME.name}
       backBehavior={'history'}
       screenOptions={({route}) => ({
+        tabBarStyle: {
+          borderTopColor: theme['background-basic-color-3'],
+          backgroundColor: theme['background-basic-color-3']
+        },
+        tabBarActiveTintColor: theme['color-primary-500'],
         headerShown: false,
         lazy: true,
         tabBarIcon: ({focused, color, size}) => {
@@ -77,6 +84,18 @@ export function RootMain(props) {
       <StackMain.Screen
         name={Routes.TAB.name}
         component={BottomTabMain}
+      />
+      <StackMain.Screen
+        name={Routes.FAVOURITE.name}
+        component={Routes.FAVOURITE.path}
+      />
+      <StackMain.Screen
+        name={Routes.SETTINGS.name}
+        component={Routes.SETTINGS.path}
+      />
+      <StackMain.Screen
+        name={Routes.APPEARANCE.name}
+        component={Routes.APPEARANCE.path}
       />
     </StackMain.Navigator>
   );

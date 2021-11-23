@@ -55,64 +55,62 @@ function Home(props) {
   return (
     <CContainer
       safeArea={['top', 'bottom']}
-      padder
-      headerComponent={
-        <CTopNavigation 
-          title={t('home:title')}
+      headerComponent={<CTopNavigation title={t('home:title')} />}
+    >
+      <Layout style={[cStyles.flex1, cStyles.px16]} level={'1'}>
+        <CSearchBar />
+        <CForm
+          containerStyle={cStyles.mt16}
+          level={'1'}
+          inputs={[
+            {
+              id: INPUT_NAME.SELECT_1,
+              type: 'select',
+              label: 'Select box 1',
+              holder: 'Select one of below',
+              value: values.select1,
+              values: ['Option 1', 'Option 2', 'Option 3'],
+              required: false,
+              password: false,
+              email: false,
+              phone: false,
+              number: false,
+              next: false,
+              return: 'done',
+            },
+            {
+              id: INPUT_NAME.TOOGLE,
+              style: cStyles.mt24,
+              type: 'toggle',
+              position: 'left',
+              label: 'Toggle',
+              value: values.toggle,
+              required: false,
+              password: false,
+              email: false,
+              phone: false,
+              number: false,
+              next: false,
+              return: 'done',
+            },
+            {
+              id: INPUT_NAME.RADIO,
+              style: cStyles.mt24,
+              type: 'radio',
+              label: 'Radio button',
+              value: values.radio,
+              values: ['Option 1', 'Option 2', 'Option 3'],
+              required: false,
+              password: false,
+              email: false,
+              phone: false,
+              number: false,
+              next: false,
+              return: 'done',
+            }
+          ]}
         />
-      }>
-      <CSearchBar />
-      <CForm
-        containerStyle={cStyles.mt16}
-        level={'1'}
-        inputs={[
-          {
-            id: INPUT_NAME.SELECT_1,
-            type: 'select',
-            label: 'Select box 1',
-            holder: 'Select one of below',
-            value: values.select1,
-            values: ['Option 1', 'Option 2', 'Option 3'],
-            required: false,
-            password: false,
-            email: false,
-            phone: false,
-            number: false,
-            next: false,
-            return: 'done',
-          },
-          {
-            id: INPUT_NAME.TOOGLE,
-            style: cStyles.mt24,
-            type: 'toggle',
-            position: 'left',
-            label: 'Toggle',
-            value: values.toggle,
-            required: false,
-            password: false,
-            email: false,
-            phone: false,
-            number: false,
-            next: false,
-            return: 'done',
-          },
-          {
-            id: INPUT_NAME.RADIO,
-            style: cStyles.mt24,
-            type: 'radio',
-            label: 'Radio button',
-            value: values.radio,
-            values: ['Option 1', 'Option 2', 'Option 3'],
-            required: false,
-            password: false,
-            email: false,
-            phone: false,
-            number: false,
-            next: false,
-            return: 'done',
-          }
-        ]}
-      />
+      </Layout>
     </CContainer>
   );
 }

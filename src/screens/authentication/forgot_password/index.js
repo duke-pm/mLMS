@@ -4,10 +4,10 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useContext, useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Layout, Text, Button} from '@ui-kitten/components';
-import {StyleSheet, View, LayoutAnimation, UIManager} from 'react-native';
+import {Layout, Text, Button, useTheme} from '@ui-kitten/components';
+import {View, LayoutAnimation, UIManager} from 'react-native';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 import {showMessage} from 'react-native-flash-message';
 /* COMPONENTS */
@@ -18,6 +18,8 @@ import CForm from '~/components/CForm';
 import Routes from '~/navigator/Routes';
 import {colors, cStyles} from '~/utils/style';
 import {IS_ANDROID, moderateScale} from '~/utils/helper';
+import { ThemeContext } from '~/configs/theme-context';
+import { LIGHT } from '~/configs/constants';
 /* REDUX */
 
 
@@ -34,6 +36,8 @@ const INPUT_NAME = {
 
 function ForgotPassword(props) {
   const {t} = useTranslation();
+  const theme = useTheme();
+  const themeContext = useContext(ThemeContext);
   const {navigation} = props;
   
   /** use ref */
@@ -94,9 +98,14 @@ function ForgotPassword(props) {
    ** RENDER **
    ************/
   return (
-    <CContainer safeArea={['top']}>
+    <CContainer
+      safeArea={['top']}
+      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}>
       {/** Header */}
-      <CTopNavigation back leftTitle={'forgot_password:title'} />
+      <CTopNavigation
+        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}}
+        back
+        leftTitle={'forgot_password:title'} />
 
       {/** Content prepare send */}
       {showAlert.content === '' && (
@@ -109,7 +118,7 @@ function ForgotPassword(props) {
             cStyles.py16,
             cStyles.px32,
           ]}
-          level={'3'}>
+          level={'1'}>
           {/** Caption */}
           <View style={cStyles.mt16}>
             <Text style={cStyles.textCenter} category='p1'>{t('forgot_password:caption')}</Text>
@@ -118,7 +127,7 @@ function ForgotPassword(props) {
           <CForm
             ref={formRef}
             loading={loading}
-            level='3'
+            level='2'
             inputs={[
               {
                 id: INPUT_NAME.EMAIL,
@@ -177,8 +186,5 @@ function ForgotPassword(props) {
     </CContainer>
   )
 }
-
-const styles = StyleSheet.create({
-});
 
 export default ForgotPassword;

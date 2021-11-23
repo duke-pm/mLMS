@@ -77,6 +77,27 @@
     "title": "Trang chủ"
   },
   "account": {
-    "title": "Tài khoản"
+    "title": "Tài khoản",
+    "alert_log_out": "Đăng xuất",
+    "alert_msg_log_out": "Bạn thực sự muốn đăng xuất?"
+  },
+  "favourite": {
+    "title": "Yêu thích"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "appearance": "Giao diện",
+    "notification": "Thông báo",
+    "language_font": "Ngôn ngữ & Phông chữ",
+    "about_information": "Thông tin về ",
+    "light_mode": "Sáng",
+    "dark_mode": "Tối"
+  },
+  "appearance": {
+    "title": "Giao diện",
+    "light_mode": "Sáng",
+    "dark_mode": "Tối",
+    "auto_change_appearance": "Tự động đổi giao diện",
+    "holder_auto_change_appearance": "Theo tùy chọn hệ thống"
   }
 }

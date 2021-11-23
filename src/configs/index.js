@@ -7,6 +7,8 @@
 import Config from 'react-native-config';
 
 const Configs = {
+  // for name of app in account page
+  nameOfApp: Config.APP_NAME,
   // for Host APIs
   hostAPI: Config.API_URL,
   prefixAPI: Config.API_PREFIX,

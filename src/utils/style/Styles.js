@@ -612,65 +612,47 @@ const border = {
   borderDashed: {borderStyle: 'dashed'},
 
   borderAll: {
-    borderColor: IS_IOS ? Colors.BORDER_COLOR_IOS : Colors.BORDER_COLOR_ANDROID,
+    borderColor: '#B3B3B3',
     borderWidth: 1,
   },
   borderAllDark: {
-    borderColor: IS_IOS
-      ? Colors.BORDER_COLOR_IOS_DARK
-      : Colors.BORDER_COLOR_ANDROID_DARK,
+    borderColor: '#B3B3B3',
     borderWidth: 1,
   },
 
   borderTop: {
-    borderTopColor: IS_IOS
-      ? Colors.BORDER_COLOR_IOS
-      : Colors.BORDER_COLOR_ANDROID,
+    borderTopColor: '#B3B3B3',
     borderTopWidth: 1,
   },
   borderTopDark: {
-    borderTopColor: IS_IOS
-      ? Colors.BORDER_COLOR_IOS_DARK
-      : Colors.BORDER_COLOR_ANDROID_DARK,
+    borderTopColor: '#B3B3B3',
     borderTopWidth: 1,
   },
 
   borderBottom: {
-    borderBottomColor: IS_IOS
-      ? Colors.BORDER_COLOR_IOS
-      : Colors.BORDER_COLOR_ANDROID,
+    borderBottomColor: '#B3B3B3',
     borderBottomWidth: 1,
   },
   borderBottomDark: {
-    borderBottomColor: IS_IOS
-      ? Colors.BORDER_COLOR_IOS_DARK
-      : Colors.BORDER_COLOR_ANDROID_DARK,
+    borderBottomColor: '#B3B3B3',
     borderBottomWidth: 1,
   },
 
   borderRight: {
-    borderRightColor: IS_IOS
-      ? Colors.BORDER_COLOR_IOS
-      : Colors.BORDER_COLOR_ANDROID,
+    borderRightColor: '#B3B3B3',
     borderRightWidth: 1,
   },
   borderRightDark: {
-    borderRightColor: IS_IOS
-      ? Colors.BORDER_COLOR_IOS_DARK
-      : Colors.BORDER_COLOR_ANDROID_DARK,
+    borderRightColor: '#B3B3B3',
     borderRightWidth: 1,
   },
 
   borderLeft: {
-    borderLeftColor: IS_IOS
-      ? Colors.BORDER_COLOR_IOS
-      : Colors.BORDER_COLOR_ANDROID,
+    borderLeftColor: '#B3B3B3',
     borderLeftWidth: 1,
   },
   borderLeftDark: {
-    borderLeftColor: IS_IOS
-      ? Colors.BORDER_COLOR_IOS_DARK
-      : Colors.BORDER_COLOR_ANDROID_DARK,
+    borderLeftColor: '#B3B3B3',
     borderLeftWidth: 1,
   },
 };

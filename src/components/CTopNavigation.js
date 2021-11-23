@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React, {useContext, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
-import {TopNavigation, TopNavigationAction, Icon, Text, Toggle} from '@ui-kitten/components';
+import {TopNavigation, TopNavigationAction, Icon, Text, Toggle, Layout} from '@ui-kitten/components';
 import {View} from 'react-native';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
@@ -25,29 +25,25 @@ const BackIcon = (props) => (
 
 const RenderTopLeft = (t, title, subtitle, onPress) => {
   return (
-    <React.Fragment>
-      <View style={[cStyles.row, cStyles.itemsCenter, !onPress && cStyles.ml24]}>
-        {onPress && (
-          <TopNavigationAction icon={BackIcon} onPress={onPress} />
+    <View style={[cStyles.row, cStyles.itemsCenter, !onPress && cStyles.ml24]}>
+      {onPress && (
+        <TopNavigationAction icon={BackIcon} onPress={onPress} />
+      )}
+      <View>
+        <Text category='h4'>{t(title)}</Text>
+        {subtitle && (
+          <Text category='c1'>{t(subtitle)}</Text>
         )}
-        <View>
-          <Text category='h4'>{t(title)}</Text>
-          {subtitle && (
-            <Text category='c1'>{t(subtitle)}</Text>
-          )}
-        </View>
       </View>
-    </React.Fragment>
+    </View>
   )
 };
 
 const RenderTopRight = (t, darkmodeToggle) => {
   return (
-    <React.Fragment>
-      <Toggle {...darkmodeToggle}>
-        {evaProps => <Text {...evaProps}>{t('common:dark_mode')}</Text>}
-      </Toggle>
-    </React.Fragment>
+    <Toggle {...darkmodeToggle}>
+      {evaProps => <Text {...evaProps}>{t('common:dark_mode')}</Text>}
+    </Toggle>
   )
 };
 
@@ -86,8 +82,8 @@ const useToggleState = (initialState = false) => {
 function CTopNavigation(props) {
   const {t} = useTranslation();
   const navigation = useNavigation();
-  const themeContext = useContext(ThemeContext);
   const {
+    style = {},
     back = false,
     darkmode = false,
     title = '',
@@ -125,6 +121,7 @@ function CTopNavigation(props) {
   }
   return (
     <TopNavigation
+      style={style}
       title={title !== '' ? t(title) : ''}
       subtitle={subtitle !== '' ? t(subtitle) : ''}
       alignment={alignment}
@@ -135,6 +132,7 @@ function CTopNavigation(props) {
 }
 
 CTopNavigation.propTypes = {
+  style: PropTypes.object,
   back: PropTypes.bool,
   darkmode: PropTypes.bool,
   title: PropTypes.string,

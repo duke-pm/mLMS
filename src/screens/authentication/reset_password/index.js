@@ -4,16 +4,18 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useContext, useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Layout, Text, Button} from '@ui-kitten/components';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
 /* COMMON */
 import {colors, cStyles} from '~/utils/style';
+import { ThemeContext } from '~/configs/theme-context';
+import { LIGHT } from '~/configs/constants';
 /* REDUX */
 
 
@@ -24,6 +26,8 @@ const INPUT_NAME = {
 
 function ResetPassword(props) {
   const {t} = useTranslation();
+  const theme = useTheme();
+  const themeContext = useContext(ThemeContext);
   const {navigation} = props;
 
   /** use ref */
@@ -82,9 +86,14 @@ function ResetPassword(props) {
    ** RENDER **
    ************/
   return (
-    <CContainer safeArea={['top']}>
+    <CContainer
+      safeArea={['top']}
+      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}>
       {/** Header */}
-      <CTopNavigation back leftTitle={'reset_password:title'} />
+      <CTopNavigation
+        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}}
+        back
+        leftTitle={'reset_password:title'} />
 
       {/** Content prepare send */}
       {!showAlert.success && (
@@ -97,7 +106,7 @@ function ResetPassword(props) {
             cStyles.py16,
             cStyles.px32,
           ]}
-          level='3'>
+          level='1'>
           {/** Caption */}
           <View style={cStyles.mt16}>
             <Text style={cStyles.textCenter} category='p1'>{t('reset_password:caption')}</Text>  
@@ -107,7 +116,7 @@ function ResetPassword(props) {
           <CForm
             ref={formRef}
             loading={loading}
-            level='3'
+            level='2'
             inputs={[
               {
                 id: INPUT_NAME.PASSWORD,
@@ -166,8 +175,5 @@ function ResetPassword(props) {
     </CContainer>
   );
 }
-
-const styles = StyleSheet.create({
-});
 
 export default ResetPassword;

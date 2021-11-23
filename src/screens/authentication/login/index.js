@@ -4,9 +4,9 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useContext, useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useTheme, Layout, Text, Divider, Button} from '@ui-kitten/components';
+import {useTheme, Layout, Text, Divider} from '@ui-kitten/components';
 import {View, TouchableWithoutFeedback} from 'react-native';
 import {showMessage} from "react-native-flash-message";
 /* COMPONENTS */
@@ -18,6 +18,8 @@ import CButtonSocial, {SOCIAL_NAME} from '~/components/CButtonSocial';
 import Routes from '~/navigator/Routes';
 import {cStyles} from '~/utils/style';
 import { resetRoute } from '~/utils/helper';
+import { ThemeContext } from '~/configs/theme-context';
+import { LIGHT } from '~/configs/constants';
 /* REDUX */
 
 
@@ -30,6 +32,7 @@ const INPUT_NAME = {
 function Login(props) {
   const {t} = useTranslation();
   const theme = useTheme();
+  const themeContext = useContext(ThemeContext);
   const {navigation} = props;
 
   /** use ref */
@@ -76,9 +79,14 @@ function Login(props) {
    ** RENDER **
    ************/
   return (
-    <CContainer safeArea={['top']}>
+    <CContainer
+      safeArea={['top']}
+      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}>
       {/** Header */}
-      <CTopNavigation darkmode leftTitle={'log_in:title'} />
+      <CTopNavigation
+        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}}
+        darkmode
+        leftTitle={'log_in:title'} />
 
       {/** Content */}
       <Layout
@@ -90,12 +98,12 @@ function Login(props) {
           cStyles.py16,
           cStyles.px32,
         ]}
-        level='3'>
+        level='1'>
         {/** Form input */}
         <CForm
           ref={formRef}
           loading={loading}
-          level='3'
+          level='2'
           inputs={[
             {
               id: INPUT_NAME.USER_NAME,

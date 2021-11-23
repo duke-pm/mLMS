@@ -14,6 +14,9 @@ import ResetPasswordScreen from '~/screens/authentication/reset_password';
 /** MAIN */
 import HomeScreen from '~/screens/home';
 import AccountScreen from '~/screens/account';
+import FavouriteScreen from '~/screens/favourite';
+import SettingsScreen from '~/screens/settings';
+import AppearanceScreen from '~/screens/appearance';
 
 const Routes = {
   INTRO: {
@@ -35,6 +38,18 @@ const Routes = {
   RESET_PASSWORD: {
     name: 'ResetPassword',
     path: ResetPasswordScreen
+  },
+  FAVOURITE: {
+    name: 'FAVOURITE',
+    path: FavouriteScreen,
+  },
+  SETTINGS: {
+    name: 'SETTINGS',
+    path: SettingsScreen,
+  },
+  APPEARANCE: {
+    name: 'APPEARANCE',
+    path: AppearanceScreen,
   },
   TAB: {
     name: 'TabMain',

@@ -4,10 +4,9 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useRef, useState, useEffect, useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Layout, useTheme, Text, CheckBox} from '@ui-kitten/components';
-import {TouchableWithoutFeedback, View} from 'react-native';
 import {showMessage} from "react-native-flash-message";
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
@@ -16,6 +15,8 @@ import CForm from '~/components/CForm';
 import CAlert from '~/components/CAlert';
 /* COMMON */
 import {cStyles} from '~/utils/style';
+import { ThemeContext } from '~/configs/theme-context';
+import { LIGHT } from '~/configs/constants';
 /* REDUX */
 
 
@@ -37,6 +38,7 @@ const useCheckboxState = (initialCheck = false) => {
 function SignUp(props) {
   const {t} = useTranslation();
   const theme = useTheme();
+  const themeContext = useContext(ThemeContext);
   const {navigation} = props;
 
   /** use ref */
@@ -103,9 +105,12 @@ function SignUp(props) {
    ** RENDER **
    ************/
   return (
-    <CContainer safeArea={['top']}>
+    <CContainer
+      safeArea={['top']}
+      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}>
       {/** Header */}
       <CTopNavigation
+        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}}
         back
         leftTitle={'sign_up:title'}
         leftSubtitle={'sign_up:subtitle'}
@@ -121,13 +126,13 @@ function SignUp(props) {
           cStyles.py16,
           cStyles.px32,
         ]}
-        level='3'>
+        level='1'>
         {/** Form input */}
         {!showAlert.status && (
           <CForm
             ref={formRef}
             loading={loading}
-            level='3'
+            level='2'
             inputs={[
               {
                 id: INPUT_NAME.USER_NAME,

@@ -77,6 +77,22 @@
     "title": "Home"
   },
   "account": {
-    "title": "Account"
+    "title": "Account",
+    "alert_log_out": "Log Out",
+    "alert_msg_log_out": "Do you want to log out?"
+  },
+  "favourite": {
+    "title": "Favourite"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "notification": "Notification",
+    "language_font": "Language & Font",
+    "about_information": "About information of ",
+    "light_mode": "Light",
+    "dark_mode": "Dark",
+    "auto_change_appearance": "Automatically change appearance",
+    "holder_auto_change_appearance": "According to system preferences"
   }
 }

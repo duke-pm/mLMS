@@ -96,45 +96,47 @@ function Intro(props) {
    ************/
   return (
     <CContainer safeArea={['top', 'bottom']}>
-      {/** Header */}
-      <CTopNavigation
-        customRightComponent={
-          <Button appearance='ghost' onPress={handleGoLogin}>{t('common:skip')}</Button>
-        }
-      />
+      <Layout style={cStyles.flex1} level='1'>
+        {/** Header */}
+        <CTopNavigation
+          customRightComponent={
+            <Button appearance='ghost' onPress={handleGoLogin}>{t('common:skip')}</Button>
+          }
+        />
 
-      {/** Content */}
-      <ViewPager
-        selectedIndex={pageIndex}
-        onSelect={handleChangePage}>
-        {RenderPageIntro(t, Assets.imgIntro1, 'intro:intro_1_title', 'intro:intro_1_content')}
-        {RenderPageIntro(t, Assets.imgIntro2, 'intro:intro_2_title', 'intro:intro_2_content')}
-        {RenderPageIntro(t, Assets.imgIntro3,'intro:intro_3_title','intro:intro_3_content',
-          RenderButtonFooter(t, handleGoSignUp, handleGoLogin) )
-        }
-      </ViewPager>
+        {/** Content */}
+        <ViewPager
+          selectedIndex={pageIndex}
+          onSelect={handleChangePage}>
+          {RenderPageIntro(t, Assets.imgIntro1, 'intro:intro_1_title', 'intro:intro_1_content')}
+          {RenderPageIntro(t, Assets.imgIntro2, 'intro:intro_2_title', 'intro:intro_2_content')}
+          {RenderPageIntro(t, Assets.imgIntro3,'intro:intro_3_title','intro:intro_3_content',
+            RenderButtonFooter(t, handleGoSignUp, handleGoLogin) )
+          }
+        </ViewPager>
 
-      {/** Dot paging */}
-      <Layout style={[cStyles.flex1, cStyles.itemsCenter, cStyles.justifyEnd]} level='1'>
-        <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.mb24]}>
-          <Layout style={[
-            cStyles.mx6,
-            cStyles.rounded1,
-            styles.con_page_unactive,
-            pageIndex === 0 && styles.con_page_active]}
-          />
-          <Layout style={[
-            cStyles.mx6,
-            cStyles.rounded1,
-            styles.con_page_unactive,
-            pageIndex === 1 && styles.con_page_active]}
-          />
-          <Layout style={[
-            cStyles.mx6,
-            cStyles.rounded1,
-            styles.con_page_unactive,
-            pageIndex === 2 && styles.con_page_active]}
-          />
+        {/** Dot paging */}
+        <Layout style={[cStyles.flex1, cStyles.itemsCenter, cStyles.justifyEnd]} level='1'>
+          <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.mb24]}>
+            <Layout style={[
+              cStyles.mx6,
+              cStyles.rounded1,
+              styles.con_page_unactive,
+              pageIndex === 0 && styles.con_page_active]}
+            />
+            <Layout style={[
+              cStyles.mx6,
+              cStyles.rounded1,
+              styles.con_page_unactive,
+              pageIndex === 1 && styles.con_page_active]}
+            />
+            <Layout style={[
+              cStyles.mx6,
+              cStyles.rounded1,
+              styles.con_page_unactive,
+              pageIndex === 2 && styles.con_page_active]}
+            />
+          </Layout>
         </Layout>
       </Layout>
     </CContainer>

@@ -6,6 +6,7 @@
  **/
 import PropTypes from 'prop-types';
 import React, {useRef, useState, useEffect} from 'react';
+import { useTranslation } from 'react-i18next';
 import {Modal, Card, Text, Button, useTheme} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
@@ -14,7 +15,6 @@ import IoniIcon from 'react-native-vector-icons/Ionicons';
 /* COMMON */
 import {colors, cStyles} from '~/utils/style';
 import { moderateScale } from '~/utils/helper';
-import { useTranslation } from 'react-i18next';
 /* REDUX */
 
 
@@ -22,12 +22,16 @@ function CAlert(props) {
   const theme = useTheme();
   const {t} = useTranslation();
   const {
+    contentStyle = {},
     show = false,
     success = false,
     error = false,
+    cancel = false,
+    label = '',
     message = '',
     textOk = 'common:ok',
     textCancel = 'common:cancel',
+    statusOk = undefined,
     onBackdrop = () => null,
     onOk = undefined,
     onCancel = undefined,
@@ -37,15 +41,15 @@ function CAlert(props) {
    ** HANDLE FUNC **
    *****************/
   const handleBackdrop = () => {
-    onBackdrop();
+    if (onBackdrop) onBackdrop();
   };
 
   const handleOk = () => {
-    onOk();
+    if (onOk) onOk();
   };
 
   const handleCancel = () => {
-    onCancel();
+    if (onCancel) onCancel();
   };
 
   /**********
@@ -64,7 +68,7 @@ function CAlert(props) {
       visible={show}
       backdropStyle={styles.backdrop}
       onBackdropPress={handleBackdrop}>
-      <Card disabled style={cStyles.mx24}>
+      <Card disabled style={[cStyles.mx16, contentStyle]}>
         <View style={[cStyles.flex1, cStyles.itemsCenter]}>
           {success && (
             <View style={cStyles.itemsCenter}>
@@ -78,21 +82,41 @@ function CAlert(props) {
               <Text style={cStyles.mt10} category={'h6'}>{t('common:error')}</Text>
             </View>
           )}
+          {!success && !error && (
+            <View style={cStyles.itemsCenter}>
+              <Text style={cStyles.mt10} category={'h6'}>{t(label)}</Text>
+            </View>
+          )}
         </View>
 
         <View style={[cStyles.my16, styles.content]}>
-          <Text style={cStyles.textCenter} category={'p1'}>{message}</Text>
+          <Text style={cStyles.textCenter} category={'p1'}>{t(message)}</Text>
         </View>
 
-        <View style={[cStyles.mt16, styles.footer]}>
-          {onOk && (
-            <Button appearance={'filled'} onPress={handleOk}>
-              {t(textOk)}
+        <View
+          style={[
+            cStyles.mt16,
+            cStyles.row,
+            cStyles.itemsCenter,
+            cStyles.justifyBetween,
+            styles.footer
+          ]}>
+          {cancel && (
+            <Button
+              style={[styles.btn_main, cancel && styles.btn_cancel]}
+              status={'basic'}
+              appearance={'filled'}
+              onPress={handleCancel}>
+              {t(textCancel)}
             </Button>
           )}
-          {onCancel && (
-            <Button appearance={'outline'} onPress={handleCancel}>
-              {t(textCancel)}
+          {onOk && (
+            <Button 
+              style={[styles.btn_main, cancel && styles.btn_cancel]}
+              status={statusOk}
+              appearance={'filled'}
+              onPress={handleOk}>
+              {t(textOk)}
             </Button>
           )}
         </View>
@@ -114,15 +138,25 @@ const styles = StyleSheet.create({
   backdrop: {
     backgroundColor: colors.BG_BACKDROP,
   },
+  btn_main: {
+    width: '100%',
+  },
+  btn_cancel: {
+    width: '45%',
+  },
 });
 
 CAlert.propTypes = {
+  contentStyle: PropTypes.object,
   show: PropTypes.bool.isRequired,
   success: PropTypes.bool,
   error: PropTypes.bool,
+  cancel: PropTypes.bool,
+  label: PropTypes.string,
   message: PropTypes.string,
   textOk: PropTypes.string,
   textCancel: PropTypes.string,
+  statusOk: PropTypes.string,
   onBackdrop: PropTypes.func,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
