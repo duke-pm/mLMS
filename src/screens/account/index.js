@@ -11,20 +11,22 @@ import {StyleSheet, View, TouchableOpacity, ImageBackground} from 'react-native'
 import {SafeAreaView} from 'react-native-safe-area-context';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
-import moment from 'moment';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CAlert from '~/components/CAlert';
 /* COMMON */
-import Configs from '~/configs';
 import Routes from '~/navigator/Routes';
 import Assets from '~/utils/asset/Assets';
 import {cStyles} from '~/utils/style';
 import {moderateScale, resetRoute} from '~/utils/helper';
- /* REDUX */
+/* REDUX */
 
+/** All init */
 
+/*********************
+ ** OTHER COMPONENT **
+ *********************/
 const RenderForwardIcon = (props) => (
   <Icon {...props} name='arrow-ios-forward' />
 );
@@ -33,6 +35,9 @@ const RenderLeftIcon = (props, nameIcon) => (
   <Icon {...props} name={nameIcon} />
 );
  
+/********************
+ ** MAIN COMPONENT **
+ ********************/
 function Account(props) {
   const {t} = useTranslation();
   const theme = useTheme();
@@ -41,6 +46,48 @@ function Account(props) {
   /** Use state */
   const [alertLogout, setAlertLogout] = useState(false);
   const [alertAvatar, setAlertAvatar] = useState(false);
+  const [menu, setMenu] = useState([
+    {
+      id: 'edit_account',
+      label: 'account:edit_account',
+      icon: 'person-outline',
+      renderNext: true,
+      nextRoute: Routes.SETTINGS.name,
+      value: null,
+    },
+    {
+      id: 'favourite',
+      label: 'account:favourite',
+      icon: 'star-outline',
+      renderNext: true,
+      nextRoute: Routes.FAVOURITE.name,
+      value: null,
+    },
+    {
+      id: 'settings',
+      label: 'account:settings',
+      icon: 'settings-2-outline',
+      renderNext: true,
+      nextRoute: Routes.SETTINGS.name,
+      value: null,
+    },
+    {
+      id: 'help',
+      label: 'account:help',
+      icon: 'question-mark-circle-outline',
+      renderNext: true,
+      nextRoute: Routes.SETTINGS.name,
+      value: null,
+    },
+    {
+      id: 'log_out',
+      label: 'account:log_out',
+      icon: 'log-out-outline',
+      renderNext: false,
+      nextRoute: null,
+      value: null,
+    },
+  ]);
 
   /*****************
    ** HANDLE FUNC **
@@ -61,8 +108,8 @@ function Account(props) {
 
   };
 
-  const handleGoMenuItem = () => {
-    navigation.navigate(Routes.SETTINGS.name);
+  const handleGoMenuItem = nextRoute => {
+    navigation.navigate(nextRoute);
   };
 
   /**********
@@ -109,33 +156,17 @@ function Account(props) {
         </Layout>
 
         <Menu style={{backgroundColor: theme['background-basic-color-1']}}>
-          <MenuItem
-            title='Edit account'
-            accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'person-outline')}
-            accessoryRight={RenderForwardIcon}
-          />
-          <MenuItem
-            title='Favourite'
-            accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'star-outline')}
-            accessoryRight={RenderForwardIcon}
-            onPress={handleGoMenuItem}
-          />
-          <MenuItem
-            title='Settings'
-            accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'settings-2-outline')}
-            accessoryRight={RenderForwardIcon}
-            onPress={handleGoMenuItem}
-          />
-          <MenuItem
-            title='Help'
-            accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'question-mark-circle-outline')}
-            accessoryRight={RenderForwardIcon}
-          />
-          <MenuItem
-            title='Log out'
-            accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'log-out-outline')}
-            onPress={toggleAlertLogout}
-          />
+          {menu.map((item, index) => {
+            return (
+              <MenuItem
+                key={item.id + '_' + index}
+                title={t(item.label)}
+                accessoryLeft={propsIc => RenderLeftIcon(propsIc, item.icon)}
+                accessoryRight={item.renderNext ? RenderForwardIcon : undefined}
+                onPress={item.renderNext ? () => handleGoMenuItem(item.nextRoute) : toggleAlertLogout}
+              />
+            )
+          })}
         </Menu>
       </Layout>
 

@@ -100,10 +100,10 @@ function ForgotPassword(props) {
   return (
     <CContainer
       safeArea={['top']}
-      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}>
+      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-900']}>
       {/** Header */}
       <CTopNavigation
-        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}}
+        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-900']}}
         back
         leftTitle={'forgot_password:title'} />
 

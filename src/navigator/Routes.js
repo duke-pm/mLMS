@@ -17,6 +17,9 @@ import AccountScreen from '~/screens/account';
 import FavouriteScreen from '~/screens/favourite';
 import SettingsScreen from '~/screens/settings';
 import AppearanceScreen from '~/screens/appearance';
+import InformationScreen from '~/screens/information';
+import LanguagesScreen from '~/screens/languages';
+import TermConditionScreen from '~/screens/term_and_condition';
 
 const Routes = {
   INTRO: {
@@ -48,8 +51,20 @@ const Routes = {
     path: SettingsScreen,
   },
   APPEARANCE: {
-    name: 'APPEARANCE',
+    name: 'appearance',
     path: AppearanceScreen,
+  },
+  INFORMATION: {
+    name: 'information',
+    path: InformationScreen,
+  },
+  LANGUAGES: {
+    name: 'Languages',
+    path: LanguagesScreen,
+  },
+  TERM: {
+    name: 'TermCondition',
+    path: TermConditionScreen,
   },
   TAB: {
     name: 'TabMain',

@@ -81,10 +81,10 @@ function Login(props) {
   return (
     <CContainer
       safeArea={['top']}
-      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}>
+      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-900']}>
       {/** Header */}
       <CTopNavigation
-        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-1000']}}
+        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-900']}}
         darkmode
         leftTitle={'log_in:title'} />
 

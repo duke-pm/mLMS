@@ -29,7 +29,7 @@ if (IS_ANDROID) {
  *********************/
 const RenderButtonFooter = (t, onPressLeft, onPressRight) => {
   return (
-    <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt40]}>
+    <View style={[cStyles.fullWidth, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt40]}>
       <Button style={styles.btn_main} appearance='filled' onPress={onPressLeft}>
         {t('sign_up:title')}
       </Button>
@@ -43,7 +43,7 @@ const RenderButtonFooter = (t, onPressLeft, onPressRight) => {
 const RenderPageIntro = (t, image, title, caption, footer = null) => {
   return (
     <View style={cStyles.itemsCenter}>
-      <View style={styles.con_layout}>
+      <View style={[cStyles.itemsCenter, styles.con_layout]}>
         <Image style={[cStyles.mt40, styles.img_intro]} source={image} resizeMode={'contain'} />
         <Text style={[cStyles.textCenter, cStyles.mt36]} category='h5'>{t(title)}</Text>
         <Text style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t(caption)}</Text>
@@ -145,11 +145,11 @@ function Intro(props) {
 
 const styles = StyleSheet.create({
   con_layout: {
-    width: sW('75%'),
+    width: sW('70%'),
   },
   img_intro: {
-    height: sW('75%'),
-    width: sW('75%'),
+    height: sW('50%'),
+    width: sW('50%'),
   },
   con_page_unactive: {
     height: moderateScale(4),
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.PRIMARY,
   },
   btn_main: {
-    width: sW('32%'),
+    width: sW('28%'),
   }
 });
 

@@ -5,13 +5,14 @@
  ** Description: Description of Root.js
  **/
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {enableScreens} from 'react-native-screens';
+import {useTheme, Text} from '@ui-kitten/components';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 /** COMMON */
 import Routes from './Routes';
-import { useTheme } from '@ui-kitten/components';
 
 /** INIT NAVIGATOR OF APP */
 enableScreens(true);
@@ -19,6 +20,7 @@ const StackMain = createNativeStackNavigator();
 const TabMain = createBottomTabNavigator();
 
 export function BottomTabMain(props) {
+  const {t} = useTranslation();
   const theme = useTheme();
   return (
     <TabMain.Navigator
@@ -33,13 +35,28 @@ export function BottomTabMain(props) {
         headerShown: false,
         lazy: true,
         tabBarIcon: ({focused, color, size}) => {
-          let iconName = focused ? 'home' : 'home-outline';
+          let iconName = '';
           switch (route.name) {
             case Routes.TAB.ACCOUNT.name:
               iconName = focused ? 'person' : 'person-outline';
               break;
+            default:
+              iconName = focused ? 'home' : 'home-outline';
+              break;
           }
           return <IoniIcon name={iconName} size={size} color={color} />;
+        },
+        tabBarLabel: ({focused, color, position}) => {
+          let label = '';
+          switch (route.name) {
+            case Routes.TAB.ACCOUNT.name:
+              label = 'account:title';
+              break;
+            default:
+              label = 'home:title';
+              break;
+          }
+          return <Text style={{color}} category={'c1'}>{t(label)}</Text>
         },
       })}>
       <TabMain.Screen
@@ -96,6 +113,18 @@ export function RootMain(props) {
       <StackMain.Screen
         name={Routes.APPEARANCE.name}
         component={Routes.APPEARANCE.path}
+      />
+      <StackMain.Screen
+        name={Routes.INFORMATION.name}
+        component={Routes.INFORMATION.path}
+      />
+      <StackMain.Screen
+        name={Routes.LANGUAGES.name}
+        component={Routes.LANGUAGES.path}
+      />
+      <StackMain.Screen
+        name={Routes.TERM.name}
+        component={Routes.TERM.path}
       />
     </StackMain.Navigator>
   );

@@ -78,6 +78,11 @@
   },
   "account": {
     "title": "Tài khoản",
+    "edit_account": "Cập nhật tài khoản",
+    "favourite": "Yêu thích",
+    "settings": "Cài đặt",
+    "help": "Trợ giúp",
+    "log_out": "Đăng xuất",
     "alert_log_out": "Đăng xuất",
     "alert_msg_log_out": "Bạn thực sự muốn đăng xuất?"
   },
@@ -88,10 +93,14 @@
     "title": "Cài đặt",
     "appearance": "Giao diện",
     "notification": "Thông báo",
-    "language_font": "Ngôn ngữ & Phông chữ",
-    "about_information": "Thông tin về ",
-    "light_mode": "Sáng",
-    "dark_mode": "Tối"
+    "language_font": "Ngôn ngữ",
+    "about_information": "Thông tin về ứng dụng",
+    "light": "Sáng",
+    "dark": "Tối",
+    "en": "Tiếng anh",
+    "vi": "Tiếng việt",
+    "rating": "Đánh giá",
+    "term_and_condition": "Điều kiện & Điều khoản"
   },
   "appearance": {
     "title": "Giao diện",
@@ -99,5 +108,28 @@
     "dark_mode": "Tối",
     "auto_change_appearance": "Tự động đổi giao diện",
     "holder_auto_change_appearance": "Theo tùy chọn hệ thống"
+  },
+  "information": {
+    "title": "Thông tin",
+    "copyright": "Copyright",
+    "name_app": "Ứng dụng",
+    "version_app": "Phiên bản",
+    "develop_by": "Develop by",
+    "info_important": "Các tính năng chính:",
+    "info_important_1": "Theo dõi học viên",
+    "info_important_2": "Tương tác phụ huynh",
+    "info_important_3": "Thông báo theo thời gian thực",
+    "info_important_4": "Quản lý thu chi",
+    "info_important_5": "Tổng kết doanh thu"
+  },
+  "languages": {
+    "title": "Ngôn ngữ",
+    "holder_choose": "Chọn ngôn ngữ mà bạn muốn hiển thị:",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt",
+    "loading": "Đang đặt ngôn ngữ..."
+  },
+  "term": {
+    "title": "Điều kiện và Điều khoản"
   }
 }

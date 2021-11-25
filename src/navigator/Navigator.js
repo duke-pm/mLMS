@@ -17,6 +17,7 @@ import '~/utils/languages/config-i18n';
 import Configs from '~/configs';
 
 function Navigator(props) {
+  /** Use redux */
   const commonState = useSelector(({common}) => common);
 
   /************

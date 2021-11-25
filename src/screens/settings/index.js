@@ -5,6 +5,7 @@
  ** Description: Description of index.js
  **/
 import React, {useContext, useRef, useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {Menu, MenuItem, Icon, Text, useTheme, Layout} from '@ui-kitten/components';
 import {View} from 'react-native';
@@ -12,20 +13,23 @@ import {View} from 'react-native';
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 /* COMMON */
-import Configs from '~/configs';
-import { DARK } from '~/configs/constants';
+import Routes from '~/navigator/Routes';
 import { ThemeContext } from '~/configs/theme-context';
 import { cStyles } from '~/utils/style';
-import Routes from '~/navigator/Routes';
 /* REDUX */
+import * as Actions from '~/redux/actions';
 
 
+/*********************
+ ** OTHER COMPONENT **
+ *********************/
 const RenderForwardIcon = (props, value) => {
   const theme = useTheme();
+  const {t} = useTranslation();
   return (
     <View style={[cStyles.row, cStyles.itemsCenter]}>
       {value && (
-        <Text style={{color: theme['color-basic-500']}} category={'p1'}>{value}</Text>
+        <Text style={{color: theme['color-basic-500']}} category={'p1'}>{t(value)}</Text>
       )}
       <Icon {...props} name='arrow-ios-forward' />
     </View>
@@ -36,19 +40,76 @@ const RenderLeftIcon = (props, nameIcon) => (
   <Icon {...props} name={nameIcon} />
 );
 
+/********************
+ ** MAIN COMPONENT **
+ ********************/
 function Settings(props) {
   const {t} = useTranslation();
   const theme = useTheme();
   const themeContext = useContext(ThemeContext);
   const {navigation} = props;
 
+  /** Use redux */
+  const commonState = useSelector(({common}) => common);
+  
+  /** Use state */
+  const [menu, setMenu] = useState([
+    {
+      id: 'notification',
+      label: 'settings:notification',
+      icon: 'bell-outline',
+      renderNext: true,
+      nextRoute: Routes.LANGUAGES.name,
+      value: null,
+    },
+    {
+      id: 'appearance',
+      label: 'settings:appearance',
+      icon: 'color-palette-outline',
+      renderNext: true,
+      nextRoute: Routes.APPEARANCE.name,
+      value: null,
+    },
+    {
+      id: 'language_font',
+      label: 'settings:language_font',
+      icon: 'globe-outline',
+      renderNext: true,
+      nextRoute: Routes.LANGUAGES.name,
+      value: null,
+    },
+    {
+      id: 'rating',
+      label: 'settings:rating',
+      icon: 'star-outline',
+      renderNext: null,
+      nextRoute: null,
+      value: null,
+    },
+    {
+      id: 'term_and_condition',
+      label: 'settings:term_and_condition',
+      icon: 'shield-outline',
+      renderNext: true,
+      nextRoute: Routes.TERM.name,
+      value: null,
+    },
+    {
+      id: 'about_information',
+      label: 'settings:about_information',
+      icon: 'info-outline',
+      renderNext: true,
+      nextRoute: Routes.INFORMATION.name,
+      value: null,
+    },
+  ]);
+
   /*****************
    ** HANDLE FUNC **
    *****************/
-  const handleGoMenuItem = () => {
-    navigation.navigate(Routes.APPEARANCE.name);
+  const handleGoMenuItem = nextRoute => {
+    if (nextRoute) navigation.navigate(nextRoute);
   };
-  
 
   /**********
    ** FUNC **
@@ -57,37 +118,42 @@ function Settings(props) {
   /****************
    ** LIFE CYCLE **
    ****************/
+  useEffect(() => {
+    /** Check theme common */
+    if (commonState && commonState.get('theme')) {
+      let tmpMenu = [...menu];
+      tmpMenu[1].value = 'settings:' + themeContext.themeApp;
+      setMenu(tmpMenu);
+    }
+
+    /** Check language common */
+    if (commonState && commonState.get('language')) {
+      let tmpMenu = [...menu];
+      tmpMenu[2].value = 'settings:' + commonState.get('language');
+      setMenu(tmpMenu);
+    }
+  }, []);
 
   /************
    ** RENDER **
    ************/
-  let tmpAppearance = 'settings:light_mode';
-  if (themeContext.themeApp === DARK) {
-    tmpAppearance = 'settings:dark_mode';
-  }
   return (
     <CContainer
       safeArea={['top']}
       headerComponent={<CTopNavigation title={'settings:title'} back />}>
-      <Layout style={cStyles.flex1} level={'1'}>
+      <Layout level={'1'}>
         <Menu style={{backgroundColor: theme['background-basic-color-1']}}>
-          <MenuItem
-            title={t('settings:notification')}
-            accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'bell-outline')}
-            accessoryRight={propsIc => RenderForwardIcon(propsIc)} />
-          <MenuItem
-            title={t('settings:appearance')}
-            accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'color-palette-outline')}
-            accessoryRight={propsIc => RenderForwardIcon(propsIc, t(tmpAppearance))}
-            onPress={handleGoMenuItem} />
-          <MenuItem
-            title={t('settings:language_font')}
-            accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'globe-outline')}
-            accessoryRight={propsIc => RenderForwardIcon(propsIc)} />
-          <MenuItem
-            title={t('settings:about_information') + Configs.nameOfApp}
-            accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'info-outline')}
-            accessoryRight={propsIc => RenderForwardIcon(propsIc)} />
+          {menu.map((item, index) => {
+            return (
+              <MenuItem
+                key={item.id + '_' + index}
+                title={t(item.label)}
+                accessoryLeft={propsIc => RenderLeftIcon(propsIc, item.icon)}
+                accessoryRight={propsIc => RenderForwardIcon(propsIc, item.value)}
+                onPress={() => handleGoMenuItem(item.nextRoute)}
+              />
+            )
+          })}
         </Menu>
       </Layout>
     </CContainer>

@@ -10,7 +10,7 @@ export default {
   GOOGLE: '#dd4b39',
 
   PRIMARY: '#3D5CFF',
-  PRIMARY_DARK: '#222B45',
+  PRIMARY_DARK: '#1A2138',
   SECONDARY: '#FFEBF0',
   TERTIARY: '#EAEAFF',
   BLACK: '#000',

@@ -54,11 +54,13 @@ function CContainer(props) {
       style={[cStyles.flex1, {backgroundColor: backgroundColor || theme['background-basic-color-1']}]}
       edges={safeAreaScreen}>
       {headerComponent}
-      <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1}>
-        <Layout style={[cStyles.flex1, padder && cStyles.px16, padder && cStyles.py10]} level='2'>
-          {children}
-        </Layout>
-      </KeyboardAwareScrollView>
+      <Layout style={cStyles.flex1} level='2'>
+        <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1}>
+          <Layout style={[cStyles.flex1, padder && cStyles.px16, padder && cStyles.py10]} level='2'>
+            {children}
+          </Layout>
+        </KeyboardAwareScrollView>
+      </Layout>
     </SafeAreaView>
   );
 }

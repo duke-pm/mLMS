@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import React, {useContext, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
-import {TopNavigation, TopNavigationAction, Icon, Text, Toggle, Layout} from '@ui-kitten/components';
-import {View} from 'react-native';
+import {TopNavigation, TopNavigationAction, Icon, Text, Toggle, Layout, useTheme} from '@ui-kitten/components';
+import {StatusBar, View} from 'react-native';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
 import {cStyles} from '~/utils/style';
-import { getLocalInfo, saveLocalInfo } from '~/utils/helper';
+import { getLocalInfo, IS_ANDROID, saveLocalInfo } from '~/utils/helper';
 import { AST_DARK_MODE, DARK, LIGHT } from '~/configs/constants';
 
 /*********************
@@ -51,6 +51,7 @@ const RenderTopRight = (t, darkmodeToggle) => {
  ** MAIN COMPONENT **
  ********************/
 const useToggleState = (initialState = false) => {
+  const theme = useTheme();
   const themeContext = useContext(ThemeContext);
 
    /** Use state */

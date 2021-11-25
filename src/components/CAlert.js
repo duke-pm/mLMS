@@ -69,57 +69,63 @@ function CAlert(props) {
       backdropStyle={styles.backdrop}
       onBackdropPress={handleBackdrop}>
       <Card disabled style={[cStyles.mx16, contentStyle]}>
-        <View style={[cStyles.flex1, cStyles.itemsCenter]}>
-          {success && (
-            <View style={cStyles.itemsCenter}>
-              <IoniIcon name={'checkmark-circle-outline'} size={moderateScale(60)} color={theme['color-success-500']} />
-              <Text style={cStyles.mt10} category={'h6'}>{t('common:success')}</Text>
-            </View>
-          )}
-          {error && (
-            <View style={cStyles.itemsCenter}>
-              <IoniIcon name={'close-circle-outline'} size={moderateScale(60)} color={theme['color-danger-500']} />
-              <Text style={cStyles.mt10} category={'h6'}>{t('common:error')}</Text>
-            </View>
-          )}
-          {!success && !error && (
-            <View style={cStyles.itemsCenter}>
-              <Text style={cStyles.mt10} category={'h6'}>{t(label)}</Text>
-            </View>
-          )}
-        </View>
+        {(success || error || label) && (
+          <View style={[cStyles.flex1, cStyles.itemsCenter]}>
+            {success && (
+              <View style={cStyles.itemsCenter}>
+                <IoniIcon name={'checkmark-circle-outline'} size={moderateScale(60)} color={theme['color-success-500']} />
+                <Text style={cStyles.mt10} category={'h6'}>{t('common:success')}</Text>
+              </View>
+            )}
+            {error && (
+              <View style={cStyles.itemsCenter}>
+                <IoniIcon name={'close-circle-outline'} size={moderateScale(60)} color={theme['color-danger-500']} />
+                <Text style={cStyles.mt10} category={'h6'}>{t('common:error')}</Text>
+              </View>
+            )}
+            {!success && !error && (
+              <View style={cStyles.itemsCenter}>
+                <Text category={'s1'}>{t(label)}</Text>
+              </View>
+            )}
+          </View>
+        )}
 
-        <View style={[cStyles.my16, styles.content]}>
-          <Text style={cStyles.textCenter} category={'p1'}>{t(message)}</Text>
-        </View>
+        {message !== '' && (
+          <View style={[cStyles.my16, styles.content]}>
+            <Text style={cStyles.textCenter} category={'p1'}>{t(message)}</Text>
+          </View>
+        )}
 
-        <View
-          style={[
-            cStyles.mt16,
-            cStyles.row,
-            cStyles.itemsCenter,
-            cStyles.justifyBetween,
-            styles.footer
-          ]}>
-          {cancel && (
-            <Button
-              style={[styles.btn_main, cancel && styles.btn_cancel]}
-              status={'basic'}
-              appearance={'filled'}
-              onPress={handleCancel}>
-              {t(textCancel)}
-            </Button>
-          )}
-          {onOk && (
-            <Button 
-              style={[styles.btn_main, cancel && styles.btn_cancel]}
-              status={statusOk}
-              appearance={'filled'}
-              onPress={handleOk}>
-              {t(textOk)}
-            </Button>
-          )}
-        </View>
+        {(cancel || onOk) && (
+          <View
+            style={[
+              cStyles.mt16,
+              cStyles.row,
+              cStyles.itemsCenter,
+              cStyles.justifyBetween,
+              styles.footer
+            ]}>
+            {cancel && (
+              <Button
+                style={[styles.btn_main, cancel && styles.btn_cancel]}
+                status={'basic'}
+                appearance={'filled'}
+                onPress={handleCancel}>
+                {t(textCancel)}
+              </Button>
+            )}
+            {onOk && (
+              <Button 
+                style={[styles.btn_main, cancel && styles.btn_cancel]}
+                status={statusOk}
+                appearance={'filled'}
+                onPress={handleOk}>
+                {t(textOk)}
+              </Button>
+            )}
+          </View>
+        )}
       </Card>
     </Modal>
   );

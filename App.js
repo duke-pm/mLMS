@@ -12,7 +12,7 @@ import {SafeAreaProvider, initialWindowMetrics} from 'react-native-safe-area-con
 import {NavigationContainer, DarkTheme, DefaultTheme} from '@react-navigation/native';
 import {ApplicationProvider, IconRegistry, Text, ModalService} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
-import {useColorScheme, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import FlashMessage from 'react-native-flash-message';
 import axios from 'axios';
@@ -113,29 +113,27 @@ const App = () => {
     setDefaultAxios();
     NetInfo.addEventListener(handleNetInfo);
 
-    /** Set status bar */
-    if (IS_ANDROID) {
-      StatusBar.setTranslucent(true);
-      StatusBar.setBackgroundColor(colors.TRANSPARENT, true);
-    }
-
     /** Check dark mode */
     let astDarkMode = await getLocalInfo(AST_DARK_MODE);
     if (astDarkMode) {
       if (astDarkMode === DARK) {
         onToggleTheme();
+        /** Set status bar */
+        if (IS_ANDROID) {
+          StatusBar.setTranslucent(true);
+          StatusBar.setBackgroundColor(colors.PRIMARY_DARK, true);
+        }
       }
     }
   }, []);
 
-  const isDark = useColorScheme() === 'dark';
   useEffect(() => {
-    if (isDark) {
+    if (themeApp === 'dark') {
       StatusBar.setBarStyle('light-content', true);
     } else {
       StatusBar.setBarStyle('dark-content', true);
     }
-  }, [isDark]);
+  }, [themeApp]);
 
   /************
    ** RENDER **
@@ -149,7 +147,7 @@ const App = () => {
           theme={{...eva[themeApp]}}
           customMapping={mapping}>
           <NavigationContainer
-            theme={isDark ? MyDarkTheme : MyDefaultTheme}
+            theme={themeApp === 'dark' ? MyDarkTheme : MyDefaultTheme}
             linking={linking}
             fallback={<Text>Loading</Text>}>
             <Provider store={Store}>

@@ -22,17 +22,7 @@ export const changeFormatDate = format => ({
   payload: format,
 });
 
-export const changeFormatDateView = format => ({
-  type: types.CHANGE_FORMAT_DATE_VIEW,
-  payload: format,
-});
-
-export const changeFormatDateCustom1 = format => ({
-  type: types.CHANGE_FORMAT_DATE_CUSTOM1,
-  payload: format,
-});
-
-export const changePerPage = perPage => ({
-  type: types.CHANGE_PER_PAGE,
-  payload: perPage,
+export const changeTheme = theme => ({
+  type: types.CHANGE_THEME,
+  payload: theme,
 });
