@@ -137,7 +137,6 @@ function SignUp(props) {
               {
                 id: INPUT_NAME.USER_NAME,
                 type: 'text',
-                disabled: loading,
                 label: 'sign_up:input_label_username',
                 holder: 'sign_up:input_holder_username',
                 value: values.userName,
@@ -152,7 +151,6 @@ function SignUp(props) {
               {
                 id: INPUT_NAME.EMAIL,
                 type: 'text',
-                disabled: loading,
                 label: 'sign_up:input_label_email',
                 holder: 'sign_up:input_holder_email',
                 value: values.email,
@@ -168,7 +166,6 @@ function SignUp(props) {
               {
                 id: INPUT_NAME.PHONE,
                 type: 'text',
-                disabled: loading,
                 label: 'sign_up:input_label_phone',
                 holder: 'sign_up:input_holder_phone',
                 value: values.phone,
@@ -184,7 +181,6 @@ function SignUp(props) {
               {
                 id: INPUT_NAME.PASSWORD,
                 type: 'text',
-                disabled: loading,
                 label: 'sign_up:input_label_password',
                 holder: 'sign_up:input_holder_password',
                 value: values.password,

@@ -9,7 +9,8 @@
     "ok": "OK",
     "cancel": "Đóng",
     "go_back": "Quay lại",
-    "done": "Xong"
+    "done": "Xong",
+    "alert": "Thông báo"
   },
   "error": {
     "format_email": "Định dạng e-mail! chưa chính xác!",
@@ -81,7 +82,7 @@
     "edit_account": "Cập nhật tài khoản",
     "favourite": "Yêu thích",
     "settings": "Cài đặt",
-    "help": "Trợ giúp",
+    "help": "Câu hỏi thường gặp",
     "log_out": "Đăng xuất",
     "alert_log_out": "Đăng xuất",
     "alert_msg_log_out": "Bạn thực sự muốn đăng xuất?"
@@ -131,5 +132,31 @@
   },
   "term": {
     "title": "Điều kiện và Điều khoản"
+  },
+  "profile": {
+    "title": "Cập nhật tài khoản",
+    "male": "Nam",
+    "female": "Nữ",
+    "input_label_first_name": "Họ",
+    "input_label_last_name": "Tên",
+    "input_label_gender": "Giới tính",
+    "input_label_dob": "Ngày sinh",
+    "input_label_phone": "Số điện thoại",
+    "input_label_address": "Địa chỉ",
+    "input_holder_first_name": "Họ",
+    "input_holder_last_name": "Tên",
+    "input_holder_gender": "Giới tính ",
+    "input_holder_dob": "Ngày, tháng, năm sinh",
+    "input_holder_phone": "Số điện thoại",
+    "input_holder_address": "Địa chỉ",
+    "save": "Lưu",
+    "alert_msg_save": "Bạn muốn lưu những thông tin này?",
+    "success_sub_title": "Thông báo",
+    "success_caption": "Đã lưu thành công!",
+    "error_sub_title": "Thông báo",
+    "error_caption": "Đã xảy ra lỗi! Vui lòng thử lại sau!"
+  },
+  "help": {
+    "title": "Câu hỏi thường gặp"
   }
 }

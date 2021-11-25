@@ -73,6 +73,7 @@ const useAutoToggleState = (initialState = false) => {
 
 const RenderHolderAppearance = ({
   label = 'appearance:light_mode',
+  disabled = false,
   typeAppearance = LIGHT,
   curAppearance = LIGHT,
   onChange = () => null,
@@ -113,6 +114,7 @@ const RenderHolderAppearance = ({
 
       <CheckBox
         style={cStyles.mt20}
+        disabled={disabled}
         checked={curAppearance === typeAppearance}
         onChange={nextChecked => onChange(typeAppearance)}>
         {t(label)}
@@ -156,29 +158,40 @@ function Appearance(props) {
     <CContainer
       safeArea={['top']}
       headerComponent={<CTopNavigation title={'appearance:title'} back />}>
-      <Layout>
-        <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyEvenly, cStyles.p16, cStyles.pb32]}>
+      <Layout level={'1'}>
+        <Layout
+          style={[
+            cStyles.row,
+            cStyles.itemsCenter,
+            cStyles.justifyBetween,
+            cStyles.p16,
+            cStyles.m16,
+            cStyles.rounded1,
+          ]}
+          level={'1'}>
           <RenderHolderAppearance
             label={'appearance:light_mode'}
+            disabled={appearance === LIGHT}
             typeAppearance={LIGHT}
             curAppearance={appearance}
             onChange={handleChangeAppearance} />
           <RenderHolderAppearance
             label={'appearance:dark_mode'}
+            disabled={appearance === DARK}
             typeAppearance={DARK}
             curAppearance={appearance}
             onChange={handleChangeAppearance} />
-        </View>
+        </Layout>
 
         <Divider />
         
-        <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.my8, cStyles.mx12]}>
+        <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mx12, cStyles.py8]} level={'1'}>
           <View>
             <Text category={'s2'}>{t('appearance:auto_change_appearance')}</Text>
-            <Text category={'c1'}>{t('appearance:holder_auto_change_appearance')}</Text>
+            <Text style={cStyles.mt5} category={'c1'}>{t('appearance:holder_auto_change_appearance')}</Text>
           </View>
           <Toggle checked={darkmodeAutoToggle.checked} onChange={darkmodeAutoToggle.onChange} />
-        </View>
+        </Layout>
 
         <Divider />
       </Layout>

@@ -52,7 +52,7 @@ function Account(props) {
       label: 'account:edit_account',
       icon: 'person-outline',
       renderNext: true,
-      nextRoute: Routes.SETTINGS.name,
+      nextRoute: Routes.PROFILE.name,
       value: null,
     },
     {
@@ -76,7 +76,7 @@ function Account(props) {
       label: 'account:help',
       icon: 'question-mark-circle-outline',
       renderNext: true,
-      nextRoute: Routes.SETTINGS.name,
+      nextRoute: Routes.HELP.name,
       value: null,
     },
     {
@@ -174,7 +174,7 @@ function Account(props) {
         contentStyle={cStyles.m0}
         show={alertLogout}
         cancel={true}
-        label={'account:alert_log_out'}
+        label={'common:alert'}
         message={'account:alert_msg_log_out'}
         textOk={'account:alert_log_out'}
         statusOk={'danger'}

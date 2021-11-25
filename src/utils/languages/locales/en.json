@@ -9,7 +9,8 @@
     "ok": "OK",
     "cancel": "Cancel",
     "go_back": "Go back",
-    "done": "Done"
+    "done": "Done",
+    "alert": "Alert"
   },
   "error": {
     "format_email": "Format e-mail is not correct!",
@@ -131,5 +132,31 @@
   },
   "term": {
     "title": "Terms and Conditions"
+  },
+  "profile": {
+    "title": "Edit account",
+    "male": "Male",
+    "female": "Female",
+    "input_label_first_name": "First name",
+    "input_label_last_name": "Last name",
+    "input_label_gender": "Gender",
+    "input_label_dob": "Date of Birth",
+    "input_label_phone": "Phone",
+    "input_label_address": "Address",
+    "input_holder_first_name": "First name",
+    "input_holder_last_name": "Last name",
+    "input_holder_gender": "Gender",
+    "input_holder_dob": "Date of Birth",
+    "input_holder_phone": "Phone",
+    "input_holder_address": "Address",
+    "save": "Save",
+    "alert_msg_save": "Do you want to save it?",
+    "success_sub_title": "Alert",
+    "success_caption": "We changed successfully!",
+    "error_sub_title": "Alert",
+    "error_caption": "Something went wrong! Please try again!"
+  },
+  "help": {
+    "title": "Frequently asked questions"
   }
 }

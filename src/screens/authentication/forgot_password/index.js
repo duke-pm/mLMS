@@ -132,7 +132,6 @@ function ForgotPassword(props) {
               {
                 id: INPUT_NAME.EMAIL,
                 type: 'text',
-                disabled: loading,
                 label: 'forgot_password:input_label_email',
                 holder: 'forgot_password:input_holder_email',
                 value: values.email,

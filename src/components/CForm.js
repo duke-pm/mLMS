@@ -10,13 +10,17 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import {useTranslation} from 'react-i18next';
-import {Input, Button, Icon, Spinner, Text, Select, SelectItem, Toggle, RadioGroup, Radio, useTheme} from '@ui-kitten/components';
-import {TouchableWithoutFeedback, View, UIManager, LayoutAnimation} from 'react-native';
+import {
+  Input, Button, Icon, Spinner, Text, Select, SelectItem,
+  Toggle, RadioGroup, Radio, useTheme, Datepicker
+} from '@ui-kitten/components';
+import {
+  TouchableWithoutFeedback, View, UIManager, LayoutAnimation
+} from 'react-native';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
 import {cStyles} from '~/utils/style';
 import {IS_ANDROID, validatEemail} from '~/utils/helper';
-import { FONTS } from '~/utils/style/Styles';
 
 if (IS_ANDROID) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -39,6 +43,10 @@ const RenderLoadingIndicator = (props) => (
   </View>
 );
 
+const RenderCalendarIcon = (props) => (
+  <Icon {...props} name='calendar'/>
+);
+
 /********************
  ** MAIN COMPONENT **
  ********************/
@@ -56,11 +64,12 @@ const CForm = forwardRef((props, ref) => {
         id: 'input-1',
         type: '',
         position: '',
-        disabled: false,
         label: '',
         holder: '',
         value: '',
         values: [],
+        multiline: false,
+        horizontal: false, // for Radio type
         required: true,
         email: false,
         phone: false,
@@ -113,6 +122,12 @@ const CForm = forwardRef((props, ref) => {
   const handleToggle = idxInput => {
     let tmpValues = [...values];
     tmpValues[idxInput].value = !tmpValues[idxInput].value;
+    setValues(tmpValues);
+  };
+
+  const handleChangeDatePicker = (idxInput, newDate) => {
+    let tmpValues = [...values];
+    tmpValues[idxInput].value = newDate;
     setValues(tmpValues);
   };
 
@@ -180,6 +195,7 @@ const CForm = forwardRef((props, ref) => {
           tmpIsError = true;
         }
       }
+
       if (tmpIsError) return setErrors(tmpErrors);
       
     }
@@ -253,13 +269,14 @@ const CForm = forwardRef((props, ref) => {
               ref={values[index].ref}
               style={[cStyles.mt24, item.style]}
               nativeID={item.id}
-              disabled={item.disabled}
+              disabled={loading}
               value={values[index].value}
               label={t(item.label)}
               placeholder={t(item.holder)}
               keyboardAppearance={themeContext.themeApp}
               keyboardType={kbType}
               returnKeyType={item.return}
+              multiline={item.multiline}
               secureTextEntry={values[index].secureTextEntry}
               accessoryRight={item.password
                 ? props => RenderIconPassword(props, values[index].secureTextEntry, () => onToggleSecureEntry(index))
@@ -275,7 +292,7 @@ const CForm = forwardRef((props, ref) => {
         if (item.type === 'select') {
           return (
             <Select
-              style={item.style}
+              style={[cStyles.mt24, item.style]}
               label={item.label}
               caption={errors && errors[index].status ? errors[index].helper : undefined}
               placeholder='Select one of below...'
@@ -294,6 +311,7 @@ const CForm = forwardRef((props, ref) => {
               item.position === 'left' && cStyles.itemsStart,
               item.position === 'right' && cStyles.itemsEnd,
               item.position === 'center' && cStyles.itemsCenter,
+              cStyles.mt24,
               item.style
             ]}>
               <Toggle
@@ -307,15 +325,34 @@ const CForm = forwardRef((props, ref) => {
         }
         if (item.type === 'radio') {
           return (
-            <View style={[item.style]}>
-              <Text style={{color: theme['color-basic-600']}} category={'label'}>{item.label}</Text>
+            <View style={[cStyles.mt24, item.style]}>
+              <Text style={{color: theme['color-basic-600']}} category={'label'}>{t(item.label)}</Text>
               <RadioGroup
+                style={item.horizontal ? [cStyles.row, cStyles.itemsCenter] : {}}
                 selectedIndex={values[index].value}
                 onChange={indexRadio => handleSelectedIndex(index, indexRadio)}>
-              {item.values.map((itemRadio, indexRadio) => {
-                return <Radio key={itemRadio + indexRadio}>{itemRadio}</Radio>
-              })}
+                {item.values.map((itemRadio, indexRadio) => {
+                  return <Radio disabled={loading} key={itemRadio + indexRadio}>{itemRadio}</Radio>
+                })}
               </RadioGroup>
+            </View>
+          )
+        }
+        if (item.type === 'datePicker') {
+          return (
+            <View style={[cStyles.mt24, item.style]}>
+              <Datepicker
+                label={t(item.label)}
+                placeholder={t(item.holder)}
+                status={errors && errors[index].status ? 'danger' : 'basic'}
+                caption={errors && errors[index].status ? errors[index].helper : undefined}
+                disabled={loading}
+                date={values[index].value}
+                min={new Date(1900, 1, 1)}
+                max={new Date()}
+                onSelect={newDate => handleChangeDatePicker(index, newDate)}
+                accessoryRight={RenderCalendarIcon}
+              />
             </View>
           )
         }

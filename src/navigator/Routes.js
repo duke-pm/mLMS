@@ -20,6 +20,8 @@ import AppearanceScreen from '~/screens/appearance';
 import InformationScreen from '~/screens/information';
 import LanguagesScreen from '~/screens/languages';
 import TermConditionScreen from '~/screens/term_and_condition';
+import ProfileScreen from '~/screens/profile';
+import HelpScreen from '~/screens/help';
 
 const Routes = {
   INTRO: {
@@ -41,6 +43,10 @@ const Routes = {
   RESET_PASSWORD: {
     name: 'ResetPassword',
     path: ResetPasswordScreen
+  },
+  PROFILE: {
+    name: 'Profile',
+    path: ProfileScreen,
   },
   FAVOURITE: {
     name: 'FAVOURITE',
@@ -65,6 +71,10 @@ const Routes = {
   TERM: {
     name: 'TermCondition',
     path: TermConditionScreen,
+  },
+  HELP: {
+    name: 'Help',
+    path: HelpScreen,
   },
   TAB: {
     name: 'TabMain',

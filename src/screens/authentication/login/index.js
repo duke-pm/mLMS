@@ -108,7 +108,6 @@ function Login(props) {
             {
               id: INPUT_NAME.USER_NAME,
               type: 'text',
-              disabled: loading,
               label: 'log_in:input_label_username',
               holder: 'log_in:input_holder_username',
               value: values.userName,
@@ -123,7 +122,6 @@ function Login(props) {
             {
               id: INPUT_NAME.PASSWORD,
               type: 'text',
-              disabled: loading,
               label: 'log_in:input_label_password',
               holder: 'log_in:input_holder_password',
               value: values.password,

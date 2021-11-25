@@ -126,6 +126,14 @@ export function RootMain(props) {
         name={Routes.TERM.name}
         component={Routes.TERM.path}
       />
+      <StackMain.Screen
+        name={Routes.PROFILE.name}
+        component={Routes.PROFILE.path}
+      />
+      <StackMain.Screen
+        name={Routes.HELP.name}
+        component={Routes.HELP.path}
+      />
     </StackMain.Navigator>
   );
 }
