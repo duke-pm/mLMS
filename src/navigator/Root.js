@@ -40,6 +40,9 @@ export function BottomTabMain(props) {
             case Routes.TAB.ACCOUNT.name:
               iconName = focused ? 'person' : 'person-outline';
               break;
+            case Routes.TAB.CLASSES.name:
+              iconName = focused ? 'library' : 'library-outline';
+              break;
             default:
               iconName = focused ? 'home' : 'home-outline';
               break;
@@ -52,6 +55,9 @@ export function BottomTabMain(props) {
             case Routes.TAB.ACCOUNT.name:
               label = 'account:title';
               break;
+            case Routes.TAB.CLASSES.name:
+                label = 'classes:title';
+                break;
             default:
               label = 'home:title';
               break;
@@ -62,6 +68,10 @@ export function BottomTabMain(props) {
       <TabMain.Screen
         name={Routes.TAB.HOME.name}
         component={Routes.TAB.HOME.path}
+      />
+      <TabMain.Screen
+        name={Routes.TAB.CLASSES.name}
+        component={Routes.TAB.CLASSES.path}
       />
       <TabMain.Screen
         name={Routes.TAB.ACCOUNT.name}
@@ -133,6 +143,14 @@ export function RootMain(props) {
       <StackMain.Screen
         name={Routes.HELP.name}
         component={Routes.HELP.path}
+      />
+      <StackMain.Screen
+        name={Routes.CLASS_DETAILS.name}
+        component={Routes.CLASS_DETAILS.path}
+      />
+      <StackMain.Screen
+        name={Routes.STUDENTS.name}
+        component={Routes.STUDENTS.path}
       />
     </StackMain.Navigator>
   );

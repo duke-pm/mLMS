@@ -22,18 +22,21 @@ import LanguagesScreen from '~/screens/languages';
 import TermConditionScreen from '~/screens/term_and_condition';
 import ProfileScreen from '~/screens/profile';
 import HelpScreen from '~/screens/help';
+import ClassesScreen from '~/screens/classes';
+import ClassDetailsScreen from '~/screens/classes/details';
+import StudentsScreen from '~/screens/classes/students';
 
 const Routes = {
   INTRO: {
-    name: 'IntroScreen',
+    name: 'Intro',
     path: IntroScreen,
   },
   LOGIN_IN: {
-    name: 'LoginScreen',
+    name: 'Login',
     path: LoginScreen,
   },
   SIGN_UP: {
-    name: 'SignUpScreen',
+    name: 'SignUp',
     path: SignUpScreen,
   },
   FORGOT_PASSWORD: {
@@ -49,19 +52,19 @@ const Routes = {
     path: ProfileScreen,
   },
   FAVOURITE: {
-    name: 'FAVOURITE',
+    name: 'Favourite',
     path: FavouriteScreen,
   },
   SETTINGS: {
-    name: 'SETTINGS',
+    name: 'Settings',
     path: SettingsScreen,
   },
   APPEARANCE: {
-    name: 'appearance',
+    name: 'Appearance',
     path: AppearanceScreen,
   },
   INFORMATION: {
-    name: 'information',
+    name: 'Information',
     path: InformationScreen,
   },
   LANGUAGES: {
@@ -76,15 +79,27 @@ const Routes = {
     name: 'Help',
     path: HelpScreen,
   },
+  CLASS_DETAILS: {
+    name: 'ClassDetails',
+    path: ClassDetailsScreen,
+  },
+  STUDENTS: {
+    name: 'Students',
+    path: StudentsScreen,
+  },
   TAB: {
     name: 'TabMain',
     HOME: {
-      name: 'HOME',
+      name: 'Home',
       path: HomeScreen,
     },
     ACCOUNT: {
-      name: 'ACCOUNT',
+      name: 'Account',
       path: AccountScreen,
+    },
+    CLASSES: {
+      name: 'Classes',
+      path: ClassesScreen,
     },
   },
   

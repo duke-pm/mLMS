@@ -9,7 +9,7 @@ import '~/utils/languages/config-i18n';
 import React, {useEffect, useState} from 'react';
 import {Provider} from 'react-redux';
 import {SafeAreaProvider, initialWindowMetrics} from 'react-native-safe-area-context';
-import {NavigationContainer, DarkTheme, DefaultTheme} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {ApplicationProvider, IconRegistry, Text, ModalService} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import {StatusBar} from 'react-native';
@@ -36,31 +36,6 @@ ModalService.setShouldUseTopInsets = true;
 const linking = {
   prefixes: Configs.prefixesDeepLink,
   config: {screens: Configs.routePath},
-};
-
-const MyDarkTheme = {
-  dark: true,
-  colors: {
-    ...DarkTheme.colors,
-  },
-  cColors: {
-    ...DarkTheme.colors,
-    bgAppleLogin: colors.BG_APPLE_LOGIN_DARK,
-
-    icoAppleLogin: colors.ICO_APPLE_LOGIN_DARK,
-  },
-};
-const MyDefaultTheme = {
-  dark: false,
-  colors: {
-    ...DefaultTheme.colors,
-  },
-  cColors: {
-    ...DefaultTheme.colors,
-    bgAppleLogin: colors.BG_APPLE_LOGIN_LIGHT,
-
-    icoAppleLogin: colors.ICO_APPLE_LOGIN_LIGHT,
-  },
 };
 
 const App = () => {
@@ -147,7 +122,6 @@ const App = () => {
           theme={{...eva[themeApp]}}
           customMapping={mapping}>
           <NavigationContainer
-            theme={themeApp === 'dark' ? MyDarkTheme : MyDefaultTheme}
             linking={linking}
             fallback={<Text>Loading</Text>}>
             <Provider store={Store}>

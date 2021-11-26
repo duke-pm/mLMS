@@ -158,5 +158,27 @@
   },
   "help": {
     "title": "Frequently asked questions"
+  },
+  "classes": {
+    "title": "Classes",
+    "todo_item": "Exercise",
+    "members": "Members"
+  },
+  "class_details": {
+    "title": "Class Detail",
+    "menu": "Menu",
+    "add_post": "Add post",
+    "like": "Like",
+    "liked": "Liked",
+    "person_liked": "person liked",
+    "comment": "Comments",
+    "assignment": "Assignment",
+    "quiz": "Quiz",
+    "questions": "Questions",
+    "teaching_material": "Teaching Material",
+    "list_students": "List students"
+  },
+  "students": {
+    "title": "List students"
   }
 }

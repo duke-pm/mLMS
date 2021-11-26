@@ -114,9 +114,8 @@ const RenderHolderAppearance = ({
 
       <CheckBox
         style={cStyles.mt20}
-        disabled={disabled}
         checked={curAppearance === typeAppearance}
-        onChange={nextChecked => onChange(typeAppearance)}>
+        onChange={nextChecked => disabled ? null : onChange(typeAppearance)}>
         {t(label)}
       </CheckBox>
     </View>

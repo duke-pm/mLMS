@@ -8,26 +8,41 @@ import PropTypes from 'prop-types';
 import React, {useContext, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
-import {TopNavigation, TopNavigationAction, Icon, Text, Toggle, Layout, useTheme} from '@ui-kitten/components';
-import {StatusBar, View} from 'react-native';
+import {
+  TopNavigation, TopNavigationAction, Icon, Text, Toggle,
+  useTheme,
+} from '@ui-kitten/components';
+import {TouchableOpacity, View, LayoutAnimation, UIManager} from 'react-native';
+import IoniIcon from 'react-native-vector-icons/Ionicons';
+/** COMPONENTS */
+import CSearchBar from './CSearchBar';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
 import {cStyles} from '~/utils/style';
-import { getLocalInfo, IS_ANDROID, saveLocalInfo } from '~/utils/helper';
-import { AST_DARK_MODE, DARK, LIGHT } from '~/configs/constants';
+import {getLocalInfo, IS_ANDROID, moderateScale, saveLocalInfo} from '~/utils/helper';
+import {AST_DARK_MODE, DARK, LIGHT} from '~/configs/constants';
+
+if (IS_ANDROID) {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 /*********************
  ** OTHER COMPONENT **
  *********************/
-const BackIcon = (props) => (
-  <Icon {...props} name='arrow-back'/>
+const BackIcon = (theme, iconStyle) => (
+  <IoniIcon
+    name='arrow-back'
+    color={iconStyle.color || theme['text-basic-color']}
+    size={moderateScale(20)} />
 );
 
-const RenderTopLeft = (t, title, subtitle, onPress) => {
+const RenderTopLeft = (theme, iconStyle, t, title, subtitle, onPress) => {
   return (
     <View style={[cStyles.row, cStyles.itemsCenter, !onPress && cStyles.ml24]}>
       {onPress && (
-        <TopNavigationAction icon={BackIcon} onPress={onPress} />
+        <TopNavigationAction icon={BackIcon(theme, iconStyle)} onPress={onPress} />
       )}
       <View>
         <Text category='h4'>{t(title)}</Text>
@@ -39,19 +54,31 @@ const RenderTopLeft = (t, title, subtitle, onPress) => {
   )
 };
 
-const RenderTopRight = (t, darkmodeToggle) => {
-  return (
-    <Toggle {...darkmodeToggle}>
-      {evaProps => <Text {...evaProps}>{t('common:dark_mode')}</Text>}
-    </Toggle>
-  )
+const RenderTopRight = (type, theme, iconStyle, t, toggle) => {
+  if (type === 'darkmode') {
+    return (
+      <Toggle {...toggle}>
+        {evaProps => <Text {...evaProps}>{t('common:dark_mode')}</Text>}
+      </Toggle>
+    )
+  }
+  if (type === 'search') {
+    return (
+      <TouchableOpacity style={[cStyles.px10, cStyles.py6]} onPress={toggle}>
+        <IoniIcon
+          name={'search-outline'}
+          size={iconStyle.size || moderateScale(20)}
+          color={iconStyle.color || theme['text-basic-color']} />
+      </TouchableOpacity>
+    )
+  }
+  return null;
 };
 
 /********************
  ** MAIN COMPONENT **
  ********************/
 const useToggleState = (initialState = false) => {
-  const theme = useTheme();
   const themeContext = useContext(ThemeContext);
 
    /** Use state */
@@ -82,9 +109,16 @@ const useToggleState = (initialState = false) => {
 
 function CTopNavigation(props) {
   const {t} = useTranslation();
+  const theme = useTheme();
   const navigation = useNavigation();
   const {
+    containerStyle = {},
     style = {},
+    titleStyle = {},
+    subtitleStyle = {},
+    iconStyle = {},
+    translution = false,
+    search = false,
     back = false,
     darkmode = false,
     title = '',
@@ -98,6 +132,7 @@ function CTopNavigation(props) {
 
   /** Use state */
   const darkmodeToggle = useToggleState();
+  const [showSearch, setShowSearch] = useState(false);
 
   /*****************
    ** HANDLE FUNC **
@@ -106,13 +141,21 @@ function CTopNavigation(props) {
     navigation.goBack();
   };
 
+  const toggleShowSearch = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+    setShowSearch(!showSearch);
+  };
+
   /************
    ** RENDER **
    ************/
   let leftComponent = undefined, rightComponent = undefined;
-  leftComponent = RenderTopLeft(t, leftTitle, leftSubtitle, back && handleGoBack);
+  leftComponent = RenderTopLeft(theme, iconStyle, t, leftTitle, leftSubtitle, back && handleGoBack);
   if (darkmode) {
-    rightComponent = RenderTopRight(t, darkmodeToggle);
+    rightComponent = RenderTopRight('darkmode', theme, iconStyle, t, darkmodeToggle);
+  }
+  if (search) {
+    rightComponent = RenderTopRight('search', theme, iconStyle, t, toggleShowSearch);
   }
   if (customLeftComponent) {
     leftComponent = customLeftComponent;
@@ -121,19 +164,44 @@ function CTopNavigation(props) {
     rightComponent = customRightComponent
   }
   return (
-    <TopNavigation
-      style={style}
-      title={title !== '' ? t(title) : ''}
-      subtitle={subtitle !== '' ? t(subtitle) : ''}
-      alignment={alignment}
-      accessoryLeft={leftComponent}
-      accessoryRight={rightComponent}
-    />
+    <View
+      style={[
+        cStyles.fullWidth,
+        translution && cStyles.abs,
+        translution && cStyles.top0,
+        containerStyle]}>
+      <TopNavigation
+        style={style}
+        title={evaProps =>
+          <Text {...evaProps}
+            style={[cStyles.textCenter, titleStyle]}
+            category={'s1'}>{title !== '' ? t(title) : ''}</Text>}
+        subtitle={subtitle 
+          ? evaProps =>
+              <Text {...evaProps}
+              style={[cStyles.textCenter, subtitleStyle]}
+              category={'c1'}>{t(subtitle)}</Text> 
+          : undefined}
+        alignment={alignment}
+        accessoryLeft={leftComponent}
+        accessoryRight={rightComponent}
+      />
+      {showSearch && (
+        <View style={[cStyles.mx16, cStyles.mb16]}>
+          <CSearchBar autoFocus />
+        </View>
+      )}
+    </View>
   );
 }
 
 CTopNavigation.propTypes = {
+  containerStyle: PropTypes.object,
   style: PropTypes.object,
+  titleStyle: PropTypes.object,
+  subtitleStyle: PropTypes.object,
+  iconStyle: PropTypes.object,
+  search: PropTypes.bool,
   back: PropTypes.bool,
   darkmode: PropTypes.bool,
   title: PropTypes.string,

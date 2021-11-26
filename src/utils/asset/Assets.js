@@ -17,8 +17,10 @@ const Assets = {
   imgFlagVietnam: require('../../../assets/images/flag/vietnam.png'),
   imgFlagEnglish: require('../../../assets/images/flag/english.png'),
 
-  avaMale: require('../../../assets/images/avatar/avatar_male.png'),
-  avaFemale: require('../../../assets/images/avatar/avatar_female.png'),
+  avaMale: require('../../../assets/images/avatar/male.png'),
+  avaFemale: require('../../../assets/images/avatar/female.png'),
+  avaMale2: require('../../../assets/images/avatar/male_2.png'),
+  avaFemale2: require('../../../assets/images/avatar/female_2.png'),
 };
 
 export default Assets;

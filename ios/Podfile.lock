@@ -10,6 +10,15 @@ PODS:
     - React-jsi (= 0.64.2)
     - ReactCommon/turbomodule/core (= 0.64.2)
   - glog (0.3.5)
+  - libwebp (1.2.1):
+    - libwebp/demux (= 1.2.1)
+    - libwebp/mux (= 1.2.1)
+    - libwebp/webp (= 1.2.1)
+  - libwebp/demux (1.2.1):
+    - libwebp/webp
+  - libwebp/mux (1.2.1):
+    - libwebp/demux
+  - libwebp/webp (1.2.1)
   - RCT-Folly (2020.01.13.00):
     - boost-for-react-native
     - DoubleConversion
@@ -281,6 +290,10 @@ PODS:
     - React-perflogger (= 0.64.2)
   - RNCAsyncStorage (1.15.11):
     - React-Core
+  - RNFastImage (8.5.11):
+    - React-Core
+    - SDWebImage (~> 5.11.1)
+    - SDWebImageWebPCoder (~> 0.8.4)
   - RNGestureHandler (1.10.3):
     - React-Core
   - RNReanimated (2.2.4):
@@ -319,6 +332,12 @@ PODS:
     - React
   - RNVectorIcons (9.0.0):
     - React-Core
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
+  - SDWebImageWebPCoder (0.8.4):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.10)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -357,6 +376,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -367,6 +387,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - boost-for-react-native
+    - libwebp
+    - SDWebImage
+    - SDWebImageWebPCoder
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -435,6 +458,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNFastImage:
+    :path: "../node_modules/react-native-fast-image"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -454,6 +479,7 @@ SPEC CHECKSUMS:
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
   FBReactNativeSpec: 2edc8134695b2faf1b0ff04d0f49ba178443264f
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
+  libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 6d3e854f0e7260a648badd0d44fc364bc9da9728
   RCTTypeSafety: c1f31d19349c6b53085766359caac425926fafaa
@@ -483,11 +509,14 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
   RNCAsyncStorage: b4d70dc4bd735a92ce32b6943450c0822a802f04
+  RNFastImage: 1f2cab428712a4baaf78d6169eaec7f622556dd7
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: 024eff8202342abf4b24e11575a16afc441dabfe
   RNScreens: 4d79118be80f79fa1f4aa131909a1d6e86280af3
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SDWebImageWebPCoder: f93010f3f6c031e2f8fb3081ca4ee6966c539815
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
 
 PODFILE CHECKSUM: d05ebf6f177de41f569b663ed208b02149516075

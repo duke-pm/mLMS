@@ -612,47 +612,47 @@ const border = {
   borderDashed: {borderStyle: 'dashed'},
 
   borderAll: {
-    borderColor: '#B3B3B3',
+    borderColor: '#EAEAFF',
     borderWidth: 1,
   },
   borderAllDark: {
-    borderColor: '#B3B3B3',
+    borderColor: '#EAEAFF',
     borderWidth: 1,
   },
 
   borderTop: {
-    borderTopColor: '#B3B3B3',
+    borderTopColor: '#EAEAFF',
     borderTopWidth: 1,
   },
   borderTopDark: {
-    borderTopColor: '#B3B3B3',
+    borderTopColor: '#EAEAFF',
     borderTopWidth: 1,
   },
 
   borderBottom: {
-    borderBottomColor: '#B3B3B3',
+    borderBottomColor: '#EAEAFF',
     borderBottomWidth: 1,
   },
   borderBottomDark: {
-    borderBottomColor: '#B3B3B3',
+    borderBottomColor: '#EAEAFF',
     borderBottomWidth: 1,
   },
 
   borderRight: {
-    borderRightColor: '#B3B3B3',
+    borderRightColor: '#EAEAFF',
     borderRightWidth: 1,
   },
   borderRightDark: {
-    borderRightColor: '#B3B3B3',
+    borderRightColor: '#EAEAFF',
     borderRightWidth: 1,
   },
 
   borderLeft: {
-    borderLeftColor: '#B3B3B3',
+    borderLeftColor: '#EAEAFF',
     borderLeftWidth: 1,
   },
   borderLeftDark: {
-    borderLeftColor: '#B3B3B3',
+    borderLeftColor: '#EAEAFF',
     borderLeftWidth: 1,
   },
 };

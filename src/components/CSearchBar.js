@@ -74,6 +74,7 @@ const RenderRightIcon = (loading, handleRemove) => {
 function CSearchBar(props) {
   const themeContext = useContext(ThemeContext);
   const {
+    autoFocus = false,
     onSearch = () => null,
     onCallbackSearch = () => null,
   } = props;
@@ -121,6 +122,7 @@ function CSearchBar(props) {
         keyboardAppearance={themeContext.themeApp}
         placeholder={'Input your search...'}
         returnKeyType={'search'}
+        autoFocus={autoFocus}
         accessoryLeft={propsLeft => RenderLeftIcon(propsLeft, loading, handleSearch)}
         accessoryRight={value !== '' 
           ? () => RenderRightIcon(loading, handleRemove)
@@ -133,6 +135,7 @@ function CSearchBar(props) {
 }
 
 CSearchBar.propTypes = {
+  autoFocus: PropTypes.bool,
   onSearch: PropTypes.func.isRequired,
   onCallbackSearch: PropTypes.func.isRequired,
 };

@@ -24,6 +24,7 @@ function CContainer(props) {
     safeArea = [],
     backgroundColor = null,
     padder = false,
+    scrollEnabled = true,
     headerComponent = null,
     children = null,
   } = props;
@@ -55,7 +56,7 @@ function CContainer(props) {
       edges={safeAreaScreen}>
       {headerComponent}
       <Layout style={cStyles.flex1} level='2'>
-        <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1}>
+        <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1} scrollEnabled={scrollEnabled}>
           <Layout style={[cStyles.flex1, padder && cStyles.px16, padder && cStyles.py10]} level='2'>
             {children}
           </Layout>
@@ -69,6 +70,7 @@ CContainer.propTypes = {
   safeArea: PropTypes.array,
   backgroundColor: PropTypes.string,
   padder: PropTypes.bool,
+  scrollEnabled: PropTypes.bool,
   headerComponent: PropTypes.element,
   children: PropTypes.element,
 }

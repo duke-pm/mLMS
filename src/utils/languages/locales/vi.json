@@ -158,5 +158,27 @@
   },
   "help": {
     "title": "Câu hỏi thường gặp"
+  },
+  "classes": {
+    "title": "Lớp học",
+    "todo_item": "Bài tập",
+    "members": "Học viên"
+  },
+  "class_details": {
+    "title": "Chi tiết Lớp học",
+    "menu": "Menu",
+    "add_post": "Viết bài",
+    "like": "Thích",
+    "liked": "Đã thích",
+    "person_liked": "người đã thích",
+    "comment": "Bình luận",
+    "assignment": "Phân công",
+    "quiz": "Bài tập/Kiểm tra",
+    "questions": "Câu hỏi",
+    "teaching_material": "Tài liệu giảng dạy",
+    "list_students": "D/s học viên"
+  },
+  "students": {
+    "title": "Danh sách học viên"
   }
 }
