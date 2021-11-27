@@ -73,7 +73,7 @@ function Classes(props) {
             avatar: 'http://react-material.fusetheme.com/assets/images/avatars/andrew.jpg',
           },
         ],
-        bgImage: 'https://picsum.photos/500/300',
+        bgImage: 'https://picsum.photos/id/1018/500/300',
         assignment: 3,
       },
       {
@@ -98,7 +98,7 @@ function Classes(props) {
             avatar: 'http://react-material.fusetheme.com/assets/images/avatars/joyce.jpg',
           },
         ],
-        bgImage: 'https://picsum.photos/500/300',
+        bgImage: 'https://picsum.photos/id/1019/500/300',
         assignment: 0,
       },
       {
@@ -123,7 +123,7 @@ function Classes(props) {
             avatar: 'http://react-material.fusetheme.com/assets/images/avatars/alice.jpg',
           },
         ],
-        bgImage: 'https://picsum.photos/500/300',
+        bgImage: 'https://picsum.photos/id/102/500/300',
         assignment: 5,
       }
     ];
@@ -155,8 +155,7 @@ function Classes(props) {
                 <FastImage
                   style={[cStyles.fullWidth, cStyles.rounded1]}
                   source={{uri: info.item.bgImage}}
-                  resizeMode={FastImage.resizeMode.cover}
-                >
+                  resizeMode={FastImage.resizeMode.cover}>
                   <View style={[cStyles.flex1, cStyles.p16, cStyles.rounded1, styles.backdrop]}>
                     <View>
                       <Text style={styles.text_white} category={'s1'} numberOfLines={1}>{info.item.label}</Text>
@@ -209,7 +208,7 @@ function Classes(props) {
                         </View>
     
                         <Text style={styles.txt_num_member} category={'c1'}>
-                          {`${info.item.numMember} ${t('classses:members')}`}
+                          {`${info.item.numMember} ${t('classes:members')}`}
                         </Text>
                       </View>
     
@@ -236,6 +235,7 @@ function Classes(props) {
             </Button>
           )
         }}
+        keyExtractor={(item, index) => item.id + index}
         extraData={classes}
       />
     </CContainer>

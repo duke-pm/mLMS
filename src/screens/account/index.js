@@ -137,7 +137,7 @@ function Account(props) {
               style={styles.img_avatar}
               borderRadius={moderateScale(50)}
               resizeMode={'cover'}
-              source={Assets.avaMale}>
+              source={{uri: 'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg'}}>
               <View 
                 style={[
                   cStyles.ofHidden,

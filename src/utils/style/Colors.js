@@ -17,6 +17,7 @@ export default {
   WHITE: '#FFF',
 
   BG_BACKDROP: 'rgba(0, 0, 0, 0.5)',
+  BG_BACKDROP_LIGHT: 'rgba(255, 255, 255, 0.5)',
 
   // Icon color theme
   ICO_APPLE_LOGIN_LIGHT: '#FFF',

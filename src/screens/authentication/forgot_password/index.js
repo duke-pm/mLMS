@@ -176,7 +176,7 @@ function ForgotPassword(props) {
 
           <Button
             style={cStyles.mt24}
-            appearance='outline'
+            appearance={'filled'}
             onPress={handleGoBack}>
             {t('common:go_back')}
           </Button>

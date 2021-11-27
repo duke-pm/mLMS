@@ -18,11 +18,13 @@ import IoniIcon from 'react-native-vector-icons/Ionicons';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
+import CPostImages from '~/components/CPostImages';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
 import {moderateScale, sW} from '~/utils/helper';
 import {colors, cStyles} from '~/utils/style';
 import {DARK, LIGHT} from '~/configs/constants';
+import Routes from '~/navigator/Routes';
 /* REDUX */
 
 const RenderLikeIcon = props => (
@@ -146,6 +148,11 @@ function ClassDetails(props) {
     console.log('[LOG] === handleGoTeachingMaterial ===> ');
   };
 
+  const handleGoStudents = () => {
+    toggleFunctionMenu();
+    navigation.navigate(Routes.STUDENTS.name);
+  };
+
   /**********
    ** FUNC **
    **********/
@@ -159,7 +166,12 @@ function ClassDetails(props) {
     let tmpPosts = [
       {
         id: 'post1',
-        image: 'https://picsum.photos/500/300',
+        images: [
+          'https://picsum.photos/id/100/500/300',
+          'https://picsum.photos/id/1000/500/300',
+          'https://picsum.photos/id/1004/500/300',
+          'https://picsum.photos/id/1005/500/300',
+        ],
         author: 'Brent Morgan',
         avatar: 'http://react-material.fusetheme.com/assets/images/avatars/garry.jpg',
         createdAt: '12/12/2021 08:00',
@@ -187,7 +199,14 @@ function ClassDetails(props) {
       },
       {
         id: 'post2',
-        image: 'https://picsum.photos/500/300',
+        images: [
+          'https://picsum.photos/id/1/500/300',
+          'https://picsum.photos/id/10/500/300',
+          'https://picsum.photos/id/101/500/300',
+          'https://picsum.photos/id/1010/500/300',
+          'https://picsum.photos/id/1011/500/300',
+          'https://picsum.photos/id/1012/500/300',
+        ],
         author: 'Vincent Munoz',
         avatar: 'http://react-material.fusetheme.com/assets/images/avatars/vincent.jpg',
         createdAt: '10/12/2021 18:00',
@@ -265,7 +284,10 @@ function ClassDetails(props) {
                     anchor={RenderMenuAction}
                     visible={functionMenu}
                     onBackdropPress={toggleFunctionMenu}>
-                    <MenuItem accessoryLeft={RenderPeopleIcon} title={t('class_details:list_students')} />
+                    <MenuItem
+                      accessoryLeft={RenderPeopleIcon}
+                      title={t('class_details:list_students')}
+                      onPress={handleGoStudents} />
                   </OverflowMenu>
                 }
               />
@@ -349,9 +371,14 @@ function ClassDetails(props) {
       }>
       {/** Actions */}
       <Layout
-        style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, styles.content]}
-        level={'1'}
-      >
+        style={[
+          cStyles.row,
+          cStyles.itemsCenter,
+          cStyles.justifyBetween,
+          styles.content,
+          cStyles.borderBottom
+        ]}
+        level={'1'}>
         <ButtonGroup appearance={'ghost'} status={'primary'}>
           <Button
             style={styles.btn_action}
@@ -371,6 +398,7 @@ function ClassDetails(props) {
       {/** Posts of class */}
       <Layout style={cStyles.flex1} level={'1'}>
         <List
+          contentContainerStyle={cStyles.pt16}
           data={posts}
           renderItem={info => {
             return (
@@ -426,13 +454,14 @@ function ClassDetails(props) {
                             )}
                             description={evaProps =>
                               <Text style={[cStyles.ml16, cStyles.mt5]} category={'p1'}>
-                              {infoCmt.item.caption}
+                                {infoCmt.item.caption}
                               </Text>
                             }
                             accessoryLeft={propsLeft => RenderHeaderComment(propsLeft, infoCmt)}
                           />
                         );
                       }}
+                      keyExtractor={(item, index) => item.id + index}
                     />
                   </Layout>
                 }>
@@ -440,16 +469,9 @@ function ClassDetails(props) {
                   <View style={[cStyles.px16, cStyles.py10]}>
                     <Text category={'p1'}>{info.item.caption}</Text>
                   </View>
-                  {info.item.image && (
-                    <FastImage
-                      style={[cStyles.fullWidth, styles.img_background]}
-                      source={{
-                        uri: info.item.image,
-                        priority: FastImage.priority.normal,
-                      }}
-                      resizeMode={FastImage.resizeMode.cover}
-                    />
-                  )}
+                  <CPostImages
+                    images={info.item.images}
+                  />
                   {info.item.numLike > 0 && (
                     <View style={[cStyles.px16, cStyles.py10, cStyles.row, cStyles.itemsCenter]}>
                       <IoniIcon
@@ -464,6 +486,7 @@ function ClassDetails(props) {
               </Card>
             );
           }}
+          keyExtractor={(item, index) => item.id + index}
           ItemSeparatorComponent={() => <View style={cStyles.my8} />}
         />
       </Layout>
@@ -521,6 +544,9 @@ const styles = StyleSheet.create({
   img_background: {
     zIndex: 1,
     height: moderateScale(250),
+  },
+  img_content_card: {
+    height: moderateScale(200),
   },
   backdrop: {
     backgroundColor: colors.BG_BACKDROP,
