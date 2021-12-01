@@ -29,6 +29,7 @@ function CAlert(props) {
     cancel = false,
     label = '',
     message = '',
+    customMessage = null,
     textOk = 'common:ok',
     textCancel = 'common:cancel',
     statusOk = undefined,
@@ -74,13 +75,13 @@ function CAlert(props) {
             {success && (
               <View style={cStyles.itemsCenter}>
                 <IoniIcon name={'checkmark-circle-outline'} size={moderateScale(60)} color={theme['color-success-500']} />
-                <Text style={cStyles.mt10} category={'h6'}>{t('common:success')}</Text>
+                <Text style={cStyles.mt10} category={'h6'}>{t(label !== '' ? label : 'common:success')}</Text>
               </View>
             )}
             {error && (
               <View style={cStyles.itemsCenter}>
                 <IoniIcon name={'close-circle-outline'} size={moderateScale(60)} color={theme['color-danger-500']} />
-                <Text style={cStyles.mt10} category={'h6'}>{t('common:error')}</Text>
+                <Text style={cStyles.mt10} category={'h6'}>{t(label !== '' ? label : 'common:error')}</Text>
               </View>
             )}
             {!success && !error && (
@@ -91,9 +92,14 @@ function CAlert(props) {
           </View>
         )}
 
-        {message !== '' && (
+        {message !== '' && !customMessage && (
           <View style={[cStyles.my16, styles.content]}>
             <Text style={cStyles.textCenter} category={'p1'}>{t(message)}</Text>
+          </View>
+        )}
+        {customMessage && (
+          <View style={[cStyles.my16, styles.content]}>
+            {customMessage}
           </View>
         )}
 
@@ -160,6 +166,7 @@ CAlert.propTypes = {
   cancel: PropTypes.bool,
   label: PropTypes.string,
   message: PropTypes.string,
+  customMessage: PropTypes.element,
   textOk: PropTypes.string,
   textCancel: PropTypes.string,
   statusOk: PropTypes.string,

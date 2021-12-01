@@ -39,6 +39,12 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+	<key>NSCameraUsageDescription</key>
+  <string>Your camera is used to upload images or videos for avatar or posts</string>
+	<key>NSMicrophoneUsageDescription</key>
+  <string>Your camera is used to upload video for posts</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+  <string>Your camera is used to upload images or videos for avatar or posts</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-Light.ttf</string>

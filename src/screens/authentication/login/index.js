@@ -67,7 +67,7 @@ function Login(props) {
     setTimeout(() => {
       setLoading(false);
       resetRoute(navigation, Routes.TAB.name);
-    }, 2000);
+    }, 500);
   };
 
   /****************

@@ -554,7 +554,7 @@ const text = {
 
 const border = {
   rounded0: {borderRadius: 0},
-  rounded1: {borderRadius: moderateScale(7)},
+  rounded1: {borderRadius: moderateScale(5)},
   rounded2: {borderRadius: moderateScale(10)},
   rounded3: {borderRadius: moderateScale(15)},
   rounded4: {borderRadius: moderateScale(20)},
@@ -564,8 +564,10 @@ const border = {
   rounded8: {borderRadius: moderateScale(40)},
   rounded9: {borderRadius: moderateScale(45)},
   rounded10: {borderRadius: moderateScale(50)},
+  rounded11: {borderRadius: moderateScale(55)},
+  rounded12: {borderRadius: moderateScale(60)},
 
-  roundedTopLeft1: {borderTopLeftRadius: moderateScale(7)},
+  roundedTopLeft1: {borderTopLeftRadius: moderateScale(5)},
   roundedTopLeft2: {borderTopLeftRadius: moderateScale(10)},
   roundedTopLeft3: {borderTopLeftRadius: moderateScale(15)},
   roundedTopLeft4: {borderTopLeftRadius: moderateScale(20)},
@@ -575,8 +577,10 @@ const border = {
   roundedTopLeft8: {borderTopLeftRadius: moderateScale(40)},
   roundedTopLeft9: {borderTopLeftRadius: moderateScale(45)},
   roundedTopLeft10: {borderTopLeftRadius: moderateScale(50)},
+  roundedTopLeft11: {borderTopLeftRadius: moderateScale(55)},
+  roundedTopLeft12: {borderTopLeftRadius: moderateScale(60)},
 
-  roundedTopRight1: {borderTopRightRadius: moderateScale(7)},
+  roundedTopRight1: {borderTopRightRadius: moderateScale(5)},
   roundedTopRight2: {borderTopRightRadius: moderateScale(10)},
   roundedTopRight3: {borderTopRightRadius: moderateScale(15)},
   roundedTopRight4: {borderTopRightRadius: moderateScale(20)},
@@ -586,8 +590,10 @@ const border = {
   roundedTopRight8: {borderTopRightRadius: moderateScale(40)},
   roundedTopRight9: {borderTopRightRadius: moderateScale(45)},
   roundedTopRight10: {borderTopRightRadius: moderateScale(50)},
+  roundedTopRight11: {borderTopRightRadius: moderateScale(55)},
+  roundedTopRight12: {borderTopRightRadius: moderateScale(60)},
 
-  roundedBottomLeft1: {borderBottomLeftRadius: moderateScale(7)},
+  roundedBottomLeft1: {borderBottomLeftRadius: moderateScale(5)},
   roundedBottomLeft2: {borderBottomLeftRadius: moderateScale(10)},
   roundedBottomLeft3: {borderBottomLeftRadius: moderateScale(15)},
   roundedBottomLeft4: {borderBottomLeftRadius: moderateScale(20)},
@@ -597,8 +603,10 @@ const border = {
   roundedBottomLeft8: {borderBottomLeftRadius: moderateScale(40)},
   roundedBottomLeft9: {borderBottomLeftRadius: moderateScale(45)},
   roundedBottomLeft10: {borderBottomLeftRadius: moderateScale(50)},
+  roundedBottomLeft11: {borderBottomLeftRadius: moderateScale(55)},
+  roundedBottomLeft12: {borderBottomLeftRadius: moderateScale(60)},
 
-  roundedBottomRight1: {borderBottomRightRadius: moderateScale(7)},
+  roundedBottomRight1: {borderBottomRightRadius: moderateScale(5)},
   roundedBottomRight2: {borderBottomRightRadius: moderateScale(10)},
   roundedBottomRight3: {borderBottomRightRadius: moderateScale(15)},
   roundedBottomRight4: {borderBottomRightRadius: moderateScale(20)},
@@ -608,6 +616,8 @@ const border = {
   roundedBottomRight8: {borderBottomRightRadius: moderateScale(40)},
   roundedBottomRight9: {borderBottomRightRadius: moderateScale(45)},
   roundedBottomRight10: {borderBottomRightRadius: moderateScale(50)},
+  roundedBottomRight11: {borderBottomRightRadius: moderateScale(55)},
+  roundedBottomRight12: {borderBottomRightRadius: moderateScale(60)},
 
   borderDashed: {borderStyle: 'dashed'},
 

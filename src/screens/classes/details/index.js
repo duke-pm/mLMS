@@ -8,9 +8,8 @@ import React, {useRef, useState, useEffect, useContext, useLayoutEffect} from 'r
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
-  Layout, Text, Icon, ButtonGroup, Button, useTheme, List,
-  ListItem, Card, Avatar, Modal, OverflowMenu, MenuItem,
-  TopNavigationAction
+  useTheme, Layout, Text, Icon, ButtonGroup, Button, List,
+  ListItem, Card, Modal, OverflowMenu, MenuItem, TopNavigationAction, Divider,
 } from '@ui-kitten/components';
 import {StyleSheet, View, TouchableNativeFeedback, StatusBar} from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -19,9 +18,11 @@ import IoniIcon from 'react-native-vector-icons/Ionicons';
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CPostImages from '~/components/CPostImages';
+import CLoading from '~/components/CLoading';
+import CAvatar from '~/components/CAvatar';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
-import {moderateScale, sW} from '~/utils/helper';
+import {IS_ANDROID, IS_IOS, moderateScale, sW} from '~/utils/helper';
 import {colors, cStyles} from '~/utils/style';
 import {DARK, LIGHT} from '~/configs/constants';
 import Routes from '~/navigator/Routes';
@@ -67,6 +68,14 @@ const RenderPeopleIcon = (props) => (
   <Icon {...props} name='people-outline'/>
 );
 
+const RenderAddPostIcon = (props) => (
+  <Icon {...props} name='edit-2-outline'/>
+);
+
+const RenderMenuActionsIcon = (props) => (
+  <Icon {...props} name='grid-outline'/>
+);
+
 const RenderMenuIcon = (label, icon, color) => (
   <View style={cStyles.itemsCenter}>
     <View style={[cStyles.center, styles.con_icon_menu, {backgroundColor: color}]}>
@@ -80,24 +89,12 @@ const RenderMenuIcon = (label, icon, color) => (
   </View>
 );
 
-const RenderHeaderPost = (props, info) => (
-  <Avatar
-    {...props}
-    style={{ tintColor: null }}
-    size={'medium'}
-    source={{uri: info.item.avatar}}
-    resizeMode={'cover'}
-  />
+const RenderHeaderPost = (info) => (
+  <CAvatar source={{uri: info.item.avatar}} />
 );
 
-const RenderHeaderComment = (props, info) => (
-  <Avatar
-    {...props}
-    style={{ tintColor: null }}
-    size={'medium'}
-    source={{uri: info.item.avatar}}
-    resizeMode={'cover'}
-  />
+const RenderHeaderComment = (info) => (
+  <CAvatar source={{uri: info.item.avatar}} />
 );
 
 
@@ -115,6 +112,7 @@ function ClassDetails(props) {
   const [loading, setLoading] = useState(true);
   const [alertMenu, setAlertMenu] = useState(false);
   const [functionMenu, setFunctionMenu] = useState(false);
+  const [heightBanner, setHeightBanner] = useState(0);
   const [posts, setPosts] = useState([]);
 
   /*****************
@@ -122,10 +120,6 @@ function ClassDetails(props) {
    *****************/
   const toggleFunctionMenu = () => {
     setFunctionMenu(!functionMenu);
-  };
-
-  const toggleAddPost = () => {
-
   };
 
   const toggleAlertMenu = () => {
@@ -137,7 +131,8 @@ function ClassDetails(props) {
   };
 
   const handleGoQuiz = () => {
-    console.log('[LOG] === handleGoQuiz ===> ');
+    toggleAlertMenu();
+    navigation.navigate(Routes.QUIZ.name);
   };
 
   const handleGoQuestions = () => {
@@ -153,15 +148,23 @@ function ClassDetails(props) {
     navigation.navigate(Routes.STUDENTS.name);
   };
 
+  const handleGoAddPost = () => {
+    navigation.navigate(Routes.ADD_POST.name);
+  };
+
   /**********
    ** FUNC **
    **********/
+  const onLayoutBanner = event => {
+    let {height} = event.nativeEvent.layout;
+    setHeightBanner(height);
+  };
 
   /****************
    ** LIFE CYCLE **
    ****************/
   useEffect(() => {
-    StatusBar.setBarStyle('light-content', true);
+    IS_IOS && StatusBar.setBarStyle('light-content', true);
 
     let tmpPosts = [
       {
@@ -234,10 +237,11 @@ function ClassDetails(props) {
       }
     ];
     setPosts(tmpPosts);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
   }, []);
+
+  useEffect(() => {
+    if (heightBanner > 0) setLoading(false);
+  }, [heightBanner]);
 
   useLayoutEffect(() => {
     return () => {
@@ -248,7 +252,7 @@ function ClassDetails(props) {
         StatusBar.setBarStyle('light-content', true);
       }
     };
-  }, []);
+  }, [themeContext.themeApp]);
 
   /************
    ** RENDER **
@@ -263,15 +267,17 @@ function ClassDetails(props) {
       scrollEnabled={false}
       headerComponent={
         <FastImage
-          style={[cStyles.abs, cStyles.top0, cStyles.fullWidth, styles.img_background]}
+          style={[cStyles.abs, cStyles.fullWidth, cStyles.pb16, styles.img_background]}
+          onLayout={onLayoutBanner}
           source={{
             uri: dataClass.bgImage,
-            priority: FastImage.priority.normal,
+            priority: FastImage.priority.high,
+            cache: FastImage.cacheControl.immutable,
           }}
           resizeMode={FastImage.resizeMode.cover}
         >
-          <View style={[cStyles.flex1, cStyles.abs, cStyles.inset0, styles.backdrop]} />
-            <SafeAreaView>
+          <View style={[cStyles.abs, cStyles.inset0, styles.backdrop]} />
+            <SafeAreaView edges={['top']}>
               <CTopNavigation
                 style={styles.top_navigation}
                 titleStyle={styles.text_white}
@@ -291,7 +297,7 @@ function ClassDetails(props) {
                   </OverflowMenu>
                 }
               />
-              <View style={cStyles.p16}>
+              <View style={cStyles.px16}>
                 <Text style={styles.text_white} category={'s1'} numberOfLines={1}>{dataClass.label}</Text>
                 <View style={[cStyles.row, cStyles.itemsEnd, cStyles.mt12]}>
                   {dataClass.subjects.map((item, index) => {
@@ -322,7 +328,8 @@ function ClassDetails(props) {
                             style={[cStyles.center, cStyles.rounded5, styles.mini_avatar]}
                             source={{
                               uri: item.avatar,
-                              priority: FastImage.priority.normal,
+                              priority: FastImage.priority.high,
+                              cache: FastImage.cacheControl.immutable,
                             }}
                             resizeMode={FastImage.resizeMode.contain}
                           />
@@ -375,121 +382,125 @@ function ClassDetails(props) {
           cStyles.row,
           cStyles.itemsCenter,
           cStyles.justifyBetween,
-          styles.content,
-          cStyles.borderBottom
+          {marginTop: heightBanner},
         ]}
         level={'1'}>
-        <ButtonGroup appearance={'ghost'} status={'primary'}>
+        <ButtonGroup appearance={'ghost'} status={'basic'}>
           <Button
             style={styles.btn_action}
             disabled={loading}
+            accessoryLeft={RenderMenuActionsIcon}
             onPress={toggleAlertMenu}>
             {t('class_details:menu')}
           </Button>
           <Button
             style={styles.btn_action}
             disabled={loading}
-            onPress={toggleAddPost}>
+            accessoryLeft={RenderAddPostIcon}
+            onPress={handleGoAddPost}>
             {t('class_details:add_post')}
           </Button>
         </ButtonGroup>
       </Layout>
 
+      <Divider />
+
       {/** Posts of class */}
-      <Layout style={cStyles.flex1} level={'1'}>
-        <List
-          contentContainerStyle={cStyles.pt16}
-          data={posts}
-          renderItem={info => {
-            return (
-              <Card
-                disabled
-                header={
-                  <ListItem
-                    style={cStyles.px0}
-                    title={evaProps => 
-                      <Text style={[cStyles.ml16, cStyles.mt5]} category={'s2'}>{info.item.author}</Text>
-                    }
-                    description={evaProps =>
-                      <Text style={[cStyles.ml16, cStyles.mt5]} category={'c2'}>
-                        {info.item.createdAt + ' at ' + info.item.createdWhere}
-                      </Text>
-                    }
-                    accessoryLeft={propsLeft => RenderHeaderPost(propsLeft, info)}
-                  />
-                }
-                footer={
-                  <Layout style={cStyles.flex1} level={'1'}>
-                    <ButtonGroup size={'small'} status={'basic'} appearance={'ghost'}>
-                      <Button
-                        style={styles.btn_action}
-                        accessoryLeft={info.item.isLiked ? RenderLikedIcon : RenderLikeIcon}>
-                          {t(info.item.isLiked ? 'class_details:liked' : 'class_details:like')}
-                      </Button>
-                      <Button
-                        style={styles.btn_action}
-                        accessoryLeft={RenderCommentIcon}>
-                          {t('class_details:comment')}
-                      </Button>
-                    </ButtonGroup>
-                    
-                    <List
-                      style={{backgroundColor: theme['background-basic-color-1']}}
-                      data={info.item.comments}
-                      renderItem={infoCmt => {
-                        return (
-                          <ListItem
-                            style={[
-                              cStyles.px0,
-                              cStyles.rounded1,
-                              cStyles.px10,
-                              cStyles.mt10,
-                              {backgroundColor: theme['background-basic-color-4']},
-                            ]}
-                            title={evaProps => (
-                              <View style={[cStyles.ml16, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
-                                <Text style={cStyles.textLeft} category={'s2'}>{infoCmt.item.name}</Text>
-                                <Text style={cStyles.textRight} category={'c2'}>{infoCmt.item.createdAt}</Text>
-                              </View>
-                            )}
-                            description={evaProps =>
-                              <Text style={[cStyles.ml16, cStyles.mt5]} category={'p1'}>
-                                {infoCmt.item.caption}
-                              </Text>
-                            }
-                            accessoryLeft={propsLeft => RenderHeaderComment(propsLeft, infoCmt)}
-                          />
-                        );
-                      }}
-                      keyExtractor={(item, index) => item.id + index}
+      {!loading && (
+        <Layout style={cStyles.flex1} level={'1'}>
+          <List
+            contentContainerStyle={cStyles.pt10}
+            data={posts}
+            renderItem={info => {
+              return (
+                <Card
+                  disabled
+                  header={() => (
+                    <ListItem
+                      style={cStyles.px16}
+                      title={evaProps =>
+                        <Text style={[cStyles.ml10, cStyles.mt5]} category={'s2'}>{info.item.author}</Text>
+                      }
+                      description={evaProps =>
+                        <Text style={[cStyles.ml10, cStyles.mt5]} category={'c2'}>
+                          {info.item.createdAt + ' . At ' + info.item.createdWhere}
+                        </Text>
+                      }
+                      accessoryLeft={() => RenderHeaderPost(info)}
                     />
-                  </Layout>
-                }>
-                <View style={styles.bg_content_card}>
-                  <View style={[cStyles.px16, cStyles.py10]}>
-                    <Text category={'p1'}>{info.item.caption}</Text>
-                  </View>
-                  <CPostImages
-                    images={info.item.images}
-                  />
-                  {info.item.numLike > 0 && (
-                    <View style={[cStyles.px16, cStyles.py10, cStyles.row, cStyles.itemsCenter]}>
-                      <IoniIcon
-                        name={'heart'}
-                        color={colors.PRIMARY}
-                        size={moderateScale(16)}
-                      />
-                      <Text style={cStyles.ml5} category={'p1'}>{`${info.item.numLike}`}</Text>
-                    </View>
                   )}
-                </View>
-              </Card>
-            );
-          }}
-          keyExtractor={(item, index) => item.id + index}
-          ItemSeparatorComponent={() => <View style={cStyles.my8} />}
-        />
-      </Layout>
+                  footer={() => (
+                    <Layout style={[cStyles.flex1, cStyles.px16]} level={'1'}>
+                      <ButtonGroup size={'small'} status={'basic'} appearance={'ghost'}>
+                        <Button
+                          style={styles.btn_action}
+                          accessoryLeft={info.item.isLiked ? RenderLikedIcon : RenderLikeIcon}>
+                            {t(info.item.isLiked ? 'class_details:liked' : 'class_details:like')}
+                        </Button>
+                        <Button
+                          style={styles.btn_action}
+                          accessoryLeft={RenderCommentIcon}>
+                            {t('class_details:comment')}
+                        </Button>
+                      </ButtonGroup>
+                      
+                      <List
+                        style={{backgroundColor: theme['background-basic-color-1']}}
+                        data={info.item.comments}
+                        renderItem={infoCmt => {
+                          return (
+                            <ListItem
+                              style={[
+                                cStyles.rounded1,
+                                cStyles.px10,
+                                cStyles.mt10,
+                                {backgroundColor: theme['background-basic-color-4']},
+                              ]}
+                              title={evaProps => (
+                                <View style={[cStyles.ml16, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
+                                  <Text style={cStyles.textLeft} category={'s2'}>{infoCmt.item.name}</Text>
+                                  <Text style={cStyles.textRight} category={'c2'}>{infoCmt.item.createdAt}</Text>
+                                </View>
+                              )}
+                              description={evaProps =>
+                                <Text style={[cStyles.ml16, cStyles.mt5]} category={'p1'}>
+                                  {infoCmt.item.caption}
+                                </Text>
+                              }
+                              accessoryLeft={() => RenderHeaderComment(infoCmt)}
+                            />
+                          );
+                        }}
+                        keyExtractor={(item, index) => item.id + index}
+                      />
+                    </Layout>
+                  )}>
+                  <View style={styles.bg_content_card}>
+                    <View style={[cStyles.px16, cStyles.py16]}>
+                      <Text category={'p1'}>{info.item.caption}</Text>
+                    </View>
+                    <CPostImages
+                      images={info.item.images}
+                    />
+                    {info.item.numLike > 0 && (
+                      <View style={[cStyles.px16, cStyles.py10, cStyles.row, cStyles.itemsCenter]}>
+                        <IoniIcon
+                          name={'heart'}
+                          color={colors.PRIMARY}
+                          size={moderateScale(16)}
+                        />
+                        <Text style={cStyles.ml5} category={'p1'}>{`${info.item.numLike}`}</Text>
+                      </View>
+                    )}
+                  </View>
+                </Card>
+              );
+            }}
+            keyExtractor={(item, index) => item.id + index}
+            ItemSeparatorComponent={() => <View style={cStyles.my8} />}
+          />
+        </Layout>
+      )}
 
       {/** Alert menu */}
       <Modal
@@ -521,7 +532,7 @@ function ClassDetails(props) {
 
             <TouchableNativeFeedback onPress={handleGoTeachingMaterial}>
               <Layout style={styles.con_menu} level={'1'}>
-                {RenderMenuIcon(t('class_details:teaching_material'), 'document-attach-outline', 'cyan')}
+                {RenderMenuIcon(t('class_details:teaching_material'), 'document-attach-outline', 'darkturquoise')}
               </Layout>
             </TouchableNativeFeedback>
           </View>
@@ -536,6 +547,8 @@ function ClassDetails(props) {
           />
         </View>
       </Modal>
+
+      <CLoading show={loading} />
     </CContainer>
   );
 }
@@ -543,7 +556,6 @@ function ClassDetails(props) {
 const styles = StyleSheet.create({
   img_background: {
     zIndex: 1,
-    height: moderateScale(250),
   },
   img_content_card: {
     height: moderateScale(200),

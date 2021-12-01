@@ -12,6 +12,7 @@ import FastImage from 'react-native-fast-image';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
+import CLoading from '~/components/CLoading';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {cStyles, colors} from '~/utils/style';
@@ -131,7 +132,7 @@ function Classes(props) {
     setTimeout(() => {
       setLoading(false);
       infiniteAnimationIconRef.current.startAnimation();
-    }, 1000);
+    }, 500);
   }, []);
 
   /************
@@ -141,103 +142,115 @@ function Classes(props) {
     <CContainer
       safeArea={['top']}
       headerComponent={<CTopNavigation title={t('classes:title')} search />}>
-      <List
-        contentContainerStyle={cStyles.px10}
-        data={classes}
-        renderItem={info => {
-          return (
-            <Button
-              style={[cStyles.rounded1, cStyles.my6, cStyles.px0, cStyles.py0]}
-              appearance={'ghost'}
-              onPress={() => handleClassItem(info)}
-            >
-              {evaProps => (
-                <FastImage
-                  style={[cStyles.fullWidth, cStyles.rounded1]}
-                  source={{uri: info.item.bgImage}}
-                  resizeMode={FastImage.resizeMode.cover}>
-                  <View style={[cStyles.flex1, cStyles.p16, cStyles.rounded1, styles.backdrop]}>
-                    <View>
-                      <Text style={styles.text_white} category={'s1'} numberOfLines={1}>{info.item.label}</Text>
-                      <View style={[cStyles.row, cStyles.itemsEnd, cStyles.mt12]}>
-                        {info.item.subjects.map((item, index) => {
-                          return (
-                            <Text
-                              key={item + index}
-                              style={[cStyles.mt5, styles.text_white]}
-                              category={'p1'}
-                              numberOfLines={1}>&#10041; {item}  </Text>
-                          );
-                        })}
-                      </View>
-                    </View>
-    
-                    <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt24]}>
-                      <View style={[cStyles.row, cStyles.itemsCenter]}>
-                        {info.item.members.map((item, index) => {
-                          return (
-                            <View
-                              key={item.id}
-                              style={[
-                                cStyles.abs,
-                                cStyles.rounded5,
-                                cStyles.p1,
-                                styles.bg_mini_avatar,
-                                {left: moderateScale(20) * index}
-                              ]}>
-                              <FastImage
-                                style={[cStyles.center, cStyles.rounded5, styles.mini_avatar]}
-                                source={{uri: item.avatar}}
-                                resizeMode={FastImage.resizeMode.contain}
-                              />
-                            </View>
-                          )
-                        })}
-                        
-                        <View 
-                          style={[cStyles.abs, cStyles.rounded5, cStyles.p1, styles.bg_num_member]}>
-                          <Layout
-                            style={[
-                              cStyles.center,
-                              cStyles.rounded5,
-                              styles.mini_avatar,
-                              {backgroundColor: theme['color-primary-500']}
-                            ]}>
-                            <Text style={styles.text_white} category={'c2'}>+{info.item.numMember - 2}</Text>
-                          </Layout>
+      {!loading && (
+        <List
+          contentContainerStyle={cStyles.px10}
+          data={classes}
+          renderItem={info => {
+            return (
+              <Button
+                style={[cStyles.rounded1, cStyles.my6, cStyles.px0, cStyles.py0]}
+                appearance={'ghost'}
+                onPress={() => handleClassItem(info)}
+              >
+                {evaProps => (
+                  <FastImage
+                    style={[cStyles.fullWidth, cStyles.rounded1]}
+                    source={{
+                      uri: info.item.bgImage,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
+                    }}
+                    resizeMode={FastImage.resizeMode.cover}>
+                    <View style={[cStyles.flex1, cStyles.p16, cStyles.rounded1, styles.backdrop]}>
+                      <View>
+                        <Text style={styles.text_white} category={'s1'} numberOfLines={1}>{info.item.label}</Text>
+                        <View style={[cStyles.row, cStyles.itemsEnd, cStyles.mt12]}>
+                          {info.item.subjects.map((item, index) => {
+                            return (
+                              <Text
+                                key={item + index}
+                                style={[cStyles.mt5, styles.text_white]}
+                                category={'p1'}
+                                numberOfLines={1}>&#10041; {item}  </Text>
+                            );
+                          })}
                         </View>
-    
-                        <Text style={styles.txt_num_member} category={'c1'}>
-                          {`${info.item.numMember} ${t('classes:members')}`}
-                        </Text>
                       </View>
-    
-                      {info.item.assignment > 0 && (
-                        <Button
-                          appearance={'filled'}
-                          status={'warning'}
-                          size={'tiny'}
-                          accessoryRight={evaProps => (
-                            <Icon
-                              {...evaProps}
-                              ref={infiniteAnimationIconRef}
-                              animation='pulse'
-                              name='star'
-                            />
-                          )}>
-                          {`${info.item.assignment} ${t('classes:todo_item')}`}
-                        </Button>
-                      )}
+      
+                      <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt24]}>
+                        <View style={[cStyles.row, cStyles.itemsCenter]}>
+                          {info.item.members.map((item, index) => {
+                            return (
+                              <View
+                                key={item.id}
+                                style={[
+                                  cStyles.abs,
+                                  cStyles.rounded5,
+                                  cStyles.p1,
+                                  styles.bg_mini_avatar,
+                                  {left: moderateScale(20) * index}
+                                ]}>
+                                <FastImage
+                                  style={[cStyles.center, cStyles.rounded5, styles.mini_avatar]}
+                                  source={{
+                                    uri: item.avatar,
+                                    priority: FastImage.priority.high,
+                                    cache: FastImage.cacheControl.immutable,
+                                  }}
+                                  resizeMode={FastImage.resizeMode.contain}
+                                />
+                              </View>
+                            )
+                          })}
+                          
+                          <View 
+                            style={[cStyles.abs, cStyles.rounded5, cStyles.p1, styles.bg_num_member]}>
+                            <Layout
+                              style={[
+                                cStyles.center,
+                                cStyles.rounded5,
+                                styles.mini_avatar,
+                                {backgroundColor: theme['color-primary-500']}
+                              ]}>
+                              <Text style={styles.text_white} category={'c2'}>+{info.item.numMember - 2}</Text>
+                            </Layout>
+                          </View>
+      
+                          <Text style={styles.txt_num_member} category={'c1'}>
+                            {`${info.item.numMember} ${t('classes:members')}`}
+                          </Text>
+                        </View>
+      
+                        {info.item.assignment > 0 && (
+                          <Button
+                            appearance={'filled'}
+                            status={'warning'}
+                            size={'tiny'}
+                            accessoryRight={evaProps => (
+                              <Icon
+                                {...evaProps}
+                                ref={infiniteAnimationIconRef}
+                                animation='pulse'
+                                name='star'
+                              />
+                            )}>
+                            {`${info.item.assignment} ${t('classes:todo_item')}`}
+                          </Button>
+                        )}
+                      </View>
                     </View>
-                  </View>
-                </FastImage>
-              )}
-            </Button>
-          )
-        }}
-        keyExtractor={(item, index) => item.id + index}
-        extraData={classes}
-      />
+                  </FastImage>
+                )}
+              </Button>
+            )
+          }}
+          keyExtractor={(item, index) => item.id + index}
+          extraData={classes}
+        />
+      )}
+
+      <CLoading show={loading} />
     </CContainer>
   );
 }

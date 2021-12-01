@@ -11,18 +11,18 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		15D02C641137E245188CF3D8 /* libPods-LMSProject-LMSProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3E381420F9C86A75F8310CF /* libPods-LMSProject-LMSProjectTests.a */; };
+		53256678AFC78587240BDA8F /* libPods-LMSProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71823BCF34B2E552975C8BC5 /* libPods-LMSProject.a */; };
 		573A16AAE1334CFBA79CAEB4 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CE5D5F9702443EDB2E5AA08 /* Roboto-Light.ttf */; };
 		5B569B0032D949F783CBE07F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F1C1461227249D59242C4C7 /* Roboto-Bold.ttf */; };
 		76441D728BCB47EDA3EA7F61 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0175D0E90724DB99BAA82B7 /* Poppins-Light.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8D34EF64AA8F437E8D7FCADA /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8FBB699D0B41C795D803B1 /* Roboto-Regular.ttf */; };
-		A846360BC4D30D8C999503AD /* libPods-LMSProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF49BD205B1000C7792C080 /* libPods-LMSProject.a */; };
 		B2FDE6DB254F40BFB413114E /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4468EA7C58BC48AC99B1B091 /* Roboto-Medium.ttf */; };
 		D1E58706CADB4BA3B48144D5 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17491661DFD543F98B2216F8 /* Poppins-SemiBold.ttf */; };
 		D396772E273B87B200114292 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D396772D273B87B200114292 /* Config.xcconfig */; };
 		DAB7692A94194091872A14A5 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEAB02A294DE4C7DAC0C701B /* Poppins-Regular.ttf */; };
 		DDB091DFE95E477597216C20 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CBB255E6344F52B7F63500 /* Poppins-Medium.ttf */; };
-		DFFCB4D2F2782F58D354456A /* libPods-LMSProject-LMSProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 133786457FB1A6B80FEE9854 /* libPods-LMSProject-LMSProjectTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +43,7 @@
 		0699FEA2CA814168BA8FC381 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		0CA36D71BCD14625BBE398CD /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		0D08E0F6B80B467E81E40DD8 /* OpenSans-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-MediumItalic.ttf"; path = "../assets/fonts/OpenSans-MediumItalic.ttf"; sourceTree = "<group>"; };
-		133786457FB1A6B80FEE9854 /* libPods-LMSProject-LMSProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMSProject-LMSProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		10479F1968B100B1D0A00690 /* Pods-LMSProject.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.debugdev.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.debugdev.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* LMS Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMS Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LMSProject/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LMSProject/AppDelegate.m; sourceTree = "<group>"; };
@@ -51,52 +51,48 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LMSProject/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LMSProject/main.m; sourceTree = "<group>"; };
 		17491661DFD543F98B2216F8 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
-		1C478EE525C2311A5D0AFA5C /* Pods-LMSProject-LMSProjectTests.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.releasedev.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.releasedev.xcconfig"; sourceTree = "<group>"; };
-		244FD47BB7DB8BF1CA0C1FE7 /* Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig"; sourceTree = "<group>"; };
-		2AC1DE78D927A02C71C9DD1F /* Pods-LMSProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.debug.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.debug.xcconfig"; sourceTree = "<group>"; };
 		340F8B60D73C4C50A7F43E7D /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		37AB8BA9DE9448DDA47D6E92 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		3CC5ADEF6AEF4FABBBA5E455 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		3DC18307E18E6C695FCBD672 /* Pods-LMSProject.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.releasedev.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.releasedev.xcconfig"; sourceTree = "<group>"; };
 		3FDAA72368B843B4893359D4 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		4468EA7C58BC48AC99B1B091 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		4468EA7C58BC48AC99B1B091 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		4649610B61574386B5768B4C /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		467BB7E1CA1540FAB7E297E0 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		473F884E9590B94A74B0E97C /* Pods-LMSProject.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.debugprod.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.debugprod.xcconfig"; sourceTree = "<group>"; };
-		4CE5D5F9702443EDB2E5AA08 /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
+		46CDA59231A274C08ED7A933 /* Pods-LMSProject-LMSProjectTests.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.releasedev.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.releasedev.xcconfig"; sourceTree = "<group>"; };
+		4CE5D5F9702443EDB2E5AA08 /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		57645C0B76524308B5E3A4AE /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		5E6183D5EE9840098D8CBCE1 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		5EB7A87E0E3D41178FED04FF /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-BoldItalic.ttf"; path = "../assets/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
-		5EF49BD205B1000C7792C080 /* libPods-LMSProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMSProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5F9AC777E3B4FF8E87DB3740 /* Pods-LMSProject.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.debugdev.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.debugdev.xcconfig"; sourceTree = "<group>"; };
 		69348BD4F33A4B5DA9A7937A /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		6A3C49AB455A6F6A53BF316E /* Pods-LMSProject-LMSProjectTests.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.debugprod.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.debugprod.xcconfig"; sourceTree = "<group>"; };
 		6B94E43B24A24CDB984FD49D /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		6DABBD8CC36143C886740652 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		71823BCF34B2E552975C8BC5 /* libPods-LMSProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMSProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7301CE64CCF144529BEA9CEE /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		753AC24FD05B4B40B2DFCA55 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
-		7F1C1461227249D59242C4C7 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		7F1C1461227249D59242C4C7 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LMSProject/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		94D119D9B35EECC79463042B /* Pods-LMSProject.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.releaseprod.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.releaseprod.xcconfig"; sourceTree = "<group>"; };
 		9508DEEC8BEC47B58E6DF24A /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		9699944BBB6500B3AEFF0CD8 /* Pods-LMSProject-LMSProjectTests.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.debugprod.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.debugprod.xcconfig"; sourceTree = "<group>"; };
 		9C0332F7218B4395A56E33E5 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		9CCB7D3296394D8D9DCEAAA0 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		9F8550A911A4CE4553DFF2D3 /* Pods-LMSProject.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.debugprod.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.debugprod.xcconfig"; sourceTree = "<group>"; };
+		A3E381420F9C86A75F8310CF /* libPods-LMSProject-LMSProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMSProject-LMSProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A3FD7B16A64F1BAADC3D8B /* OpenSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Medium.ttf"; path = "../assets/fonts/OpenSans-Medium.ttf"; sourceTree = "<group>"; };
 		B7D7D86E173B4FF185E4FA62 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBold.ttf"; path = "../assets/fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
-		B8910C17C5ED703C50A241BE /* Pods-LMSProject-LMSProjectTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.debugdev.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		C3CBB255E6344F52B7F63500 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		C4F46B4FFB68F4D6B2D819D8 /* Pods-LMSProject.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.releaseprod.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.releaseprod.xcconfig"; sourceTree = "<group>"; };
-		C56B2D3BD132622756383392 /* Pods-LMSProject-LMSProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C98C325ACFC680E38158C824 /* Pods-LMSProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.release.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.release.xcconfig"; sourceTree = "<group>"; };
 		CE73C8D028EE42CC8A14FEF5 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		CEC42634E01D4D76B9CDA0E1 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
-		D27966D84D715C0A9F870313 /* Pods-LMSProject-LMSProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.release.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		D396772D273B87B200114292 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		D3F067B1F2A5BCF17C5B254E /* Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig"; sourceTree = "<group>"; };
 		DAAE2441FA2D4CB79D584AA1 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		DDFD65426007443A8BB9E62B /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-LightItalic.ttf"; path = "../assets/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EE8FBB699D0B41C795D803B1 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		EE8FBB699D0B41C795D803B1 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		F0175D0E90724DB99BAA82B7 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		F36B77B4C1344EF68F34F657 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
-		FDFCCBE1056B2FCFB738A596 /* Pods-LMSProject.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject.releasedev.xcconfig"; path = "Target Support Files/Pods-LMSProject/Pods-LMSProject.releasedev.xcconfig"; sourceTree = "<group>"; };
+		FD8CD5E8C509165DE5498EEA /* Pods-LMSProject-LMSProjectTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMSProject-LMSProjectTests.debugdev.xcconfig"; path = "Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		FEAB02A294DE4C7DAC0C701B /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFFCB4D2F2782F58D354456A /* libPods-LMSProject-LMSProjectTests.a in Frameworks */,
+				15D02C641137E245188CF3D8 /* libPods-LMSProject-LMSProjectTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A846360BC4D30D8C999503AD /* libPods-LMSProject.a in Frameworks */,
+				53256678AFC78587240BDA8F /* libPods-LMSProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,8 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5EF49BD205B1000C7792C080 /* libPods-LMSProject.a */,
-				133786457FB1A6B80FEE9854 /* libPods-LMSProject-LMSProjectTests.a */,
+				71823BCF34B2E552975C8BC5 /* libPods-LMSProject.a */,
+				A3E381420F9C86A75F8310CF /* libPods-LMSProject-LMSProjectTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -170,18 +166,14 @@
 		836B84607303C47D9D34D82B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2AC1DE78D927A02C71C9DD1F /* Pods-LMSProject.debug.xcconfig */,
-				C98C325ACFC680E38158C824 /* Pods-LMSProject.release.xcconfig */,
-				C56B2D3BD132622756383392 /* Pods-LMSProject-LMSProjectTests.debug.xcconfig */,
-				D27966D84D715C0A9F870313 /* Pods-LMSProject-LMSProjectTests.release.xcconfig */,
-				5F9AC777E3B4FF8E87DB3740 /* Pods-LMSProject.debugdev.xcconfig */,
-				473F884E9590B94A74B0E97C /* Pods-LMSProject.debugprod.xcconfig */,
-				FDFCCBE1056B2FCFB738A596 /* Pods-LMSProject.releasedev.xcconfig */,
-				C4F46B4FFB68F4D6B2D819D8 /* Pods-LMSProject.releaseprod.xcconfig */,
-				B8910C17C5ED703C50A241BE /* Pods-LMSProject-LMSProjectTests.debugdev.xcconfig */,
-				9699944BBB6500B3AEFF0CD8 /* Pods-LMSProject-LMSProjectTests.debugprod.xcconfig */,
-				1C478EE525C2311A5D0AFA5C /* Pods-LMSProject-LMSProjectTests.releasedev.xcconfig */,
-				244FD47BB7DB8BF1CA0C1FE7 /* Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig */,
+				10479F1968B100B1D0A00690 /* Pods-LMSProject.debugdev.xcconfig */,
+				9F8550A911A4CE4553DFF2D3 /* Pods-LMSProject.debugprod.xcconfig */,
+				3DC18307E18E6C695FCBD672 /* Pods-LMSProject.releasedev.xcconfig */,
+				94D119D9B35EECC79463042B /* Pods-LMSProject.releaseprod.xcconfig */,
+				FD8CD5E8C509165DE5498EEA /* Pods-LMSProject-LMSProjectTests.debugdev.xcconfig */,
+				6A3C49AB455A6F6A53BF316E /* Pods-LMSProject-LMSProjectTests.debugprod.xcconfig */,
+				46CDA59231A274C08ED7A933 /* Pods-LMSProject-LMSProjectTests.releasedev.xcconfig */,
+				D3F067B1F2A5BCF17C5B254E /* Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -262,11 +254,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LMSProjectTests" */;
 			buildPhases = (
-				7B7FD8B25582515E12D78EB6 /* [CP] Check Pods Manifest.lock */,
+				A296AEE2353DCCE25B38C0D1 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				B7AEF5C1A33B90B10D559C87 /* [CP] Copy Pods Resources */,
+				B6967FC867150C8278A1879B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -282,14 +274,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LMSProject" */;
 			buildPhases = (
-				BC6F8AA65CEF6609A13C65C5 /* [CP] Check Pods Manifest.lock */,
+				DDF7030EC86D4AB52E8B7989 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				5671858FF1B8DA640CAC0A40 /* [CP] Copy Pods Resources */,
 				D396772F273B884B00114292 /* ShellScript */,
+				36C5B507385C36A32ED3B173 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -379,7 +371,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		5671858FF1B8DA640CAC0A40 /* [CP] Copy Pods Resources */ = {
+		36C5B507385C36A32ED3B173 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -396,7 +388,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LMSProject/Pods-LMSProject-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7B7FD8B25582515E12D78EB6 /* [CP] Check Pods Manifest.lock */ = {
+		A296AEE2353DCCE25B38C0D1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -418,7 +410,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B7AEF5C1A33B90B10D559C87 /* [CP] Copy Pods Resources */ = {
+		B6967FC867150C8278A1879B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -435,7 +427,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LMSProject-LMSProjectTests/Pods-LMSProject-LMSProjectTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BC6F8AA65CEF6609A13C65C5 /* [CP] Check Pods Manifest.lock */ = {
+		D396772F273B884B00114292 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../node_modules/react-native-config/ios/ReactNativeConfig/BuildXCConfig.rb\" \"${SRCROOT}/..\" \"${SRCROOT}/tmp.xcconfig\"\n\n";
+		};
+		DDF7030EC86D4AB52E8B7989 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -456,23 +465,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		D396772F273B884B00114292 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../node_modules/react-native-config/ios/ReactNativeConfig/BuildXCConfig.rb\" \"${SRCROOT}/..\" \"${SRCROOT}/tmp.xcconfig\"\n\n";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -526,7 +518,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* DebugDev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8910C17C5ED703C50A241BE /* Pods-LMSProject-LMSProjectTests.debugdev.xcconfig */;
+			baseConfigurationReference = FD8CD5E8C509165DE5498EEA /* Pods-LMSProject-LMSProjectTests.debugdev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -553,7 +545,7 @@
 		};
 		00E356F71AD99517003FC87E /* ReleaseDev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C478EE525C2311A5D0AFA5C /* Pods-LMSProject-LMSProjectTests.releasedev.xcconfig */;
+			baseConfigurationReference = 46CDA59231A274C08ED7A933 /* Pods-LMSProject-LMSProjectTests.releasedev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -577,11 +569,12 @@
 		};
 		13B07F941A680F5B00A75B9A /* DebugDev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F9AC777E3B4FF8E87DB3740 /* Pods-LMSProject.debugdev.xcconfig */;
+			baseConfigurationReference = 10479F1968B100B1D0A00690 /* Pods-LMSProject.debugdev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y3LL23RBNX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LMSProject/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -608,11 +601,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* ReleaseDev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FDFCCBE1056B2FCFB738A596 /* Pods-LMSProject.releasedev.xcconfig */;
+			baseConfigurationReference = 3DC18307E18E6C695FCBD672 /* Pods-LMSProject.releasedev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y3LL23RBNX;
 				INFOPLIST_FILE = LMSProject/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
@@ -828,11 +822,12 @@
 		};
 		D3967726273B822C00114292 /* DebugProd */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 473F884E9590B94A74B0E97C /* Pods-LMSProject.debugprod.xcconfig */;
+			baseConfigurationReference = 9F8550A911A4CE4553DFF2D3 /* Pods-LMSProject.debugprod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y3LL23RBNX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LMSProject/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -859,7 +854,7 @@
 		};
 		D3967727273B822C00114292 /* DebugProd */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9699944BBB6500B3AEFF0CD8 /* Pods-LMSProject-LMSProjectTests.debugprod.xcconfig */;
+			baseConfigurationReference = 6A3C49AB455A6F6A53BF316E /* Pods-LMSProject-LMSProjectTests.debugprod.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -945,11 +940,12 @@
 		};
 		D3967729273B824100114292 /* ReleaseProd */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4F46B4FFB68F4D6B2D819D8 /* Pods-LMSProject.releaseprod.xcconfig */;
+			baseConfigurationReference = 94D119D9B35EECC79463042B /* Pods-LMSProject.releaseprod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y3LL23RBNX;
 				INFOPLIST_FILE = LMSProject/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
@@ -974,7 +970,7 @@
 		};
 		D396772A273B824100114292 /* ReleaseProd */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 244FD47BB7DB8BF1CA0C1FE7 /* Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig */;
+			baseConfigurationReference = D3F067B1F2A5BCF17C5B254E /* Pods-LMSProject-LMSProjectTests.releaseprod.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;

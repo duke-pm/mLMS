@@ -46,7 +46,8 @@ const RenderFooterFullImage = (images, curIndex) => {
                 style={styles.con_images_mini}
                 source={{
                   uri: info.item.source.uri,
-                  priority: FastImage.priority.normal,
+                  priority: FastImage.priority.high,
+                  cache: FastImage.cacheControl.immutable,
                 }}
                 resizeMode={FastImage.resizeMode.cover}
               />
@@ -107,7 +108,7 @@ function CPostImages(props) {
     if (images.length > 0) {
       let image = null, tmpImages = [], objImage = {source: '', height: 0, width: 0};
       for (image of images) {
-        objImage = {source: '', height: 0, width: 0};
+        objImage = {source: {}, height: 0, width: 0};
         objImage.source = {uri: image};
         objImage.width = SIZE_IMAGE_FULL.width;
         objImage.height = SIZE_IMAGE_FULL.height;
@@ -136,7 +137,8 @@ function CPostImages(props) {
                 style={[cStyles.fullWidth, cStyles.fullHeight]}
                 source={{
                   uri: images[0],
-                  priority: FastImage.priority.normal,
+                  priority: FastImage.priority.high,
+                  cache: FastImage.cacheControl.immutable,
                 }}
                 resizeMode={FastImage.resizeMode.cover}
               />
@@ -158,7 +160,8 @@ function CPostImages(props) {
                   style={[cStyles.fullWidth, cStyles.fullHeight]}
                   source={{
                     uri: images[0],
-                    priority: FastImage.priority.normal,
+                    priority: FastImage.priority.high,
+                    cache: FastImage.cacheControl.immutable,
                   }}
                   resizeMode={FastImage.resizeMode.cover}
                 />
@@ -176,7 +179,8 @@ function CPostImages(props) {
                   style={[cStyles.fullWidth, cStyles.fullHeight]}
                   source={{
                     uri: images[1],
-                    priority: FastImage.priority.normal,
+                    priority: FastImage.priority.high,
+                    cache: FastImage.cacheControl.immutable,
                   }}
                   resizeMode={FastImage.resizeMode.cover}
                 />
@@ -200,7 +204,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[0],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -218,7 +223,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[1],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -238,7 +244,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[2],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -263,7 +270,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[0],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -281,7 +289,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[1],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -301,7 +310,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[2],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -319,7 +329,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[3],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -344,7 +355,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[0],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -362,7 +374,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[1],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -382,7 +395,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[2],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -400,7 +414,8 @@ function CPostImages(props) {
                     style={[cStyles.fullWidth, cStyles.fullHeight]}
                     source={{
                       uri: images[3],
-                      priority: FastImage.priority.normal,
+                      priority: FastImage.priority.high,
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
@@ -416,12 +431,12 @@ function CPostImages(props) {
 
       {!loading && (
         <ImageView
+          isVisible={alertFullImage}
           glideAlways
           controls={{close: true, next: true, prev: true}}
           animationType="fade"
           images={imagesPost}
           imageIndex={indexFullImage}
-          isVisible={alertFullImage}
           onClose={() => toggleAlertFullImage(0)}
           renderFooter={props => RenderFooterFullImage(imagesPost, indexFullImage)}
           onImageChange={onChangeFullImage}

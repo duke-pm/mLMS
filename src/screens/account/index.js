@@ -22,8 +22,6 @@ import {cStyles} from '~/utils/style';
 import {moderateScale, resetRoute} from '~/utils/helper';
 /* REDUX */
 
-/** All init */
-
 /*********************
  ** OTHER COMPONENT **
  *********************/

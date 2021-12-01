@@ -4,17 +4,16 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect} from 'react';
-import { List, ListItem, Avatar, ButtonGroup, Button, Icon } from '@ui-kitten/components';
-import {StyleSheet, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {List, ListItem, ButtonGroup, Button, Icon} from '@ui-kitten/components';
+import {StyleSheet} from 'react-native';
+/* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
-import { cStyles } from '~/utils/style';
 import CLoading from '~/components/CLoading';
-/* COMPONENTS */
-
+import CAvatar from '~/components/CAvatar';
 /* COMMON */
-
+import {cStyles} from '~/utils/style';
 /* REDUX */
 
 const RenderMessagesIcon = (props) => (
@@ -26,32 +25,10 @@ const RenderPhoneIcon = (props) => (
 )
 
 const RenderAvatarStudent = (info) => (
-  <View>
-    <Avatar
-      shape='round'
-      size={'medium'}
-      source={{uri: info.item.avatar}}
-      resizeMode={'contain'}
-    />
-    {info.item.isOnline && (
-      <View
-        style={[
-          cStyles.abs,
-          cStyles.right0,
-          cStyles.rounded2,
-          cStyles.p1,
-          styles.con_status_online
-        ]}>
-        <View
-          style={[
-            cStyles.flex1,
-            cStyles.rounded2,
-            styles.status_online
-          ]}
-        />
-      </View>
-    )}
-  </View>
+  <CAvatar
+    showIsOnline={info.item.isOnline}
+    source={{uri: info.item.avatar}}
+  />
 );
 
 const RenderActionsStudent = (info) => {
@@ -73,6 +50,7 @@ const RenderActionsStudent = (info) => {
   return (
     <ButtonGroup
       style={[cStyles.row, cStyles.itemsCenter]}
+      status={'basic'}
       appearance={'outline'}
       size={'tiny'}>
       <Button

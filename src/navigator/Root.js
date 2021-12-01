@@ -152,6 +152,29 @@ export function RootMain(props) {
         name={Routes.STUDENTS.name}
         component={Routes.STUDENTS.path}
       />
+      <StackMain.Screen
+        name={Routes.QUIZ.name}
+        component={Routes.QUIZ.path}
+      />
+      <StackMain.Screen
+        name={Routes.ADD_POST.name}
+        component={Routes.ADD_POST.path}
+      />
+      <StackMain.Screen
+        name={Routes.QUIZ_DETAILS.name}
+        component={Routes.QUIZ_DETAILS.path}
+      />
+      <StackMain.Screen
+        name={Routes.QUIZ_PROCESS.name}
+        component={Routes.QUIZ_PROCESS.path}
+        options={{
+          animation: 'slide_from_bottom',
+        }}
+      />
+      <StackMain.Screen
+        name={Routes.QUIZ_REVIEW.name}
+        component={Routes.QUIZ_REVIEW.path}
+      />
     </StackMain.Navigator>
   );
 }

@@ -25,6 +25,13 @@ import HelpScreen from '~/screens/help';
 import ClassesScreen from '~/screens/classes';
 import ClassDetailsScreen from '~/screens/classes/details';
 import StudentsScreen from '~/screens/classes/students';
+import QuizScreen from '~/screens/quiz';
+import QuizDetailsScreen from '~/screens/quiz/details';
+import QuizProcessScreen from '~/screens/quiz/process';
+import QuizReviewScreen from '~/screens/quiz/review';
+
+import AddPostScreen from '~/screens/posts/add';
+
 
 const Routes = {
   INTRO: {
@@ -86,6 +93,26 @@ const Routes = {
   STUDENTS: {
     name: 'Students',
     path: StudentsScreen,
+  },
+  ADD_POST: {
+    name: 'AddPost',
+    path: AddPostScreen,
+  },
+  QUIZ: {
+    name: 'Quiz',
+    path: QuizScreen,
+  },
+  QUIZ_DETAILS: {
+    name: 'QuizDetails',
+    path: QuizDetailsScreen,
+  },
+  QUIZ_PROCESS: {
+    name: 'QuizProcess',
+    path: QuizProcessScreen,
+  },
+  QUIZ_REVIEW: {
+    name: 'QuizReview',
+    path: QuizReviewScreen,
   },
   TAB: {
     name: 'TabMain',

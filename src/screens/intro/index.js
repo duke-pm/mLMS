@@ -45,7 +45,7 @@ const RenderPageIntro = (t, image, title, caption, footer = null) => {
     <View style={cStyles.itemsCenter}>
       <View style={[cStyles.itemsCenter, styles.con_layout]}>
         <Image style={[cStyles.mt40, styles.img_intro]} source={image} resizeMode={'contain'} />
-        <Text style={[cStyles.textCenter, cStyles.mt36]} category='h5'>{t(title)}</Text>
+        <Text style={[cStyles.textCenter, cStyles.mt36]} category='s1'>{t(title)}</Text>
         <Text style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t(caption)}</Text>
         {footer}
       </View>
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
     width: sW('70%'),
   },
   img_intro: {
-    height: sW('50%'),
-    width: sW('50%'),
+    height: sW('60%'),
+    width: sW('60%'),
   },
   con_page_unactive: {
     height: moderateScale(4),

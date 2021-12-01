@@ -31,18 +31,18 @@ if (IS_ANDROID) {
 /*********************
  ** OTHER COMPONENT **
  *********************/
-const BackIcon = (theme, iconStyle) => (
+const BackIcon = (theme, iconStyle, iconBack) => (
   <IoniIcon
-    name='arrow-back'
+    name={iconBack || 'arrow-back'}
     color={iconStyle.color || theme['text-basic-color']}
     size={moderateScale(20)} />
 );
 
-const RenderTopLeft = (theme, iconStyle, t, title, subtitle, onPress) => {
+const RenderTopLeft = (theme, iconStyle, t, title, subtitle, onPress, iconBack) => {
   return (
     <View style={[cStyles.row, cStyles.itemsCenter, !onPress && cStyles.ml24]}>
       {onPress && (
-        <TopNavigationAction icon={BackIcon(theme, iconStyle)} onPress={onPress} />
+        <TopNavigationAction icon={BackIcon(theme, iconStyle, iconBack)} onPress={onPress} />
       )}
       <View>
         <Text category='h4'>{t(title)}</Text>
@@ -54,22 +54,50 @@ const RenderTopLeft = (theme, iconStyle, t, title, subtitle, onPress) => {
   )
 };
 
-const RenderTopRight = (type, theme, iconStyle, t, toggle) => {
+const RenderTopRight = (type, theme, iconStyle, t, onPress, onPress2) => {
   if (type === 'darkmode') {
     return (
-      <Toggle {...toggle}>
+      <Toggle {...onPress}>
         {evaProps => <Text {...evaProps}>{t('common:dark_mode')}</Text>}
       </Toggle>
     )
   }
   if (type === 'search') {
     return (
-      <TouchableOpacity style={[cStyles.px10, cStyles.py6]} onPress={toggle}>
+      <TouchableOpacity style={[cStyles.px10, cStyles.py6]} onPress={onPress}>
         <IoniIcon
           name={'search-outline'}
           size={iconStyle.size || moderateScale(20)}
           color={iconStyle.color || theme['text-basic-color']} />
       </TouchableOpacity>
+    )
+  }
+  if (type === 'add') {
+    return (
+      <TouchableOpacity style={[cStyles.px10, cStyles.py6]} onPress={onPress}>
+        <IoniIcon
+          name={'add-outline'}
+          size={iconStyle.size || moderateScale(20)}
+          color={iconStyle.color || theme['text-basic-color']} />
+      </TouchableOpacity>
+    )
+  }
+  if (type === 'searchAdd') {
+    return (
+      <View style={[cStyles.row, cStyles.itemsCenter]}>
+        <TouchableOpacity style={[cStyles.px10, cStyles.py6]} onPress={onPress}>
+          <IoniIcon
+            name={'search-outline'}
+            size={iconStyle.size || moderateScale(20)}
+            color={iconStyle.color || theme['text-basic-color']} />
+        </TouchableOpacity>
+        <TouchableOpacity style={[cStyles.px10, cStyles.py6]} onPress={onPress2}>
+          <IoniIcon
+            name={'add-outline'}
+            size={iconStyle.size || moderateScale(20)}
+            color={iconStyle.color || theme['text-basic-color']} />
+        </TouchableOpacity>
+      </View>
     )
   }
   return null;
@@ -118,9 +146,12 @@ function CTopNavigation(props) {
     subtitleStyle = {},
     iconStyle = {},
     translution = false,
+    add = false,
     search = false,
+    searchAdd = false,
     back = false,
     darkmode = false,
+    iconBack = null,
     title = '',
     subtitle = '',
     leftTitle = null,
@@ -128,6 +159,8 @@ function CTopNavigation(props) {
     alignment = 'center',
     customLeftComponent = null,
     customRightComponent = null,
+    onPressAdd = () => null,
+    onPressCustomBack = null, 
   } = props;
 
   /** Use state */
@@ -138,11 +171,13 @@ function CTopNavigation(props) {
    ** HANDLE FUNC **
    *****************/
   const handleGoBack = () => {
-    navigation.goBack();
+    onPressCustomBack
+      ? onPressCustomBack()
+      : navigation.goBack();
   };
 
   const toggleShowSearch = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setShowSearch(!showSearch);
   };
 
@@ -150,12 +185,18 @@ function CTopNavigation(props) {
    ** RENDER **
    ************/
   let leftComponent = undefined, rightComponent = undefined;
-  leftComponent = RenderTopLeft(theme, iconStyle, t, leftTitle, leftSubtitle, back && handleGoBack);
+  leftComponent = RenderTopLeft(theme, iconStyle, t, leftTitle, leftSubtitle, back && handleGoBack, iconBack);
   if (darkmode) {
     rightComponent = RenderTopRight('darkmode', theme, iconStyle, t, darkmodeToggle);
   }
   if (search) {
     rightComponent = RenderTopRight('search', theme, iconStyle, t, toggleShowSearch);
+  }
+  if (add) {
+    rightComponent = RenderTopRight('add', theme, iconStyle, t, onPressAdd);
+  }
+  if (searchAdd) {
+    rightComponent = RenderTopRight('searchAdd', theme, iconStyle, t, toggleShowSearch, onPressAdd);
   }
   if (customLeftComponent) {
     leftComponent = customLeftComponent;
