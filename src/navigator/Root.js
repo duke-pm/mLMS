@@ -195,6 +195,14 @@ export function RootMain(props) {
           animation: 'slide_from_bottom',
         }}
       />
+      <StackMain.Screen
+        name={Routes.ASSIGNMENT.name}
+        component={Routes.ASSIGNMENT.path}
+      />
+      <StackMain.Screen
+        name={Routes.ASSIGNMENT_DETAILS.name}
+        component={Routes.ASSIGNMENT_DETAILS.path}
+      />
     </StackMain.Navigator>
   );
 }

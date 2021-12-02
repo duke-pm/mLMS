@@ -73,7 +73,7 @@ function CAvatar(props) {
   }
   
   return (
-    <View style={[containerStyle]}>
+    <View style={containerStyle}>
       <View
         style={[
           cStyles.center,

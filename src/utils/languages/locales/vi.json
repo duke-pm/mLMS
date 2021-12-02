@@ -303,5 +303,24 @@
     "confirm_back_yes": "Đúng vậy",
     "done": "Xong",
     "your_answer": "Điền trả lời của bạn..."
+  },
+  "assignment": {
+    "title": "Bài Tập",
+    "exercise": "Bài tập",
+    "user_completed": "người đã hoàn thành",
+    "group_completed": "nhóm đã hoàn thành",
+    "due_date": "Hạn nộp bài",
+    "submit_date": "Ngày tải lên",
+    "attached_file": "File đính kèm",
+    "go_details": "Xem chi tiết"
+  },
+  "assignment_details": {
+    "title": "Chi tiết Bài tập",
+    "user_completed": "người đã hoàn thành",
+    "group_completed": "group completed",
+    "due_date": "Hạn nộp bài",
+    "submit_date": "Ngày tải lên",
+    "attached_file": "File đính kèm",
+    "review": "Đánh giá"
   }
 }

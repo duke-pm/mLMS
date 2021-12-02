@@ -303,5 +303,24 @@
     "confirm_back_yes": "That right",
     "done": "Done",
     "your_answer": "Write your answer..."
+  },
+  "assignment": {
+    "title": "Assignment",
+    "exercise": "Exercise",
+    "user_completed": "people completed",
+    "group_completed": "group completed",
+    "due_date": "Due date",
+    "submit_date": "Submit date",
+    "attached_file": "Attachment",
+    "go_details": "Go Details"
+  },
+  "assignment_details": {
+    "title": "Chi tiết Bài tập",
+    "user_completed": "people completed",
+    "group_completed": "group completed",
+    "due_date": "Due date",
+    "submit_date": "Submit date",
+    "attached_file": "Attachment",
+    "review": "Review"
   }
 }

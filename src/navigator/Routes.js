@@ -32,6 +32,8 @@ import QuizReviewScreen from '~/screens/quiz/review';
 import QuestionsScreen from '~/screens/questions';
 import QuestionDetailsScreen from '~/screens/questions/details';
 import QuestionAnswersScreen from '~/screens/questions/answers';
+import AssignmentScreen from '~/screens/assignment';
+import AssignmentDetailsScreen from '~/screens/assignment/details';
 
 import AddPostScreen from '~/screens/posts/add';
 import AddAnswerScreen from '~/screens/questions/add_answer';
@@ -133,6 +135,14 @@ const Routes = {
   ADD_ANSWERS: {
     name: 'AddAnswers',
     path: AddAnswerScreen,
+  },
+  ASSIGNMENT: {
+    name: 'Assignment',
+    path: AssignmentScreen,
+  },
+  ASSIGNMENT_DETAILS: {
+    name: 'AssignmentDetails',
+    path: AssignmentDetailsScreen,
   },
   TAB: {
     name: 'TabMain',

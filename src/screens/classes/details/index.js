@@ -128,7 +128,8 @@ function ClassDetails(props) {
   };
 
   const handleGoAssignment = () => {
-    console.log('[LOG] === handleGoAssignment ===> ');
+    toggleAlertMenu();
+    navigation.navigate(Routes.ASSIGNMENT.name);
   };
 
   const handleGoQuiz = () => {
