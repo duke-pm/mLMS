@@ -6,7 +6,7 @@
  **/
 import React, {useRef, useState, useEffect, useLayoutEffect, useContext} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Button, Divider, Layout, List, Text, useTheme} from '@ui-kitten/components';
+import {Button, Divider, Layout, List, useTheme} from '@ui-kitten/components';
 import {StatusBar, StyleSheet, View, Alert} from 'react-native';
 import moment from 'moment';
 /* COMPONENTS */
@@ -14,6 +14,7 @@ import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CLoading from '~/components/CLoading';
 import CAvatar from '~/components/CAvatar';
+import CText from '~/components/CText';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {IS_ANDROID, sW} from '~/utils/helper';
@@ -185,15 +186,16 @@ function QuizDetails(props) {
             titleStyle={styles.txt_white}
             iconStyle={styles.txt_white}
             title={'quiz_details:title'}
+            borderBottom={false}
             back />
-          <View style={[cStyles.px16, cStyles.pb16]}>
+          <View style={[cStyles.px10, cStyles.pb16]}>
             <View style={[cStyles.row, cStyles.itemsStart, cStyles.justifyBetween]}>
               <View style={[cStyles.mr5, styles.con_title_left]}>
-                <Text style={styles.txt_white} category={'label'}>{dataQuiz.label}</Text>
+                <CText style={styles.txt_white} category={'label'}>{dataQuiz.label}</CText>
                 <View style={[cStyles.flexWrap, cStyles.row, cStyles.itemsCenter, cStyles.mt10]}>
                   {dataQuiz.subjects.map((item, index) => {
                     return (
-                      <Text style={cStyles.mt5} status={'control'} category={'p1'}>&#10041; {item}  </Text>
+                      <CText style={cStyles.mt5} status={'control'} category={'p1'}>&#10041; {item}  </CText>
                     )
                   })}
                 </View>
@@ -218,70 +220,68 @@ function QuizDetails(props) {
               )}
             </View>
             <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt16]}>
-              <Text style={styles.txt_white} category={'p1'}>
+              <CText style={styles.txt_white} category={'p1'}>
                 {txtOnTime === 'ago'
                 ? `${Math.abs(chkOnTime)} ${t('quiz_details:ago')}` 
                 : txtOnTime}
-              </Text>
-              <Text style={styles.txt_white} category={'p1'}>
+              </CText>
+              <CText style={styles.txt_white} category={'p1'}>
                 {`${dataQuiz.numParticipants}/50 ${t('quiz_details:participants')}`}
-              </Text>
+              </CText>
             </View>
             <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt16]}>
-              <Text style={styles.txt_white} category={'p1'}>
+              <CText style={styles.txt_white} category={'p1'}>
                 {`${t('quiz_details:durations')}: ${dataQuiz.timeout} ${t('common:minutes')}`}
-              </Text>
-              <Text style={styles.txt_white} category={'p1'}>
+              </CText>
+              <CText style={styles.txt_white} category={'p1'}>
                 {`${dataQuiz.numQuestions} ${t('quiz_details:questions')}`}
-              </Text>
+              </CText>
             </View>
           </View>
         </Layout>
       }>
         
-      <View style={[cStyles.px16, cStyles.py10, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
-        <Text category={'s1'}>{t('quiz_details:participants').toUpperCase()}</Text>
-        <Text category={'s1'}>{t('quiz_details:score').toUpperCase()}</Text>
+      <View style={[cStyles.p10, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
+        <CText category={'s1'}>{t('quiz_details:participants').toUpperCase()}</CText>
+        <CText category={'s1'}>{t('quiz_details:score').toUpperCase()}</CText>
       </View>
       
       <Divider />
 
-      <Layout style={cStyles.flex1} level={'1'}>
-        <List
-          style={{backgroundColor: theme['background-basic-color-1']}}
-          contentContainerStyle={cStyles.p16}
-          data={participants}
-          renderItem={info => {
-            return (
-              <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
-                <View style={[cStyles.row, cStyles.itemsCenter]}>
-                  <CAvatar source={{uri: info.item.avatar}} />
-                  <Text style={cStyles.ml10} category={'p1'}>{info.item.name}</Text>
-                </View>
-
-                <Button
-                  style={cStyles.rounded5}
-                  appearance={'outline'}
-                  size={'small'}
-                  status={info.item.score === 'need_review' 
-                  ? 'warning' 
-                  : info.item.score > 80 
-                    ? 'success' 
-                    : info.item.score >= 50 
-                      ? 'info' 
-                      : 'danger'
-                  }>
-                  {info.item.score === 'need_review' 
-                  ? t('quiz_details:need_review') 
-                  : info.item.score + '%'}
-                </Button>
+      <List
+        style={{backgroundColor: theme['background-basic-color-1']}}
+        contentContainerStyle={[cStyles.px10, cStyles.pt16, cStyles.pb36]}
+        data={participants}
+        renderItem={info => {
+          return (
+            <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
+              <View style={[cStyles.row, cStyles.itemsCenter]}>
+                <CAvatar source={{uri: info.item.avatar}} />
+                <CText style={cStyles.ml10} category={'p1'}>{info.item.name}</CText>
               </View>
-            )
-          }}
-          keyExtractor={(item, index) => item.id + index}
-          ItemSeparatorComponent={() => <View style={cStyles.my10} />}
-        />
-      </Layout>
+
+              <Button
+                style={cStyles.rounded5}
+                appearance={'outline'}
+                size={'small'}
+                status={info.item.score === 'need_review' 
+                ? 'warning' 
+                : info.item.score > 80 
+                  ? 'success' 
+                  : info.item.score >= 50 
+                    ? 'info' 
+                    : 'danger'
+                }>
+                {info.item.score === 'need_review' 
+                ? t('quiz_details:need_review') 
+                : info.item.score + '%'}
+              </Button>
+            </View>
+          )
+        }}
+        keyExtractor={(item, index) => item.id + index}
+        ItemSeparatorComponent={() => <View style={cStyles.my10} />}
+      />
       <CLoading show={loading} />
     </CContainer>
   );

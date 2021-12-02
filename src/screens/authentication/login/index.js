@@ -6,14 +6,14 @@
  **/
 import React, {useContext, useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useTheme, Layout, Text, Divider} from '@ui-kitten/components';
+import {useTheme, Layout, Divider} from '@ui-kitten/components';
 import {View, TouchableWithoutFeedback} from 'react-native';
-import {showMessage} from "react-native-flash-message";
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
 import CButtonSocial, {SOCIAL_NAME} from '~/components/CButtonSocial';
+import CText from '~/components/CText';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {cStyles} from '~/utils/style';
@@ -81,10 +81,11 @@ function Login(props) {
   return (
     <CContainer
       safeArea={['top']}
-      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-900']}>
+      backgroundColor={theme['background-basic-color-3']}>
       {/** Header */}
       <CTopNavigation
-        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-900']}}
+        style={{backgroundColor: theme['background-basic-color-3']}}
+        borderBottom={false}
         darkmode
         leftTitle={'log_in:title'} />
 
@@ -138,11 +139,11 @@ function Login(props) {
           customAddingForm={
             <View style={[cStyles.itemsEnd, cStyles.mt16]}>
               <TouchableWithoutFeedback onPress={handleGoForgotPassword}>
-                <Text
+                <CText
                   style={[cStyles.textUnderline, {color: theme['color-primary-500']}]}
                   category={'p1'}>
                   {t('log_in:is_forgot_password')}
-                </Text>
+                </CText>
               </TouchableWithoutFeedback>
             </View>
           }
@@ -153,20 +154,20 @@ function Login(props) {
 
         {/** Sign up ? */}
         <View style={[cStyles.row, cStyles.itemsEnd, cStyles.justifyCenter, cStyles.mt24]}>
-          <Text category='p1'>{t('log_in:dont_have_account')}</Text>
+          <CText category='p1'>{t('log_in:dont_have_account')}</CText>
           <TouchableWithoutFeedback onPress={handleSignUp}>
-            <Text 
+            <CText 
               style={[cStyles.textUnderline, cStyles.ml6, {color: theme['color-primary-500']}]}
               category={'p1'}>
               {t('log_in:sign_up')}
-            </Text>
+            </CText>
           </TouchableWithoutFeedback>
         </View>
 
         {/** Login with other socials */}
         <View style={[cStyles.row, cStyles.itemsCenter, cStyles.mt24]}>
           <Divider style={[cStyles.flex1, {backgroundColor: theme['color-basic-500']}]} />
-            <Text style={cStyles.mx10} category={'c1'}>{t('log_in:login_with_socials')}</Text>
+            <CText style={cStyles.mx10} category={'c1'}>{t('log_in:login_with_socials')}</CText>
           <Divider style={[cStyles.flex1, {backgroundColor: theme['color-basic-500']}]} />
         </View>
 

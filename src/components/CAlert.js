@@ -5,18 +5,16 @@
  ** Description: Description of CAlert.js
  **/
 import PropTypes from 'prop-types';
-import React, {useRef, useState, useEffect} from 'react';
-import { useTranslation } from 'react-i18next';
-import {Modal, Card, Text, Button, useTheme} from '@ui-kitten/components';
+import React from 'react';
+import {useTranslation} from 'react-i18next';
+import {Modal, Card, Button, useTheme} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 /* COMPONENTS */
-
+import CText from './CText';
 /* COMMON */
 import {colors, cStyles} from '~/utils/style';
-import { moderateScale } from '~/utils/helper';
-/* REDUX */
-
+import {moderateScale} from '~/utils/helper';
 
 function CAlert(props) {
   const theme = useTheme();
@@ -53,14 +51,6 @@ function CAlert(props) {
     if (onCancel) onCancel();
   };
 
-  /**********
-   ** FUNC **
-   **********/
-
-  /****************
-   ** LIFE CYCLE **
-   ****************/
-
   /************
    ** RENDER **
    ************/
@@ -75,18 +65,18 @@ function CAlert(props) {
             {success && (
               <View style={cStyles.itemsCenter}>
                 <IoniIcon name={'checkmark-circle-outline'} size={moderateScale(60)} color={theme['color-success-500']} />
-                <Text style={cStyles.mt10} category={'h6'}>{t(label !== '' ? label : 'common:success')}</Text>
+                <CText style={cStyles.mt10} category={'h6'}>{t(label !== '' ? label : 'common:success')}</CText>
               </View>
             )}
             {error && (
               <View style={cStyles.itemsCenter}>
                 <IoniIcon name={'close-circle-outline'} size={moderateScale(60)} color={theme['color-danger-500']} />
-                <Text style={cStyles.mt10} category={'h6'}>{t(label !== '' ? label : 'common:error')}</Text>
+                <CText style={cStyles.mt10} category={'h6'}>{t(label !== '' ? label : 'common:error')}</CText>
               </View>
             )}
             {!success && !error && (
               <View style={cStyles.itemsCenter}>
-                <Text category={'s1'}>{t(label)}</Text>
+                <CText category={'s1'}>{t(label)}</CText>
               </View>
             )}
           </View>
@@ -94,7 +84,7 @@ function CAlert(props) {
 
         {message !== '' && !customMessage && (
           <View style={[cStyles.my16, styles.content]}>
-            <Text style={cStyles.textCenter} category={'p1'}>{t(message)}</Text>
+            <CText style={cStyles.textCenter} category={'p1'}>{t(message)}</CText>
           </View>
         )}
         {customMessage && (

@@ -15,9 +15,9 @@ import Modal from 'react-native-modal';
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CAlert from '~/components/CAlert';
+import CText from '~/components/CText';
 /* COMMON */
 import Routes from '~/navigator/Routes';
-import Assets from '~/utils/asset/Assets';
 import {cStyles} from '~/utils/style';
 import {moderateScale, resetRoute} from '~/utils/helper';
 /* REDUX */
@@ -127,7 +127,7 @@ function Account(props) {
   return (
     <CContainer
       safeArea={['top']}
-      headerComponent={<CTopNavigation title={t('account:title')} />}>
+      headerComponent={<CTopNavigation title={t('account:title')} borderBottom={false} />}>
       <Layout style={[cStyles.flex1]} level={'1'}>
         <Layout style={[cStyles.itemsCenter, cStyles.pb20, cStyles.pt10]} level='1'>
           <TouchableOpacity onPress={toggleAlertAvatar}>
@@ -149,8 +149,8 @@ function Account(props) {
               </View>
             </ImageBackground>
           </TouchableOpacity>
-          <Text style={cStyles.mt16} category='h6'>{'Wayne Rooney'}</Text>
-          <Text style={cStyles.mt5} category='c1'>{'WayneRooney@gmail.com'}</Text>
+          <CText style={cStyles.mt16} category='h6'>{'Wayne Rooney'}</CText>
+          <CText style={cStyles.mt5} category='c1'>{'WayneRooney@gmail.com'}</CText>
         </Layout>
 
         <Menu style={{backgroundColor: theme['background-basic-color-1']}}>
@@ -194,7 +194,7 @@ function Account(props) {
         <Layout level={'1'}>
           <SafeAreaView>
               <View style={cStyles.m16}>
-                <Text category={'p1'}>{'Choose your input picture'}</Text>
+                <CText category={'p1'}>{'Choose your input picture'}</CText>
               </View>
               <Menu>
                 <MenuItem

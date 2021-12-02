@@ -9,13 +9,13 @@ import React, {useContext, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {
-  TopNavigation, TopNavigationAction, Icon, Text, Toggle,
-  useTheme,
+  TopNavigation, TopNavigationAction, Toggle, useTheme, Divider,
 } from '@ui-kitten/components';
 import {TouchableOpacity, View, LayoutAnimation, UIManager} from 'react-native';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 /** COMPONENTS */
 import CSearchBar from './CSearchBar';
+import CText from './CText';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
 import {cStyles} from '~/utils/style';
@@ -45,9 +45,9 @@ const RenderTopLeft = (theme, iconStyle, t, title, subtitle, onPress, iconBack) 
         <TopNavigationAction icon={BackIcon(theme, iconStyle, iconBack)} onPress={onPress} />
       )}
       <View>
-        <Text category='h4'>{t(title)}</Text>
+        <CText category='h4'>{t(title)}</CText>
         {subtitle && (
-          <Text category='c1'>{t(subtitle)}</Text>
+          <CText category='c1'>{t(subtitle)}</CText>
         )}
       </View>
     </View>
@@ -57,9 +57,7 @@ const RenderTopLeft = (theme, iconStyle, t, title, subtitle, onPress, iconBack) 
 const RenderTopRight = (type, theme, iconStyle, t, onPress, onPress2) => {
   if (type === 'darkmode') {
     return (
-      <Toggle {...onPress}>
-        {evaProps => <Text {...evaProps}>{t('common:dark_mode')}</Text>}
-      </Toggle>
+      <Toggle {...onPress}>{t('common:dark_mode')}</Toggle>
     )
   }
   if (type === 'search') {
@@ -145,6 +143,7 @@ function CTopNavigation(props) {
     titleStyle = {},
     subtitleStyle = {},
     iconStyle = {},
+    borderBottom = true,
     translution = false,
     add = false,
     search = false,
@@ -214,19 +213,20 @@ function CTopNavigation(props) {
       <TopNavigation
         style={style}
         title={evaProps =>
-          <Text {...evaProps}
+          <CText {...evaProps}
             style={[cStyles.textCenter, titleStyle]}
-            category={'s1'}>{title !== '' ? t(title) : ''}</Text>}
+            category={'s1'}>{title !== '' ? t(title) : ''}</CText>}
         subtitle={subtitle 
           ? evaProps =>
-              <Text {...evaProps}
+              <CText {...evaProps}
               style={[cStyles.textCenter, subtitleStyle]}
-              category={'c1'}>{t(subtitle)}</Text> 
+              category={'c1'}>{t(subtitle)}</CText> 
           : undefined}
         alignment={alignment}
         accessoryLeft={leftComponent}
         accessoryRight={rightComponent}
       />
+      {borderBottom && <Divider />}
       {showSearch && (
         <View style={[cStyles.mx16, cStyles.mb16]}>
           <CSearchBar autoFocus />
@@ -242,9 +242,14 @@ CTopNavigation.propTypes = {
   titleStyle: PropTypes.object,
   subtitleStyle: PropTypes.object,
   iconStyle: PropTypes.object,
+  borderBottom: PropTypes.bool,
+  translution: PropTypes.bool,
+  add: PropTypes.bool,
   search: PropTypes.bool,
+  searchAdd: PropTypes.bool,
   back: PropTypes.bool,
   darkmode: PropTypes.bool,
+  iconBack: PropTypes.any,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   leftTitle: PropTypes.string,
@@ -252,6 +257,8 @@ CTopNavigation.propTypes = {
   alignment: PropTypes.oneOf(['center', 'start']),
   customLeftComponent: PropTypes.element,
   customRightComponent: PropTypes.element,
+  onPressAdd: PropTypes.func,
+  onPressCustomBack: PropTypes.func,
 };
 
 export default CTopNavigation;

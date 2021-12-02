@@ -6,18 +6,17 @@
  **/
 import React, {useRef, useState, useEffect, useContext} from 'react';
 import { useTranslation } from 'react-i18next';
-import {useTheme, Text, Divider, CheckBox, Toggle, Layout} from '@ui-kitten/components';
+import {useTheme, Divider, CheckBox, Toggle, Layout} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
+/* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
+import CText from '~/components/CText';
+/* COMMON */
 import { colors, cStyles } from '~/utils/style';
 import { moderateScale, getLocalInfo, saveLocalInfo } from '~/utils/helper';
 import { ThemeContext } from '~/configs/theme-context';
 import { AST_DARK_MODE, DARK, LIGHT } from '~/configs/constants';
-/* COMPONENTS */
-
-/* COMMON */
-
 /* REDUX */
 
 const useToggleState = (initialState = false) => {
@@ -186,8 +185,8 @@ function Appearance(props) {
         
         <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mx12, cStyles.py8]} level={'1'}>
           <View>
-            <Text category={'s2'}>{t('appearance:auto_change_appearance')}</Text>
-            <Text style={cStyles.mt5} category={'c1'}>{t('appearance:holder_auto_change_appearance')}</Text>
+            <CText category={'s2'}>{t('appearance:auto_change_appearance')}</CText>
+            <CText style={cStyles.mt5} category={'c1'}>{t('appearance:holder_auto_change_appearance')}</CText>
           </View>
           <Toggle checked={darkmodeAutoToggle.checked} onChange={darkmodeAutoToggle.onChange} />
         </Layout>

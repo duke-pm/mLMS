@@ -6,11 +6,13 @@
  **/
 import PropTypes from 'prop-types';
 import React from 'react';
-import {useTheme, Text} from '@ui-kitten/components';
+import {useTheme} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
+/** COMPONENTS */
+import CText from './CText';
 /* COMMON */
-import {colors, cStyles} from '~/utils/style';
+import {cStyles} from '~/utils/style';
 import {moderateScale} from '~/utils/helper';
 
 /** All init */
@@ -105,7 +107,7 @@ function CAvatar(props) {
               styles.status_online
             ]}>
             {badge > 0 && (
-              <Text category={'c1'}>{badge}</Text>
+              <CText category={'c1'}>{badge}</CText>
             )}
           </View>
         </View>

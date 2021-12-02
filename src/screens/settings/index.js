@@ -12,6 +12,7 @@ import {View} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
+import CText from '~/components/CText';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import { ThemeContext } from '~/configs/theme-context';
@@ -29,7 +30,7 @@ const RenderForwardIcon = (props, value) => {
   return (
     <View style={[cStyles.row, cStyles.itemsCenter]}>
       {value && (
-        <Text style={{color: theme['color-basic-500']}} category={'p1'}>{t(value)}</Text>
+        <CText style={{color: theme['color-basic-500']}} category={'p1'}>{t(value)}</CText>
       )}
       <Icon {...props} name='arrow-ios-forward' />
     </View>

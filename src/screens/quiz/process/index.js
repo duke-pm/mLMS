@@ -7,7 +7,7 @@
 import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
-  Layout, Text, useTheme, List, Button, ViewPager, Select, SelectItem,
+  Layout, useTheme, List, Button, ViewPager, Select, SelectItem,
   IndexPath, Icon, Input, Radio, RadioGroup, CheckBox, Divider,
 } from '@ui-kitten/components';
 import {Alert, View, LayoutAnimation, UIManager, StyleSheet} from 'react-native';
@@ -19,6 +19,7 @@ import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CLoading from '~/components/CLoading';
 import CAlert from '~/components/CAlert';
+import CText from '~/components/CText';
 /* COMMON */
 import {cStyles} from '~/utils/style';
 import {IS_ANDROID, moderateScale, sW} from '~/utils/helper';
@@ -432,11 +433,12 @@ function QuizProcess(props) {
       headerComponent={
         <CTopNavigation
           title={(questions.current + 1) + ' / ' + questions.data.length}
+          borderBottom={false}
           back
           iconBack={'close-outline'}
           customRightComponent={
             <View style={[cStyles.row, cStyles.itemsCenter]}>
-              <Text style={cStyles.mr6} status={'primary'} category={'s2'}>{time}</Text>
+              <CText style={cStyles.mr6} status={'primary'} category={'s2'}>{time}</CText>
               <IoniIcon
                 name={'timer'}
                 color={theme['color-primary-500']}
@@ -472,8 +474,6 @@ function QuizProcess(props) {
           )}
         </View>
 
-        <Divider style={cStyles.mt16} />
-
         {!loading.main && questions.data.length > 0 && (
           <ViewPager
             style={cStyles.flex1}
@@ -483,46 +483,59 @@ function QuizProcess(props) {
               if (item.type === TYPE_QUESTION.SELECT_BLANK) {
                 const displayValue = item.answers[selectedIndex.row];
                 return (
-                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.flexWrap, cStyles.p16]}>
-                    <Text category='label' >
-                      {`${t('quiz_process:sentence')} ${index + 1}: `}
-                    </Text>
+                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.flexWrap, cStyles.px10, cStyles.py16]}>
+                    <CText category='label'>
+                      {`${t('quiz_process:sentence')} ${index + 1}:`}
+                    </CText>
 
-                    {item.questions.map((itemQus, indexQus) => {
-                      if (indexQus === item.questions.length - 1) {
-                        return (
-                          <Text key={itemQus + indexQus} style={cStyles.pt16} category={'p1'}>{itemQus}</Text>
-                        )
-                      }
-                      if (indexQus >= 0) {
-                        return (
-                          <View key={itemQus + indexQus} style={[cStyles.itemsStart, cStyles.fullWidth, cStyles.pt16]}>
-                            <Text category={'p1'}>{itemQus}</Text>
-                            <Select
-                              style={[cStyles.pt16, cStyles.fullWidth]}
-                              status={'primary'}
-                              value={displayValue}
-                              selectedIndex={selectedIndex}
-                              onSelect={setSelectedIndex}>
-                              {item.answers.map((itemAns, indexAns) => {
-                                return <SelectItem key={itemAns + indexAns} title={itemAns}  />
-                              })}
-                            </Select>
-                          </View>
-                        )
-                      }
-                      return null;
-                    })}
+                    <CText category={'p1'}>{t('quiz_process:choose_blank')}</CText>
+
+                    <Layout
+                      style={[
+                        cStyles.pb16,
+                        cStyles.px10,
+                        cStyles.pt10,
+                        cStyles.rounded1,
+                        cStyles.mt16,
+                        cStyles.fullWidth
+                      ]}
+                      level={'3'}>
+                      {item.questions.map((itemQus, indexQus) => {
+                        if (indexQus === item.questions.length - 1) {
+                          return (
+                            <CText key={itemQus + indexQus} style={cStyles.my5} category={'p1'}>{itemQus}</CText>
+                          )
+                        }
+                        if (indexQus >= 0) {
+                          return (
+                            <View key={itemQus + indexQus} style={[cStyles.itemsStart, cStyles.fullWidth, cStyles.my5]}>
+                              <CText category={'p1'}>{itemQus}</CText>
+                              <Select
+                                style={[cStyles.my5, cStyles.fullWidth]}
+                                status={'primary'}
+                                value={displayValue}
+                                selectedIndex={selectedIndex}
+                                onSelect={setSelectedIndex}>
+                                {item.answers.map((itemAns, indexAns) => {
+                                  return <SelectItem key={itemAns + indexAns} title={itemAns}  />
+                                })}
+                              </Select>
+                            </View>
+                          )
+                        }
+                        return null;
+                      })}
+                    </Layout>
                   </Layout>
                 )
               }
               if (item.type === TYPE_QUESTION.TEXT_INPUT) {
                 return (
-                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.p16]}>
-                    <Text category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</Text>
-                    <Text style={cStyles.mt10} category={'p1'}>{item.question}</Text>
+                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
+                    <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
+                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
   
-                    <Text style={cStyles.mt32} category={'s1'}>{t('quiz_process:your_answer_is')}</Text>
+                    <CText style={cStyles.mt32} category={'s1'}>{t('quiz_process:your_answer_is')}</CText>
                     <Input
                       style={[cStyles.flex1, cStyles.mt16, {height: sW('100%')}]}
                       multiline
@@ -534,11 +547,11 @@ function QuizProcess(props) {
               }
               if (item.type === TYPE_QUESTION.CHOOSE_ONE) {
                 return (
-                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.p16]}>
-                    <Text category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</Text>
-                    <Text style={cStyles.mt10} category={'p1'}>{item.question}</Text>
+                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
+                    <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
+                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
   
-                    <Text style={cStyles.mt32} category={'s1'}>{t('quiz_process:choose_one_answer')}</Text>
+                    <CText style={cStyles.mt32} category={'s1'}>{t('quiz_process:choose_one_answer')}</CText>
                     <RadioGroup style={cStyles.mt16} selectedIndex={radio} onChange={setRadio}>
                       {item.answers.map((itemAns, indexAns) => {
                         return <Radio key={itemAns + indexAns}>{itemAns}</Radio>
@@ -549,11 +562,11 @@ function QuizProcess(props) {
               }
               if (item.type === TYPE_QUESTION.CHOOSE_MULTI) {
                 return (
-                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.p16]}>
-                    <Text category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</Text>
-                    <Text style={cStyles.mt10} category={'p1'}>{item.question}</Text>
+                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
+                    <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
+                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
   
-                    <Text style={cStyles.mt32} category={'s1'}>{t('quiz_process:choose_multi_answer')}</Text>
+                    <CText style={cStyles.mt32} category={'s1'}>{t('quiz_process:choose_multi_answer')}</CText>
                     <View style={[cStyles.mt16]}>
                       {item.answers.map((itemAns, indexAns) => {
                         return (
@@ -572,9 +585,9 @@ function QuizProcess(props) {
               }
               if (item.type === TYPE_QUESTION.DROP_DRAG_SENTENCE) {
                 return (
-                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.p16]}>
-                    <Text category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</Text>
-                    <Text style={cStyles.mt10} category={'p1'}>{item.question}</Text>
+                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
+                    <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
+                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
                     
                     <GestureHandlerRootView style={[cStyles.flex1, cStyles.mt10]}>
                       <DraxProvider>
@@ -611,7 +624,7 @@ function QuizProcess(props) {
                           })}
                         </Layout>
 
-                        <Text style={cStyles.mt32} category={'s1'}>{t('quiz_process:drog_drag_answer')}</Text>
+                        <CText style={cStyles.mt32} category={'s1'}>{t('quiz_process:drog_drag_answer')}</CText>
                         <Layout style={[cStyles.rounded1, cStyles.mt16, cStyles.p16]} level={'4'}>
                           <DraxList
                             data={dragItemMiddleList}
@@ -641,11 +654,11 @@ function QuizProcess(props) {
               }
               if (item.type === TYPE_QUESTION.YES_NO) {
                 return (
-                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.p16]}>
-                    <Text category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</Text>
-                    <Text style={cStyles.mt10} category={'p1'}>{item.question}</Text>
+                  <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
+                    <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
+                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
   
-                    <Text style={cStyles.mt32} category={'s1'}>{t('quiz_process:your_answer_is')}</Text>
+                    <CText style={cStyles.mt32} category={'s1'}>{t('quiz_process:your_answer_is')}</CText>
                     <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyEvenly, cStyles.mt16]}>
                       <Button
                         style={{width: sW('30%')}}
@@ -668,9 +681,9 @@ function QuizProcess(props) {
                 )
               }
               return (
-                <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.p16]}>
-                  <Text category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</Text>
-                  <Text style={cStyles.mt10} category={'p1'}>{item.question}</Text>
+                <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
+                  <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
+                  <CText style={cStyles.mt10} category={'p1'}>{item.question}</CText>
                 </Layout>
               )
             })}
@@ -717,11 +730,11 @@ function QuizProcess(props) {
         error={result.type === TYPE_RESULT.BAD}
         customMessage={
           <View style={cStyles.center}>
-            <Text category={'p1'}>{t('quiz_process:holder_finish_quiz_process')}</Text>
-            <Text
+            <CText category={'p1'}>{t('quiz_process:holder_finish_quiz_process')}</CText>
+            <CText
               style={cStyles.mt32}
               status={result.type === TYPE_RESULT.GOOD ? 'success' : result.type === TYPE_RESULT.MID ? 'warning' : 'danger'}
-              category={'h1'}>{result.score + '%'}</Text>
+              category={'h1'}>{result.score + '%'}</CText>
           </View>
         }
         textCancel={'quiz_process:confirm_finish_go_back'}

@@ -185,10 +185,10 @@
     "liked": "Đã thích",
     "person_liked": "người đã thích",
     "comment": "Bình luận",
-    "assignment": "Bài tập đã giao",
-    "quiz": "Bài kiểm tra",
-    "questions": "Câu hỏi thường gặp",
-    "teaching_material": "Tài liệu giảng dạy",
+    "assignment": "D/s bài tập",
+    "quiz": "D/s bài kiểm tra",
+    "questions": "D/s câu hỏi",
+    "teaching_material": "D/s tài liệu",
     "list_students": "D/s học viên"
   },
   "students": {
@@ -240,6 +240,7 @@
     "your_answer_is": "Câu trả lời của bạn là:",
     "choose_one_answer": "Chọn câu trả lời đúng dưới đây:",
     "choose_multi_answer": "Chọn những câu trả lời đúng dưới đây:",
+    "choose_blank": "Chọn từ đúng để hợp thành câu có nghĩa dưới đây:",
     "drog_drag_answer": "Sắp xếp thành câu có nghĩa với những từ dưới đây:",
     "submit": "Hoàn thành",
     "holder_submit_quiz_process": "Bạn có chắc đã hoàn thành bài kiểm tra?",
@@ -267,5 +268,40 @@
     "your_answer": "Trả lời của bạn",
     "correct_answer": "Trả lời đúng",
     "feedback_answer": "Phản ánh"
+  },
+  "questions": {
+    "title": "Câu Hỏi",
+    "question": "Câu hỏi",
+    "views": "Đã xem",
+    "responses": "Phản hồi",
+    "from_rate_1": "Từ",
+    "from_rate_2": "đánh giá"
+  },
+  "question_details": {
+    "title": "Chi tiết Câu hỏi",
+    "add_answer": "Trả lời ngay",
+    "rate_this": "Đánh giá",
+    "views": "Đã xem",
+    "responses": "Phản hồi",
+    "from_rate_1": "Từ",
+    "from_rate_2": "đánh giá",
+    "most_vote_answers": "Trả lời được bình chọn nhiều nhất",
+    "see_all": "Xem tất cả",
+    "add_comment": "Bình luận",
+    "rate_answer": "Đánh giá",
+    "rate_this_question": "Đánh giá câu hỏi này",
+    "rate_this_answer": "Đánh giá câu trả lời này"
+  },
+  "question_answers": {
+    "title": "Tất cả Trả lời",
+    "add_answer": "Trả lời"
+  },
+  "add_answer": {
+    "title": "Thêm Trả Lời",
+    "holder_back_add_answer": "Bạn có chắc chắn muốn hủy những thay đổi?",
+    "confirm_back_no": "Trở lại",
+    "confirm_back_yes": "Đúng vậy",
+    "done": "Xong",
+    "your_answer": "Điền trả lời của bạn..."
   }
 }

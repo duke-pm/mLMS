@@ -8,8 +8,8 @@ import React, {useRef, useState, useEffect, useContext, useLayoutEffect} from 'r
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
-  useTheme, Layout, Text, Icon, ButtonGroup, Button, List,
-  ListItem, Card, Modal, OverflowMenu, MenuItem, TopNavigationAction, Divider,
+  useTheme, Layout, Icon, ButtonGroup, Button, List, Divider,
+  ListItem, Card, Modal, OverflowMenu, MenuItem, TopNavigationAction, 
 } from '@ui-kitten/components';
 import {StyleSheet, View, TouchableNativeFeedback, StatusBar} from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -20,9 +20,10 @@ import CTopNavigation from '~/components/CTopNavigation';
 import CPostImages from '~/components/CPostImages';
 import CLoading from '~/components/CLoading';
 import CAvatar from '~/components/CAvatar';
+import CText from '~/components/CText';
 /* COMMON */
 import {ThemeContext} from '~/configs/theme-context';
-import {IS_ANDROID, IS_IOS, moderateScale, sW} from '~/utils/helper';
+import {IS_IOS, moderateScale, sW} from '~/utils/helper';
 import {colors, cStyles} from '~/utils/style';
 import {DARK, LIGHT} from '~/configs/constants';
 import Routes from '~/navigator/Routes';
@@ -85,7 +86,7 @@ const RenderMenuIcon = (label, icon, color) => (
         color={'white'}
       />
     </View>
-    <Text style={cStyles.mt16} category={'p1'}>{label}</Text>
+    <CText style={cStyles.mt16} category={'p1'}>{label}</CText>
   </View>
 );
 
@@ -136,7 +137,8 @@ function ClassDetails(props) {
   };
 
   const handleGoQuestions = () => {
-    console.log('[LOG] === handleGoQuestions ===> ');
+    toggleAlertMenu();
+    navigation.navigate(Routes.QUESTIONS.name);
   };
 
   const handleGoTeachingMaterial = () => {
@@ -285,6 +287,7 @@ function ClassDetails(props) {
                 iconStyle={styles.text_white}
                 title={'class_details:title'}
                 back
+                borderBottom={false}
                 customRightComponent={
                   <OverflowMenu
                     anchor={RenderMenuAction}
@@ -298,15 +301,15 @@ function ClassDetails(props) {
                 }
               />
               <View style={cStyles.px16}>
-                <Text style={styles.text_white} category={'s1'} numberOfLines={1}>{dataClass.label}</Text>
+                <CText style={styles.text_white} category={'s1'} numberOfLines={1}>{dataClass.label}</CText>
                 <View style={[cStyles.row, cStyles.itemsEnd, cStyles.mt12]}>
                   {dataClass.subjects.map((item, index) => {
                     return (
-                      <Text
+                      <CText
                         key={item + index}
                         style={[cStyles.mt5, styles.text_white]}
                         category={'p1'}
-                        numberOfLines={1}>&#10041; {item}  </Text>
+                        numberOfLines={1}>&#10041; {item}  </CText>
                     );
                   })}
                 </View>
@@ -346,13 +349,13 @@ function ClassDetails(props) {
                           styles.mini_avatar,
                           {backgroundColor: theme['color-primary-500']}
                         ]}>
-                        <Text style={{color: 'white'}} category={'c2'}>+{dataClass.numMember - 2}</Text>
+                        <CText style={{color: 'white'}} category={'c2'}>+{dataClass.numMember - 2}</CText>
                       </Layout>
                     </View>
 
-                    <Text style={styles.txt_num_member} category={'c1'}>
+                    <CText style={styles.txt_num_member} category={'c1'}>
                       {`${dataClass.numMember} ${t('classses:members')}`}
-                    </Text>
+                    </CText>
                   </View>
 
                   {dataClass.assignment > 0 && (
@@ -385,7 +388,7 @@ function ClassDetails(props) {
           {marginTop: heightBanner},
         ]}
         level={'1'}>
-        <ButtonGroup appearance={'ghost'} status={'basic'}>
+        <ButtonGroup appearance={'ghost'} status={'primary'}>
           <Button
             style={styles.btn_action}
             disabled={loading}
@@ -407,99 +410,108 @@ function ClassDetails(props) {
 
       {/** Posts of class */}
       {!loading && (
-        <Layout style={cStyles.flex1} level={'1'}>
-          <List
-            contentContainerStyle={cStyles.pt10}
-            data={posts}
-            renderItem={info => {
-              return (
-                <Card
-                  disabled
-                  header={() => (
-                    <ListItem
-                      style={cStyles.px16}
-                      title={evaProps =>
-                        <Text style={[cStyles.ml10, cStyles.mt5]} category={'s2'}>{info.item.author}</Text>
-                      }
-                      description={evaProps =>
-                        <Text style={[cStyles.ml10, cStyles.mt5]} category={'c2'}>
-                          {info.item.createdAt + ' . At ' + info.item.createdWhere}
-                        </Text>
-                      }
-                      accessoryLeft={() => RenderHeaderPost(info)}
-                    />
-                  )}
-                  footer={() => (
-                    <Layout style={[cStyles.flex1, cStyles.px16]} level={'1'}>
-                      <ButtonGroup size={'small'} status={'basic'} appearance={'ghost'}>
-                        <Button
-                          style={styles.btn_action}
-                          accessoryLeft={info.item.isLiked ? RenderLikedIcon : RenderLikeIcon}>
+        <List
+          style={{backgroundColor: theme['background-basic-color-3']}}
+          contentContainerStyle={[cStyles.pt10, cStyles.px10]}
+          data={posts}
+          renderItem={info => {
+            return (
+              <Card
+                disabled
+                header={(propsH) => (
+                  <ListItem
+                    title={evaProps =>
+                      <CText style={cStyles.ml10} category={'label'}>{info.item.author}</CText>
+                    }
+                    description={evaProps =>
+                      <CText style={cStyles.ml10} category={'c1'} appearance='hint'>
+                        {info.item.createdAt + ' . At ' + info.item.createdWhere}
+                      </CText>
+                    }
+                    accessoryLeft={() => RenderHeaderPost(info)}
+                  />
+                )}
+                footer={(propsF) => (
+                  <Layout style={[cStyles.flex1, cStyles.p10]} level={'1'}>
+                    <ButtonGroup size={'small'} status={'basic'} appearance={'ghost'}>
+                      <Button
+                        style={styles.btn_action}
+                        accessoryLeft={info.item.isLiked ? RenderLikedIcon : RenderLikeIcon}>
+                        {evaProps => (
+                          <CText
+                            style={cStyles.ml5}
+                            status={info.item.isLiked ? 'primary' : 'basic'}
+                            category={'p1'}>
                             {t(info.item.isLiked ? 'class_details:liked' : 'class_details:like')}
-                        </Button>
-                        <Button
-                          style={styles.btn_action}
-                          accessoryLeft={RenderCommentIcon}>
-                            {t('class_details:comment')}
-                        </Button>
-                      </ButtonGroup>
-                      
-                      <List
-                        style={{backgroundColor: theme['background-basic-color-1']}}
-                        data={info.item.comments}
-                        renderItem={infoCmt => {
-                          return (
-                            <ListItem
-                              style={[
-                                cStyles.rounded1,
-                                cStyles.px10,
-                                cStyles.mt10,
-                                {backgroundColor: theme['background-basic-color-4']},
-                              ]}
-                              title={evaProps => (
-                                <View style={[cStyles.ml16, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
-                                  <Text style={cStyles.textLeft} category={'s2'}>{infoCmt.item.name}</Text>
-                                  <Text style={cStyles.textRight} category={'c2'}>{infoCmt.item.createdAt}</Text>
-                                </View>
-                              )}
-                              description={evaProps =>
-                                <Text style={[cStyles.ml16, cStyles.mt5]} category={'p1'}>
-                                  {infoCmt.item.caption}
-                                </Text>
-                              }
-                              accessoryLeft={() => RenderHeaderComment(infoCmt)}
-                            />
-                          );
-                        }}
-                        keyExtractor={(item, index) => item.id + index}
-                      />
-                    </Layout>
-                  )}>
-                  <View style={styles.bg_content_card}>
-                    <View style={[cStyles.px16, cStyles.py16]}>
-                      <Text category={'p1'}>{info.item.caption}</Text>
-                    </View>
-                    <CPostImages
-                      images={info.item.images}
+                          </CText>
+                        )}
+                      </Button>
+                      <Button
+                        style={styles.btn_action}
+                        accessoryLeft={RenderCommentIcon}>
+                          {evaProps => (
+                            <CText style={cStyles.ml5} status={'basic'} category={'p1'}>
+                              {t('class_details:comment')}
+                            </CText>
+                          )}
+                      </Button>
+                    </ButtonGroup>
+                    
+                    <List
+                      style={{backgroundColor: theme['background-basic-color-1']}}
+                      data={info.item.comments}
+                      renderItem={infoCmt => {
+                        return (
+                          <ListItem
+                            style={[
+                              cStyles.rounded1,
+                              cStyles.px10,
+                              cStyles.mt10,
+                              {backgroundColor: theme['background-basic-color-3']},
+                            ]}
+                            title={evaProps => (
+                              <View style={[cStyles.ml10, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
+                                <CText style={cStyles.textLeft} category={'label'}>{infoCmt.item.name}</CText>
+                                <CText style={cStyles.textRight} category={'c1'} appearance='hint'>{infoCmt.item.createdAt}</CText>
+                              </View>
+                            )}
+                            description={evaProps =>
+                              <CText style={[cStyles.ml10, cStyles.mt5]} category={'p1'}>
+                                {infoCmt.item.caption}
+                              </CText>
+                            }
+                            accessoryLeft={() => RenderHeaderComment(infoCmt)}
+                          />
+                        );
+                      }}
+                      keyExtractor={(item, index) => item.id + index}
                     />
-                    {info.item.numLike > 0 && (
-                      <View style={[cStyles.px16, cStyles.py10, cStyles.row, cStyles.itemsCenter]}>
-                        <IoniIcon
-                          name={'heart'}
-                          color={colors.PRIMARY}
-                          size={moderateScale(16)}
-                        />
-                        <Text style={cStyles.ml5} category={'p1'}>{`${info.item.numLike}`}</Text>
-                      </View>
-                    )}
+                  </Layout>
+                )}>
+                <View style={styles.bg_content_card}>
+                  <View style={[cStyles.px10, cStyles.py16]}>
+                    <CText category={'p1'}>{info.item.caption}</CText>
                   </View>
-                </Card>
-              );
-            }}
-            keyExtractor={(item, index) => item.id + index}
-            ItemSeparatorComponent={() => <View style={cStyles.my8} />}
-          />
-        </Layout>
+                  <CPostImages
+                    images={info.item.images}
+                  />
+                  {info.item.numLike > 0 && (
+                    <View style={[cStyles.px10, cStyles.py10, cStyles.row, cStyles.itemsCenter]}>
+                      <IoniIcon
+                        name={'heart'}
+                        color={colors.PRIMARY}
+                        size={moderateScale(16)}
+                      />
+                      <CText style={cStyles.ml5} category={'p1'}>{`${info.item.numLike}`}</CText>
+                    </View>
+                  )}
+                </View>
+              </Card>
+            );
+          }}
+          keyExtractor={(item, index) => item.id + index}
+          ItemSeparatorComponent={() => <View style={cStyles.my5} />}
+        />
       )}
 
       {/** Alert menu */}

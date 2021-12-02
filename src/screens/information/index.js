@@ -6,12 +6,13 @@
  **/
 import React, {useRef, useState, useEffect, useContext} from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layout, useTheme, Text } from '@ui-kitten/components';
+import { Layout, useTheme } from '@ui-kitten/components';
 import {View, Image} from 'react-native';
 import moment from 'moment';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
+import CText from '~/components/CText';
 /* COMMON */
 import Configs from '~/configs';
 import Assets from '~/utils/asset/Assets';
@@ -64,34 +65,34 @@ function Information(props) {
           resizeMode={'contain'}
         />
         <View style={[cStyles.flex1, cStyles.itemsEnd, cStyles.justifyEnd, cStyles.fullWidth, cStyles.px16, cStyles.pb10]}>
-          <Text category={'c1'}>{t('information:copyright')} &#169; {moment().year()} {Configs.developBy}</Text>
+          <CText category={'c1'}>{t('information:copyright')} &#169; {moment().year()} {Configs.developBy}</CText>
         </View>
       </Layout>
 
       <Layout style={[cStyles.flex1, cStyles.roundedTopLeft5, cStyles.roundedTopRight5]} level={'1'}>
         <View style={cStyles.m16}>
           <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.py12]}>
-            <Text category={'s2'}>{t('information:name_app')}</Text>
-            <Text category={'p1'}>{Configs.nameOfApp}</Text>
+            <CText category={'s2'}>{t('information:name_app')}</CText>
+            <CText category={'p1'}>{Configs.nameOfApp}</CText>
           </View>
 
           <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.py12]}>
-            <Text category={'s2'}>{t('information:version_app')}</Text>
-            <Text category={'p1'}>{Configs.versionOfApp}</Text>
+            <CText category={'s2'}>{t('information:version_app')}</CText>
+            <CText category={'p1'}>{Configs.versionOfApp}</CText>
           </View>
 
           <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.py12]}>
-            <Text category={'s2'}>{t('information:develop_by')}</Text>
-            <Text category={'p1'}>{Configs.developBy}</Text>
+            <CText category={'s2'}>{t('information:develop_by')}</CText>
+            <CText category={'p1'}>{Configs.developBy}</CText>
           </View>
 
           <View style={cStyles.py12}>
-            <Text category={'s2'}>{t('information:info_important')}</Text>
-            <Text style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_1')}</Text>
-            <Text style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_2')}</Text>
-            <Text style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_3')}</Text>
-            <Text style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_4')}</Text>
-            <Text style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_5')}</Text>
+            <CText category={'s2'}>{t('information:info_important')}</CText>
+            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_1')}</CText>
+            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_2')}</CText>
+            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_3')}</CText>
+            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_4')}</CText>
+            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_5')}</CText>
           </View>
         </View>
       </Layout>

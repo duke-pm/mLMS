@@ -29,8 +29,12 @@ import QuizScreen from '~/screens/quiz';
 import QuizDetailsScreen from '~/screens/quiz/details';
 import QuizProcessScreen from '~/screens/quiz/process';
 import QuizReviewScreen from '~/screens/quiz/review';
+import QuestionsScreen from '~/screens/questions';
+import QuestionDetailsScreen from '~/screens/questions/details';
+import QuestionAnswersScreen from '~/screens/questions/answers';
 
 import AddPostScreen from '~/screens/posts/add';
+import AddAnswerScreen from '~/screens/questions/add_answer';
 
 
 const Routes = {
@@ -113,6 +117,22 @@ const Routes = {
   QUIZ_REVIEW: {
     name: 'QuizReview',
     path: QuizReviewScreen,
+  },
+  QUESTIONS: {
+    name: 'Questions',
+    path: QuestionsScreen,
+  },
+  QUESTION_DETAILS: {
+    name: 'QuestionDetails',
+    path: QuestionDetailsScreen,
+  },
+  QUESTION_ANSWERS: {
+    name: 'QuestionAnswers',
+    path: QuestionAnswersScreen,
+  },
+  ADD_ANSWERS: {
+    name: 'AddAnswers',
+    path: AddAnswerScreen,
   },
   TAB: {
     name: 'TabMain',

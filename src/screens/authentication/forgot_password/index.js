@@ -6,7 +6,7 @@
  **/
 import React, {useContext, useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Layout, Text, Button, useTheme} from '@ui-kitten/components';
+import {Layout, Button, useTheme} from '@ui-kitten/components';
 import {View, LayoutAnimation, UIManager} from 'react-native';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 import {showMessage} from 'react-native-flash-message';
@@ -14,6 +14,7 @@ import {showMessage} from 'react-native-flash-message';
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
+import CText from '~/components/CText';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {colors, cStyles} from '~/utils/style';
@@ -100,10 +101,11 @@ function ForgotPassword(props) {
   return (
     <CContainer
       safeArea={['top']}
-      backgroundColor={themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-900']}>
+      backgroundColor={theme['background-basic-color-3']}>
       {/** Header */}
       <CTopNavigation
-        style={{backgroundColor: themeContext.themeApp === LIGHT ? '#F7F9FC' : theme['color-basic-900']}}
+        style={{backgroundColor: theme['background-basic-color-3']}}
+        borderBottom={false}
         back
         leftTitle={'forgot_password:title'} />
 
@@ -121,7 +123,7 @@ function ForgotPassword(props) {
           level={'1'}>
           {/** Caption */}
           <View style={cStyles.mt16}>
-            <Text style={cStyles.textCenter} category='p1'>{t('forgot_password:caption')}</Text>
+            <CText style={cStyles.textCenter} category='p1'>{t('forgot_password:caption')}</CText>
           </View>
 
           <CForm
@@ -170,8 +172,8 @@ function ForgotPassword(props) {
 
           {/** Sub-title & Caption */}
           <View style={cStyles.mt16}>
-            <Text style={cStyles.textCenter} category='s1'>{t('forgot_password:success_sub_title')}</Text>
-            <Text style={[cStyles.mt16, cStyles.textCenter]} category='p1'>{t('forgot_password:success_caption')}</Text>  
+            <CText style={cStyles.textCenter} category='s1'>{t('forgot_password:success_sub_title')}</CText>
+            <CText style={[cStyles.mt16, cStyles.textCenter]} category='p1'>{t('forgot_password:success_caption')}</CText>  
           </View>
 
           <Button

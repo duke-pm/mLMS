@@ -5,13 +5,14 @@
  ** Description: Description of index.js
  **/
 import React, {useState, useEffect} from 'react';
-import {List, ListItem, ButtonGroup, Button, Icon} from '@ui-kitten/components';
+import {List, ListItem, ButtonGroup, Button, Icon, useTheme} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CLoading from '~/components/CLoading';
 import CAvatar from '~/components/CAvatar';
+import CText from '~/components/CText';
 /* COMMON */
 import {cStyles} from '~/utils/style';
 /* REDUX */
@@ -67,6 +68,7 @@ const RenderActionsStudent = (info) => {
 }
 
 function Students(props) {
+  const theme = useTheme();
   const {navigation} = props;
 
   /** Use state */
@@ -175,13 +177,21 @@ function Students(props) {
       }>
       {!loading && (
         <List
+          style={{backgroundColor: theme['background-basic-color-3']}}
           data={students}
           renderItem={info => {
             return (
               <ListItem
-                style={cStyles.px16}
-                title={`${info.item.firstName} ${info.item.lastName}`}
-                description={`${info.item.email}`}
+                title={() =>
+                  <CText style={cStyles.ml10} category={'label'}>
+                    {`${info.item.firstName} ${info.item.lastName}`}
+                  </CText>
+                }
+                description={() => 
+                  <CText style={cStyles.ml10} category={'c1'} appearance='hint'>
+                    {`${info.item.email}`}
+                  </CText>
+                }
                 accessoryLeft={() => RenderAvatarStudent(info)}
                 accessoryRight={() => RenderActionsStudent(info)}
               />
@@ -196,16 +206,6 @@ function Students(props) {
 }
 
 const styles = StyleSheet.create({
-  con_status_online: {
-    height: 10,
-    width: 10,
-    backgroundColor: 'white',
-  },
-  status_online: {
-    height: 9,
-    width: 9,
-    backgroundColor: 'mediumseagreen',
-  },
 });
 
 export default Students;

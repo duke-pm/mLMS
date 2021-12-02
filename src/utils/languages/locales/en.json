@@ -240,6 +240,7 @@
     "your_answer_is": "Your answer is:",
     "choose_one_answer": "Choose the correct answer below:",
     "choose_multi_answer": "Choose the correct answers below:",
+    "choose_blank": "Choose the correct word to make a meaningful sentence below:",
     "drog_drag_answer": "Arrange into meaningful sentences with the words below:",
     "submit": "Complete",
     "holder_submit_quiz_process": "Are you sure completed the test?",
@@ -267,5 +268,40 @@
     "your_answer": "Your answer",
     "correct_answer": "Correct answer",
     "feedback_answer": "Feedback"
+  },
+  "questions": {
+    "title": "Questions",
+    "question": "Question",
+    "views": "Views",
+    "responses": "Responses",
+    "from_rate_1": "From",
+    "from_rate_2": "votes"
+  },
+  "question_details": {
+    "title": "Question Details",
+    "add_answer": "Answer Now",
+    "rate_this": "Rate",
+    "views": "Views",
+    "responses": "responses",
+    "from_rate_1": "From",
+    "from_rate_2": "votes",
+    "most_vote_answers": "Answer with the most votes",
+    "see_all": "See all",
+    "add_comment": "Comments",
+    "rate_answer": "Rate",
+    "rate_this_question": "Rate this question",
+    "rate_this_answer": "Rate this answer"
+  },
+  "question_answers": {
+    "title": "All Answers",
+    "add_answer": "Answer"
+  },
+  "add_answer": {
+    "title": "Add Answer",
+    "holder_back_add_answer": "Are you sure you want to cancel the changes?",
+    "confirm_back_no": "Go back",
+    "confirm_back_yes": "That right",
+    "done": "Done",
+    "your_answer": "Write your answer..."
   }
 }

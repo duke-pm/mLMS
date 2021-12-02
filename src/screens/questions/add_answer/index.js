@@ -1,5 +1,5 @@
 /**
- ** Name: Add Post screen
+ ** Name: Add Answer screen
  ** Author: IT-Team
  ** CreateAt: 2021
  ** Description: Description of index.js
@@ -8,10 +8,10 @@ import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
-  Button, CheckBox, Divider, Input, Layout, TopNavigationAction,
-  Menu, MenuItem, Icon, useTheme,
+  TopNavigationAction, useTheme, Layout, Input, Divider, Button,
+  Menu, MenuItem, Icon,
 } from '@ui-kitten/components';
-import {Alert, ScrollView, StyleSheet, View} from 'react-native';
+import {StyleSheet, Alert, View} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {
@@ -25,16 +25,10 @@ import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CText from '~/components/CText';
 /* COMMON */
-import {
-  IS_ANDROID, IS_IOS, moderateScale, SCREEN_HEIGHT, SCREEN_WIDTH,
-  sW,
-} from '~/utils/helper';
-import {colors, cStyles} from '~/utils/style';
+import { colors, cStyles } from '~/utils/style';
+import { IS_ANDROID, IS_IOS, moderateScale, SCREEN_HEIGHT, SCREEN_WIDTH, sH, sW } from '~/utils/helper';
 /* REDUX */
 
-/*********************
- ** OTHER COMPONENT **
- *********************/
 const RenderForwardIcon = (props) => (
   <Icon {...props} name='arrow-ios-forward' />
 );
@@ -50,42 +44,30 @@ const RenderReChooseIcon = (props) => (
 const RenderRemoveIcon = (props) => (
   <Icon {...props} name='trash-2-outline' />
 );
-  
-const RenderPublishText = (props) => {
+
+const RenderAddText = (props) => {
   const {t} = useTranslation();
   return (
-    <CText status={'primary'} category={'s1'}>{t('add_post:publish')}</CText>
+    <CText status={'primary'} category={'s1'}>{t('add_answer:done')}</CText>
   );
 };
 
-const RenderRightHeader = (handleAddPost) => (
-  <TopNavigationAction
-    icon={RenderPublishText}
-    onPress={handleAddPost}
-  />
+const RenderRightHeader = onPress => (
+  <TopNavigationAction icon={RenderAddText} onPress={onPress} />
 );
 
-/********************
- ** MAIN COMPONENT **
- ********************/
-function AddPost(props) {
+function AddAnswer(props) {
   const {t} = useTranslation();
   const theme = useTheme();
   const {navigation} = props;
 
   /** Use state */
   const [alertChooseImgVid, setChooseImgVid] = useState(false);
-  const [valueText, setValueText] = useState('');
+  const [value, setValue] = useState('');
   const [assets, setAssets] = useState({
     type: '',
     data: [],
   });
-
-  const [levelAll, setLevelAll] = useState(false);
-  const [levelIndeterminate, setLevelIndeterminate] = useState(false);
-  const [levelUniversity, setLevelUniversity] = useState(false);
-  const [levelMyClass, setLevelMyClass] = useState(false);
-  const [levelMyGroup, setLevelMyGroup] = useState(false);
 
   /*****************
    ** HANDLE FUNC **
@@ -93,10 +75,6 @@ function AddPost(props) {
   const toggleAlertChooseImgVid = (type = assets.type) => {
     setChooseImgVid(!alertChooseImgVid);
     setAssets({...assets, type: type});
-  };
-
-  const handleAddPost = () => {
-    console.log('[LOG] === handleAddPost ===> ');
   };
 
   const handleChooseFile = async () => {
@@ -166,14 +144,6 @@ function AddPost(props) {
     }
   };
 
-  const handleChooseLinks = () => {
-
-  };
-
-  const handleChooseYoutube = () => {
-
-  };
-
   const handleChooseFromCamera = async () => {
     let resultCamera = await launchCamera({
       maxWidth: SCREEN_WIDTH,
@@ -211,47 +181,32 @@ function AddPost(props) {
     tmpAssetsData.data.splice(idxAsset, 1);
     setAssets(tmpAssetsData);
   };
+
+  const handleBack = () => {
+    Alert.alert(
+      t('common:alert'),
+      t('add_answer:holder_back_add_answer'),
+      [
+        {style: 'cancel', text: t('add_answer:confirm_back_no'), onPress: () => null},
+        {style: 'destructive', text: t('add_answer:confirm_back_yes'), onPress: handleGoBack}
+      ],
+      {cancelable: true},
+    );
+  };
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
+  const handleAddAnswer = () => {
   
+  };
+
   /**********
    ** FUNC **
    **********/
-  const onChangeAllChecked = (checked) => {
-    setLevelUniversity(checked);
-    setLevelMyClass(checked);
-    setLevelMyGroup(checked);
-    setLevelAll(checked);
-    onUpdateAllGroup(checked, checked);
-  };
-
-  const onChangeUniversityChecked = (checked) => {
-    setLevelUniversity(checked);
-    onUpdateAllGroup(checked, levelMyClass, levelMyGroup);
-  };
-
-  const onChangeMyClassChecked = (checked) => {
-    setLevelMyClass(checked);
-    onUpdateAllGroup(checked, levelUniversity, levelMyGroup);
-  };
-
-  const onChangeMyGroupChecked = (checked) => {
-    setLevelMyGroup(checked);
-    onUpdateAllGroup(checked, levelUniversity, levelMyClass);
-  };
-
-  const onUpdateAllGroup = (...states) => {
-    const someChecked = states.some((item) => item === true);
-    const everyChecked = states.every((item) => item === true);
-
-    if (someChecked && !everyChecked) {
-      setLevelAll(true);
-      setLevelIndeterminate(true);
-    } else if (!someChecked && !everyChecked) {
-      setLevelAll(false);
-      setLevelIndeterminate(false);
-    } else if (everyChecked) {
-      setLevelAll(true);
-      setLevelIndeterminate(false);
-    }
+  const onChangeValue = newValue => {
+    setValue(newValue);  
   };
 
   const onAlertGoSetting = () => {
@@ -290,24 +245,28 @@ function AddPost(props) {
    ************/
   return (
     <CContainer
-      safeArea={['top']}
+      safeArea={['top', 'bottom']}
       headerComponent={
         <CTopNavigation
+          title={'add_answer:title'}
           back
-          title={'add_post:title'}
-          customRightComponent={RenderRightHeader(handleAddPost)} />
-      }>
-      <ScrollView style={cStyles.flex1}>
-        <Layout style={cStyles.p16} level={'1'}>
+          iconBack={'close-outline'}
+          customRightComponent={() => RenderRightHeader(handleAddAnswer)}
+          onPressCustomBack={handleBack}
+        />
+      }
+    >
+      <Layout style={cStyles.flex1} level={'1'}>
+        <View style={cStyles.p10}>
           <Input
-            style={[cStyles.fullWidth, {maxHeight: moderateScale(150)}]}
-            value={valueText}
-            placeholder={t('add_post:write_something')}
+            style={{maxHeight: sW('100%')}}
             multiline
-            onChangeText={setValueText}
+            value={value}
+            placeholder={t('add_answer:your_answer')}
+            onChangeText={onChangeValue}
           />
 
-          <Divider style={cStyles.my16} />
+          <Divider style={cStyles.my10} />
 
           <CText category={'label'}>{t('add_post:attached')}</CText>
           {assets.data.length === 0 && (
@@ -435,39 +394,8 @@ function AddPost(props) {
               </View>
             </View>
           )}
-
-          <Divider style={cStyles.my16} />
-
-          <CText category={'label'}>{t('add_post:level')}</CText>
-          <View style={cStyles.mt10}>
-            <CheckBox
-              style={cStyles.my4}
-              checked={levelAll}
-              indeterminate={levelIndeterminate}
-              onChange={onChangeAllChecked}>
-              {t('add_post:level_all')}
-            </CheckBox>
-            <CheckBox
-              style={[cStyles.my4, cStyles.mx12]}
-              checked={levelUniversity}
-              onChange={onChangeUniversityChecked}>
-              {t('add_post:level_university')}
-            </CheckBox>
-            <CheckBox
-              style={[cStyles.my4, cStyles.mx12]}
-              checked={levelMyClass}
-              onChange={onChangeMyClassChecked}>
-              {t('add_post:level_my_class')}
-            </CheckBox>
-            <CheckBox
-              style={[cStyles.my4, cStyles.mx12]}
-              checked={levelMyGroup}
-              onChange={onChangeMyGroupChecked}>
-              {t('add_post:level_my_group')}
-            </CheckBox>
-          </View>
-        </Layout>
-      </ScrollView>
+        </View>
+      </Layout>
 
       <Modal
         style={[cStyles.m0, cStyles.justifyEnd]}
@@ -523,4 +451,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AddPost;
+export default AddAnswer;

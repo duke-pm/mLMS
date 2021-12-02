@@ -6,18 +6,18 @@
  **/
 import React, {useRef, useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Layout, RadioGroup, Radio, Text } from '@ui-kitten/components';
+import { Layout, RadioGroup, Radio } from '@ui-kitten/components';
 import {View, Image} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
+import CAlert from '~/components/CAlert';
+import CText from '~/components/CText';
+/* COMMON */
 import { cStyles } from '~/utils/style';
 import { useTranslation } from 'react-i18next';
 import { moderateScale } from '~/utils/helper';
 import Assets from '~/utils/asset/Assets';
-import CAlert from '~/components/CAlert';
-/* COMMON */
-
 /* REDUX */
 import * as Actions from '~/redux/actions';
 
@@ -74,14 +74,14 @@ function Languages(props) {
       safeArea={['top']}
       headerComponent={<CTopNavigation title={'languages:title'} back />}>
       <Layout style={cStyles.p16} level={'1'}>
-        <Text category={'p1'}>{t('languages:holder_choose')}</Text>
+        <CText category={'p1'}>{t('languages:holder_choose')}</CText>
         <RadioGroup style={cStyles.mt16} selectedIndex={language.active} onChange={handleChange}>
           {language.languages.map((item, index) => {
             return (
               <Radio key={item.id + '_' + index}>
                 {evaProps => (
                   <View style={[cStyles.row, cStyles.itemsCenter]}>
-                    <Text {...evaProps}>{t(item.name)}</Text>
+                    <CText {...evaProps}>{t(item.name)}</CText>
                     <Image
                       style={[cStyles.mr16, {height: moderateScale(20), width: moderateScale(20)}]}
                       resizeMode={'contain'}

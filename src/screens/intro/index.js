@@ -6,11 +6,12 @@
  **/
 import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Layout, Text, ViewPager, Button} from '@ui-kitten/components';
+import {Layout, ViewPager, Button} from '@ui-kitten/components';
 import {StyleSheet, StatusBar, Image, LayoutAnimation, UIManager, View} from 'react-native';
 /** COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
+import CText from '~/components/CText';
 /* COMMON */
 import {IS_ANDROID, moderateScale, sW, resetRoute} from '~/utils/helper';
 import Routes from '~/navigator/Routes';
@@ -45,8 +46,8 @@ const RenderPageIntro = (t, image, title, caption, footer = null) => {
     <View style={cStyles.itemsCenter}>
       <View style={[cStyles.itemsCenter, styles.con_layout]}>
         <Image style={[cStyles.mt40, styles.img_intro]} source={image} resizeMode={'contain'} />
-        <Text style={[cStyles.textCenter, cStyles.mt36]} category='s1'>{t(title)}</Text>
-        <Text style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t(caption)}</Text>
+        <CText style={[cStyles.textCenter, cStyles.mt36]} category='s1'>{t(title)}</CText>
+        <CText style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t(caption)}</CText>
         {footer}
       </View>
     </View>
@@ -99,6 +100,7 @@ function Intro(props) {
       <Layout style={cStyles.flex1} level='1'>
         {/** Header */}
         <CTopNavigation
+          borderBottom={false}
           customRightComponent={
             <Button appearance='ghost' onPress={handleGoLogin}>{t('common:skip')}</Button>
           }

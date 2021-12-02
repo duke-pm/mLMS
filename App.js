@@ -26,7 +26,6 @@ import {ThemeContext} from '~/configs/theme-context';
 import {getLocalInfo, IS_ANDROID} from '~/utils/helper';
 import {AST_DARK_MODE, DARK} from '~/configs/constants';
 import jwtServiceConfig from '~/services/jwtServiceConfig';
-import {default as theme} from './assets/themes/theme.json';
 import {default as mapping} from './assets/themes/mapping.json';
 /** REDUX */
 import Store from './src/redux/store';

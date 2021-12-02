@@ -21,6 +21,7 @@ import {
 import {ThemeContext} from '~/configs/theme-context';
 import {cStyles} from '~/utils/style';
 import {IS_ANDROID, validatEemail} from '~/utils/helper';
+import CText from './CText';
 
 if (IS_ANDROID) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -372,7 +373,7 @@ const CForm = forwardRef((props, ref) => {
         if (item.type === 'radio') {
           return (
             <View style={[cStyles.mt24, item.style]}>
-              <Text style={{color: theme['color-basic-600']}} category={'label'}>{t(item.label)}</Text>
+              <CText style={{color: theme['color-basic-600']}} category={'label'}>{t(item.label)}</CText>
               <RadioGroup
                 style={item.horizontal ? [cStyles.row, cStyles.itemsCenter] : {}}
                 selectedIndex={values[index].value}

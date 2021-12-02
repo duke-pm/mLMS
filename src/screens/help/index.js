@@ -5,16 +5,16 @@
  ** Description: Description of index.js
  **/
 import React, {useRef, useState, useEffect} from 'react';
-import { Layout, Menu, MenuGroup, MenuItem, Icon, Text } from '@ui-kitten/components';
+import { Layout, Menu, MenuGroup, MenuItem, Icon } from '@ui-kitten/components';
 import {Image} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
+import CText from '~/components/CText';
+/* COMMON */
 import { cStyles } from '~/utils/style';
 import { sW } from '~/utils/helper';
 import Assets from '~/utils/asset/Assets';
-/* COMMON */
-
 /* REDUX */
 
 const RenderQuestionIcon = (props) => (
@@ -121,7 +121,7 @@ function Help(props) {
                       <MenuItem
                         key={item1.idItem}
                         title={evaProps => 
-                          <Text style={cStyles.flex1} category={'p1'}>{item1.titleItem}</Text>
+                          <CText style={cStyles.flex1} category={'p1'}>{item1.titleItem}</CText>
                         }
                         accessoryLeft={RenderQuestionIcon} />
                     )

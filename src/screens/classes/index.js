@@ -6,13 +6,14 @@
  **/
 import React, {useContext, useRef, useState, useEffect} from 'react';
 import {useTranslation } from 'react-i18next';
-import {Layout, List, Text, useTheme, Button, Icon} from '@ui-kitten/components';
+import {Layout, List, useTheme, Button, Icon} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CLoading from '~/components/CLoading';
+import CText from '~/components/CText';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {cStyles, colors} from '~/utils/style';
@@ -144,6 +145,7 @@ function Classes(props) {
       headerComponent={<CTopNavigation title={t('classes:title')} search />}>
       {!loading && (
         <List
+          style={{backgroundColor: theme['background-basic-color-3']}}
           contentContainerStyle={cStyles.px10}
           data={classes}
           renderItem={info => {
@@ -164,15 +166,15 @@ function Classes(props) {
                     resizeMode={FastImage.resizeMode.cover}>
                     <View style={[cStyles.flex1, cStyles.p16, cStyles.rounded1, styles.backdrop]}>
                       <View>
-                        <Text style={styles.text_white} category={'s1'} numberOfLines={1}>{info.item.label}</Text>
+                        <CText style={styles.text_white} category={'s1'} numberOfLines={1}>{info.item.label}</CText>
                         <View style={[cStyles.row, cStyles.itemsEnd, cStyles.mt12]}>
                           {info.item.subjects.map((item, index) => {
                             return (
-                              <Text
+                              <CText
                                 key={item + index}
                                 style={[cStyles.mt5, styles.text_white]}
                                 category={'p1'}
-                                numberOfLines={1}>&#10041; {item}  </Text>
+                                numberOfLines={1}>&#10041; {item}  </CText>
                             );
                           })}
                         </View>
@@ -213,13 +215,13 @@ function Classes(props) {
                                 styles.mini_avatar,
                                 {backgroundColor: theme['color-primary-500']}
                               ]}>
-                              <Text style={styles.text_white} category={'c2'}>+{info.item.numMember - 2}</Text>
+                              <CText style={styles.text_white} category={'c2'}>+{info.item.numMember - 2}</CText>
                             </Layout>
                           </View>
       
-                          <Text style={styles.txt_num_member} category={'c1'}>
+                          <CText style={styles.txt_num_member} category={'c1'}>
                             {`${info.item.numMember} ${t('classes:members')}`}
-                          </Text>
+                          </CText>
                         </View>
       
                         {info.item.assignment > 0 && (

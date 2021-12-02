@@ -6,19 +6,20 @@
  **/
 import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Layout, List, Card, Text, Button} from '@ui-kitten/components';
-import {View} from 'react-native';
+import {Layout, List, Card, Button, Divider, useTheme} from '@ui-kitten/components';
+import {StyleSheet, View} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CLoading from '~/components/CLoading';
 import CTopNavigation from '~/components/CTopNavigation';
+import CText from '~/components/CText';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {cStyles} from '~/utils/style';
 /* REDUX */
 
 
-const RenderFooterQuiz = (props, info) => {
+const RenderFooterQuiz = (propsF, info) => {
   const {t} = useTranslation();
   let status = '';
   if (info.item.score) {
@@ -33,18 +34,18 @@ const RenderFooterQuiz = (props, info) => {
     status = 'basic';
   }
   return (
-    <View style={[cStyles.row, cStyles.itemsStart, cStyles.justifyBetween, cStyles.p16]}>
+    <View style={[cStyles.row, cStyles.itemsStart, cStyles.justifyBetween, cStyles.p10]}>
       <View>
-        <Text category={'p1'}>{info.item.numQuestions}</Text>
-        <Text style={cStyles.mt5} category={'c2'}>{t('quiz:questions')}</Text>
+        <CText category={'p1'}>{info.item.numQuestions}</CText>
+        <CText style={cStyles.mt5} category={'c1'} appearance='hint'>{t('quiz:questions')}</CText>
       </View>
       <View>
-        <Text category={'p1'}>{info.item.timeout} {t('common:minutes')}</Text>
-        <Text style={cStyles.mt5} category={'c2'}>{t('quiz:durations')}</Text>
+        <CText category={'p1'}>{info.item.timeout} {t('common:minutes')}</CText>
+        <CText style={cStyles.mt5} category={'c1'} appearance='hint'>{t('quiz:durations')}</CText>
       </View>
       <View>
-        <Text category={'p1'}>{info.item.createdDateAt}</Text>
-        <Text style={cStyles.mt5} category={'p1'}>{info.item.createdTimeAt}</Text>
+        <CText category={'p1'}>{info.item.createdDateAt}</CText>
+        <CText style={cStyles.mt5} category={'p1'}>{info.item.createdTimeAt}</CText>
       </View>
       {info.item.score && (
         <Button
@@ -66,6 +67,7 @@ const RenderFooterQuiz = (props, info) => {
 
 function Quiz(props) {
   const {t} = useTranslation();
+  const theme = useTheme();
   const {navigation} = props;
 
   /** Use state */
@@ -168,30 +170,30 @@ function Quiz(props) {
         <CTopNavigation
           title={'quiz:title'}
           back
-          searchAdd
-          onPressAdd={handleAddQuiz} />
+          search />
       }>
       <Layout level={'1'}>
         {!loading && (
           <List
+            style={{backgroundColor: theme['background-basic-color-3']}}
             contentContainerStyle={cStyles.p10}
             data={quizs}
             renderItem={info => {
               return (
                 <Card
-                  header={() => (
-                    <View style={cStyles.p16}>
-                      <Text category={'label'} numberOfLines={2}>
+                  header={(propsH) => (
+                    <View style={cStyles.p10}>
+                      <CText category={'label'} numberOfLines={2}>
                         {`${t('quiz:quiz_number')}${info.item.id} - ${info.item.label}`}
-                      </Text>
+                      </CText>
                     </View>
                   )}
                   footer={propsF => RenderFooterQuiz(propsF, info)}
                   onPress={() => handlePlayQuiz(info.item)}>
-                  <View style={[cStyles.row, cStyles.itemsCenter]}>
+                  <View style={[cStyles.row, cStyles.itemsCenter, styles.bg_content_card]}>
                     {info.item.subjects.map((item, index) => {
                       return (
-                        <Text category={'p1'}>&#10041; {item}  </Text>
+                        <CText category={'p1'}>&#10041; {item}  </CText>
                       )
                     })}
                   </View>
@@ -202,11 +204,17 @@ function Quiz(props) {
             ItemSeparatorComponent={() => <View style={cStyles.my5} />}
           />
         )}
-
         <CLoading show={loading} />
       </Layout>
     </CContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  bg_content_card: {
+    marginHorizontal: -14,
+    marginVertical: -6,
+  }
+});
 
 export default Quiz;

@@ -11,6 +11,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {enableScreens} from 'react-native-screens';
 import {useTheme, Text} from '@ui-kitten/components';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
+/** COMPONENTS */
+import CText from '~/components/CText';
 /** COMMON */
 import Routes from './Routes';
 
@@ -27,10 +29,6 @@ export function BottomTabMain(props) {
       initialRouteName={Routes.TAB.HOME.name}
       backBehavior={'history'}
       screenOptions={({route}) => ({
-        tabBarStyle: {
-          borderTopColor: theme['background-basic-color-3'],
-          backgroundColor: theme['background-basic-color-3']
-        },
         tabBarActiveTintColor: theme['color-primary-500'],
         headerShown: false,
         lazy: true,
@@ -62,7 +60,7 @@ export function BottomTabMain(props) {
               label = 'home:title';
               break;
           }
-          return <Text style={{color}} category={'c1'}>{t(label)}</Text>
+          return <CText style={{color}} category={'c1'}>{t(label)}</CText>
         },
       })}>
       <TabMain.Screen
@@ -159,6 +157,9 @@ export function RootMain(props) {
       <StackMain.Screen
         name={Routes.ADD_POST.name}
         component={Routes.ADD_POST.path}
+        options={{
+          animation: 'slide_from_bottom',
+        }}
       />
       <StackMain.Screen
         name={Routes.QUIZ_DETAILS.name}
@@ -174,6 +175,25 @@ export function RootMain(props) {
       <StackMain.Screen
         name={Routes.QUIZ_REVIEW.name}
         component={Routes.QUIZ_REVIEW.path}
+      />
+      <StackMain.Screen
+        name={Routes.QUESTIONS.name}
+        component={Routes.QUESTIONS.path}
+      />
+      <StackMain.Screen
+        name={Routes.QUESTION_DETAILS.name}
+        component={Routes.QUESTION_DETAILS.path}
+      />
+      <StackMain.Screen
+        name={Routes.QUESTION_ANSWERS.name}
+        component={Routes.QUESTION_ANSWERS.path}
+      />
+      <StackMain.Screen
+        name={Routes.ADD_ANSWERS.name}
+        component={Routes.ADD_ANSWERS.path}
+        options={{
+          animation: 'slide_from_bottom',
+        }}
       />
     </StackMain.Navigator>
   );
