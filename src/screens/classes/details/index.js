@@ -9,7 +9,7 @@ import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   useTheme, Layout, Icon, ButtonGroup, Button, List, Divider,
-  ListItem, Card, Modal, OverflowMenu, MenuItem, TopNavigationAction, 
+  ListItem, Card, Modal, OverflowMenu, MenuItem, TopNavigationAction, Avatar, 
 } from '@ui-kitten/components';
 import {StyleSheet, View, TouchableNativeFeedback, StatusBar} from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -65,6 +65,10 @@ const MenuIcon = (props) => (
   <IoniIcon name='ellipsis-vertical' size={moderateScale(20)} color={colors.WHITE} />
 );
 
+const RenderStarIcon = (props) => (
+  <Icon {...props} name={'star-outline'} />
+);
+
 const RenderPeopleIcon = (props) => (
   <Icon {...props} name='people-outline'/>
 );
@@ -105,9 +109,6 @@ function ClassDetails(props) {
   const themeContext = useContext(ThemeContext);
   const {navigation, route} = props;
   const dataClass = route.params.data;
-
-  /** Use ref */
-  const infiniteAnimationIconRef = useRef();
 
   /** Use state */
   const [loading, setLoading] = useState(true);
@@ -243,8 +244,12 @@ function ClassDetails(props) {
   }, []);
 
   useEffect(() => {
-    if (heightBanner > 0) setLoading(false);
-  }, [heightBanner]);
+    if (loading) {
+      if (heightBanner > 0) {
+        setLoading(false);
+      }
+    }
+  }, [loading, heightBanner]);
 
   useLayoutEffect(() => {
     return () => {
@@ -272,13 +277,8 @@ function ClassDetails(props) {
         <FastImage
           style={[cStyles.abs, cStyles.fullWidth, cStyles.pb16, styles.img_background]}
           onLayout={onLayoutBanner}
-          source={{
-            uri: dataClass.bgImage,
-            priority: FastImage.priority.high,
-            cache: FastImage.cacheControl.immutable,
-          }}
-          resizeMode={FastImage.resizeMode.cover}
-        >
+          source={{uri: dataClass.bgImage}}
+          resizeMode={FastImage.resizeMode.cover}>
           <View style={[cStyles.abs, cStyles.inset0, styles.backdrop]} />
             <SafeAreaView edges={['top']}>
               <CTopNavigation
@@ -302,41 +302,34 @@ function ClassDetails(props) {
                 }
               />
               <View style={cStyles.px16}>
-                <CText style={styles.text_white} category={'s1'} numberOfLines={1}>{dataClass.label}</CText>
+                <CText status={'control'} category={'label'} numberOfLines={2}>{dataClass.label}</CText>
                 <View style={[cStyles.row, cStyles.itemsEnd, cStyles.mt12]}>
-                  {dataClass.subjects.map((item, index) => {
+                  {dataClass.subjects.map((itemSub, indexSub) => {
                     return (
                       <CText
-                        key={item + index}
-                        style={[cStyles.mt5, styles.text_white]}
+                        key={itemSub + '_' + indexSub}
+                        style={cStyles.mt5}
+                        status={'control'}
                         category={'p1'}
-                        numberOfLines={1}>&#10041; {item}  </CText>
+                        numberOfLines={2}>&#10041; {itemSub}  </CText>
                     );
                   })}
                 </View>
 
                 <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt24]}>
                   <View style={[cStyles.row, cStyles.itemsCenter]}>
-                    {dataClass.members.map((item, index) => {
+                    {dataClass.members.map((itemMem, indexMem) => {
                       return (
                         <View
-                          key={item.id}
+                          key={itemMem.id + '_' + indexMem}
                           style={[
                             cStyles.abs,
                             cStyles.rounded5,
                             cStyles.p1,
                             styles.bg_mini_avatar,
-                            {left: moderateScale(20) * index}
+                            {left: moderateScale(20) * indexMem}
                           ]}>
-                          <FastImage
-                            style={[cStyles.center, cStyles.rounded5, styles.mini_avatar]}
-                            source={{
-                              uri: item.avatar,
-                              priority: FastImage.priority.high,
-                              cache: FastImage.cacheControl.immutable,
-                            }}
-                            resizeMode={FastImage.resizeMode.contain}
-                          />
+                          <Avatar size={'small'} source={{uri: itemMem.avatar}} />
                         </View>
                       );
                     })}
@@ -350,11 +343,11 @@ function ClassDetails(props) {
                           styles.mini_avatar,
                           {backgroundColor: theme['color-primary-500']}
                         ]}>
-                        <CText style={{color: 'white'}} category={'c2'}>+{dataClass.numMember - 2}</CText>
+                        <CText status={'control'} category={'c1'}>+{dataClass.numMember - 2}</CText>
                       </Layout>
                     </View>
 
-                    <CText style={styles.txt_num_member} category={'c1'}>
+                    <CText style={styles.txt_num_member} status={'control'} category={'c1'}>
                       {`${dataClass.numMember} ${t('classses:members')}`}
                     </CText>
                   </View>
@@ -362,16 +355,9 @@ function ClassDetails(props) {
                   {dataClass.assignment > 0 && (
                     <Button
                       appearance={'filled'}
-                      status={'warning'}
+                      status={'basic'}
                       size={'tiny'}
-                      accessoryRight={evaProps => (
-                        <Icon
-                          {...evaProps}
-                          ref={infiniteAnimationIconRef}
-                          animation='pulse'
-                          name='star'
-                        />
-                      )}>
+                      accessoryRight={RenderStarIcon}>
                       {`${dataClass.assignment} ${t('classes:todo_item')}`}
                     </Button>
                   )}
@@ -389,13 +375,13 @@ function ClassDetails(props) {
           {marginTop: heightBanner},
         ]}
         level={'1'}>
-        <ButtonGroup appearance={'ghost'} status={'primary'}>
+        <ButtonGroup appearance={'ghost'} status={'basic'}>
           <Button
             style={styles.btn_action}
             disabled={loading}
             accessoryLeft={RenderMenuActionsIcon}
             onPress={toggleAlertMenu}>
-            {t('class_details:menu')}
+            {t('class_details:menu')} 
           </Button>
           <Button
             style={styles.btn_action}
@@ -586,16 +572,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.BLACK,
   },
   mini_avatar: {
-    height: moderateScale(25),
-    width: moderateScale(25),
+    height: moderateScale(31),
+    width: moderateScale(31),
   },
   bg_num_member: {
     left: moderateScale(40),
     backgroundColor: colors.BLACK,
   },
   txt_num_member: {
-    color: colors.WHITE,
-    marginLeft: moderateScale(76),
+    marginLeft: moderateScale(80),
   },
   content: {
     marginTop: moderateScale(250),

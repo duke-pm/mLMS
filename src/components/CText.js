@@ -5,11 +5,33 @@
  ** Description: Description of CText.js
  **/
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
-import {Button, Text} from '@ui-kitten/components';
+import React, {useContext, useState} from 'react';
+import {Button, Text, Icon} from '@ui-kitten/components';
 import {View} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+/** COMMON */
+import { cStyles } from '~/utils/style';
+import { ThemeContext } from '~/configs/theme-context';
+import { LIGHT } from '~/configs/constants';
+import { useTranslation } from 'react-i18next';
+
+const COLORS = {
+  BG_SHOW_LIGHT: ['rgba(255,255,255,0)', 'rgba(255,255,255,0.08)', 'rgba(255,255,255,0.8)', 'rgba(255,255,255,1)'],
+  BG_SHOW_DARK: ['rgba(0,0,0,0)', 'rgba(34,43,69,0.08)', 'rgba(34,43,69,0.8)', 'rgba(34,43,69,1)'],
+  BG_LESS: ['transparent']
+}
+
+const RanderShowMoreIcon = props => (
+  <Icon {...props} name={'arrowhead-down-outline'} />
+);
+
+const RanderShowLessIcon = props => (
+  <Icon {...props} name={'arrowhead-up-outline'} />
+);
 
 function CText(props) {
+  const {t} = useTranslation();
+  const themeContext = useContext(ThemeContext);
   const {
     style = {},
     category = '',
@@ -77,10 +99,22 @@ function CText(props) {
       >
         {props.children}
       </Text>
-      {hasShowMore && (
-        <Button appearance={'ghost'} size={'small'} status={'primary'} onPress={handleShowMore}>
-          {showMore ? 'Show more' : 'Show less'}
-        </Button>
+      {showMore && hasShowMore && (
+        <LinearGradient colors={showMore ? themeContext.themeApp === LIGHT
+        ? COLORS.BG_SHOW_LIGHT
+        : COLORS.BG_SHOW_DARK
+        : COLORS.BG_LESS} style={[cStyles.justifyEnd, cStyles.abs, cStyles.fullWidth, cStyles.fullHeight]}>
+          <Button
+            appearance={'ghost'}
+            size={'small'}
+            status={'basic'}
+            accessoryRight={showMore ? RanderShowMoreIcon : RanderShowLessIcon}
+            onPress={handleShowMore}>
+            {evaProps => (
+              <CText style={cStyles.fontBold} category={'c1'}>{t('common:show_more')}</CText>
+            )}
+          </Button>
+        </LinearGradient>
       )}
     </View>
   );

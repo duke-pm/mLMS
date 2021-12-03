@@ -60,7 +60,7 @@ function AssignmentDetails(props) {
           <CText category={'label'}>{dataExercise.label}</CText>
           <CText style={cStyles.mt10} category={'p1'}>{dataExercise.description}</CText>
           {dataExercise.attachedFiles.length > 0 && (
-            <AttachedFile files={dataExercise.attachedFiles} download />
+            <AttachedFile containerStyle={cStyles.mt16} files={dataExercise.attachedFiles} download />
           )}
         </Layout>
 

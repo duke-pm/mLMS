@@ -233,7 +233,7 @@ function Assignment(props) {
                 <CText category={'p1'}>{info.item.description}</CText>
 
                 {info.item.attachedFiles.length > 0 && (
-                  <AttachedFile files={info.item.attachedFiles} download={false} />
+                  <AttachedFile containerStyle={cStyles.mt16} files={info.item.attachedFiles} download={false} />
                 )}
               </View>
             </Card>

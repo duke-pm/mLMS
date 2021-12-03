@@ -25,7 +25,8 @@
     "yes": "Có",
     "no": "Không",
     "write_something_to_search": "Nhập thông tin tìm kiếm...",
-    "attached_files": "File đính kèm"
+    "attached_files": "File đính kèm",
+    "show_more": "Nhấn để xem tất cả"
   },
   "error": {
     "format_email": "Định dạng e-mail! chưa chính xác!",

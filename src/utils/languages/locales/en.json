@@ -25,7 +25,8 @@
     "yes": "Yes",
     "no": "No",
     "write_something_to_search": "Write something to search...",
-    "attached_files": "Attached file"
+    "attached_files": "Attached file",
+    "show_more": "Click to show all"
   },
   "error": {
     "format_email": "Format e-mail is not correct!",

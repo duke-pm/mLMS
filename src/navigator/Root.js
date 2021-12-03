@@ -29,6 +29,10 @@ export function BottomTabMain(props) {
       initialRouteName={Routes.TAB.HOME.name}
       backBehavior={'history'}
       screenOptions={({route}) => ({
+        tabBarStyle: {
+          borderTopWidth: 0,
+          backgroundColor: theme['background-basic-color-2'],
+        },
         tabBarActiveTintColor: theme['color-primary-500'],
         headerShown: false,
         lazy: true,

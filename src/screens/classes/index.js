@@ -6,7 +6,7 @@
  **/
 import React, {useContext, useRef, useState, useEffect} from 'react';
 import {useTranslation } from 'react-i18next';
-import {Layout, List, useTheme, Button, Icon} from '@ui-kitten/components';
+import {Layout, List, useTheme, Button, Icon, Avatar} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 /* COMPONENTS */
@@ -20,15 +20,16 @@ import {cStyles, colors} from '~/utils/style';
 import {moderateScale} from '~/utils/helper';
 import {ThemeContext} from '~/configs/theme-context';
 /* REDUX */
+
+const RenderStarIcon = (props) => (
+  <Icon {...props} name={'star-outline'} />
+);
  
 function Classes(props) {
   const {t} = useTranslation();
   const theme = useTheme();
   const themeContext = useContext(ThemeContext);
   const {navigation} = props;
-
-  /** Use ref */
-  const infiniteAnimationIconRef = useRef();
 
   /** use state */
   const [loading, setLoading] = useState(true);
@@ -129,12 +130,16 @@ function Classes(props) {
         assignment: 5,
       }
     ];
-    setClasses(tmpClasses)
-    setTimeout(() => {
-      setLoading(false);
-      infiniteAnimationIconRef.current.startAnimation();
-    }, 500);
+    setClasses(tmpClasses);
   }, []);
+
+  useEffect(() => {
+    if (loading) {
+      if (classes.length > 0) {
+        setLoading(false);
+      }
+    }
+  }, [loading, classes]);
 
   /************
    ** RENDER **
@@ -153,61 +158,44 @@ function Classes(props) {
               <Button
                 style={[cStyles.rounded1, cStyles.my6, cStyles.px0, cStyles.py0]}
                 appearance={'ghost'}
-                onPress={() => handleClassItem(info)}
-              >
+                onPress={() => handleClassItem(info)}>
                 {evaProps => (
                   <FastImage
                     style={[cStyles.fullWidth, cStyles.rounded1]}
-                    source={{
-                      uri: info.item.bgImage,
-                      priority: FastImage.priority.high,
-                      cache: FastImage.cacheControl.immutable,
-                    }}
+                    source={{uri: info.item.bgImage}}
                     resizeMode={FastImage.resizeMode.cover}>
                     <View style={[cStyles.flex1, cStyles.p16, cStyles.rounded1, styles.backdrop]}>
                       <View>
-                        <CText style={styles.text_white} category={'s1'} numberOfLines={1}>{info.item.label}</CText>
+                        <CText status={'control'} category={'label'} numberOfLines={2}>{info.item.label}</CText>
                         <View style={[cStyles.row, cStyles.itemsEnd, cStyles.mt12]}>
-                          {info.item.subjects.map((item, index) => {
-                            return (
-                              <CText
-                                key={item + index}
-                                style={[cStyles.mt5, styles.text_white]}
-                                category={'p1'}
-                                numberOfLines={1}>&#10041; {item}  </CText>
-                            );
-                          })}
+                          {info.item.subjects.map((itemSub, indexSub) => 
+                            <CText
+                              key={itemSub + '_' + indexSub}
+                              style={cStyles.mt5}
+                              status={'control'}
+                              category={'p1'}
+                              numberOfLines={2}>&#10041; {itemSub}  </CText>
+                          )}
                         </View>
                       </View>
       
                       <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt24]}>
                         <View style={[cStyles.row, cStyles.itemsCenter]}>
-                          {info.item.members.map((item, index) => {
-                            return (
-                              <View
-                                key={item.id}
-                                style={[
-                                  cStyles.abs,
-                                  cStyles.rounded5,
-                                  cStyles.p1,
-                                  styles.bg_mini_avatar,
-                                  {left: moderateScale(20) * index}
-                                ]}>
-                                <FastImage
-                                  style={[cStyles.center, cStyles.rounded5, styles.mini_avatar]}
-                                  source={{
-                                    uri: item.avatar,
-                                    priority: FastImage.priority.high,
-                                    cache: FastImage.cacheControl.immutable,
-                                  }}
-                                  resizeMode={FastImage.resizeMode.contain}
-                                />
-                              </View>
-                            )
-                          })}
+                          {info.item.members.map((itemMem, indexMem) =>
+                            <View
+                              key={itemMem.id + '_' + indexMem}
+                              style={[
+                                cStyles.abs,
+                                cStyles.rounded5,
+                                cStyles.p1,
+                                styles.bg_mini_avatar,
+                                {left: moderateScale(20) * indexMem}
+                              ]}>
+                              <Avatar size={'small'} source={{uri: itemMem.avatar}} />
+                            </View>
+                          )}
                           
-                          <View 
-                            style={[cStyles.abs, cStyles.rounded5, cStyles.p1, styles.bg_num_member]}>
+                          <View style={[cStyles.abs, cStyles.rounded5, cStyles.p1, styles.bg_num_member]}>
                             <Layout
                               style={[
                                 cStyles.center,
@@ -215,11 +203,11 @@ function Classes(props) {
                                 styles.mini_avatar,
                                 {backgroundColor: theme['color-primary-500']}
                               ]}>
-                              <CText style={styles.text_white} category={'c2'}>+{info.item.numMember - 2}</CText>
+                              <CText status={'control'} category={'c1'}>+{info.item.numMember - 2}</CText>
                             </Layout>
                           </View>
       
-                          <CText style={styles.txt_num_member} category={'c1'}>
+                          <CText style={styles.txt_num_member} status={'control'} category={'c1'}>
                             {`${info.item.numMember} ${t('classes:members')}`}
                           </CText>
                         </View>
@@ -227,16 +215,9 @@ function Classes(props) {
                         {info.item.assignment > 0 && (
                           <Button
                             appearance={'filled'}
-                            status={'warning'}
+                            status={'basic'}
                             size={'tiny'}
-                            accessoryRight={evaProps => (
-                              <Icon
-                                {...evaProps}
-                                ref={infiniteAnimationIconRef}
-                                animation='pulse'
-                                name='star'
-                              />
-                            )}>
+                            accessoryRight={RenderStarIcon}>
                             {`${info.item.assignment} ${t('classes:todo_item')}`}
                           </Button>
                         )}
@@ -261,23 +242,19 @@ const styles = StyleSheet.create({
   backdrop: {
     backgroundColor: colors.BG_BACKDROP,
   },
-  text_white: {
-    color: colors.WHITE,
-  },
   bg_mini_avatar: {
     backgroundColor: colors.BLACK,
   },
   mini_avatar: {
-    height: moderateScale(25),
-    width: moderateScale(25),
+    height: moderateScale(31),
+    width: moderateScale(31),
   },
   bg_num_member: {
     left: moderateScale(40),
     backgroundColor: colors.BLACK,
   },
   txt_num_member: {
-    color: colors.WHITE,
-    marginLeft: moderateScale(76),
+    marginLeft: moderateScale(80),
   },
 });
 
