@@ -9,7 +9,8 @@ import React, {useContext, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {
-  TopNavigation, TopNavigationAction, Toggle, useTheme, Divider,
+  TopNavigation, TopNavigationAction, Toggle, useTheme, Divider, Button,
+  Icon,
 } from '@ui-kitten/components';
 import {TouchableOpacity, View, LayoutAnimation, UIManager} from 'react-native';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
@@ -31,6 +32,10 @@ if (IS_ANDROID) {
 /*********************
  ** OTHER COMPONENT **
  *********************/
+const RenderSearchIcon = (props) => (
+  <Icon {...props} name='search-outline' />
+);
+
 const BackIcon = (theme, iconStyle, iconBack) => (
   <IoniIcon
     name={iconBack || 'arrow-back'}
@@ -226,7 +231,7 @@ function CTopNavigation(props) {
         accessoryLeft={leftComponent}
         accessoryRight={rightComponent}
       />
-      {borderBottom && <Divider />}
+      {borderBottom && !showSearch && <Divider />}
       {showSearch && (
         <View style={[cStyles.mx16, cStyles.mb16]}>
           <CSearchBar autoFocus />

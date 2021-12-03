@@ -234,11 +234,11 @@ function Questions(props) {
                 <View style={[cStyles.row, cStyles.itemsCenter, cStyles.p10]}>
                   <View style={[cStyles.itemsCenter, {flex: 0.2}]}>
                     <CText category={'p1'}>{info.item.views}</CText>
-                    <CText style={cStyles.mt5} category={'c2'}>{t('questions:views')}</CText>
+                    <CText style={cStyles.mt5} category={'c1'} appearance='hint'>{t('questions:views')}</CText>
                   </View>
                   <View style={[cStyles.itemsCenter, {flex: 0.2}]}>
                     <CText category={'p1'}>{info.item.answers.length}</CText>
-                    <CText style={cStyles.mt5} category={'c2'}>{t('questions:responses')}</CText>
+                    <CText style={cStyles.mt5} category={'c1'} appearance='hint'>{t('questions:responses')}</CText>
                   </View>
                   <View style={[cStyles.itemsEnd, {flex: 0.6}]}>
                     <StarRating
@@ -247,7 +247,7 @@ function Questions(props) {
                       rating={info.item.rate}
                       fullStarColor={theme['color-warning-500']}
                     />
-                    <CText style={cStyles.mt5} category={'c2'}>
+                    <CText style={cStyles.mt5} category={'c1'} appearance='hint'>
                       {`${t('questions:from_rate_1')} ${info.item.numRate} ${t('questions:from_rate_2')}`}
                     </CText>
                   </View>

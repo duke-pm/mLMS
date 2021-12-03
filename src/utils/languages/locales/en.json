@@ -23,7 +23,9 @@
     "true": "True",
     "false": "False",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "write_something_to_search": "Write something to search...",
+    "attached_files": "Attached file"
   },
   "error": {
     "format_email": "Format e-mail is not correct!",

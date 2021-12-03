@@ -23,7 +23,9 @@
     "true": "Đúng",
     "false": "Sai",
     "yes": "Có",
-    "no": "Không"
+    "no": "Không",
+    "write_something_to_search": "Nhập thông tin tìm kiếm...",
+    "attached_files": "File đính kèm"
   },
   "error": {
     "format_email": "Định dạng e-mail! chưa chính xác!",
@@ -306,7 +308,7 @@
   },
   "assignment": {
     "title": "Bài Tập",
-    "exercise": "Bài tập",
+    "exercise": "Bài",
     "user_completed": "người đã hoàn thành",
     "group_completed": "nhóm đã hoàn thành",
     "due_date": "Hạn nộp bài",
@@ -317,7 +319,7 @@
   "assignment_details": {
     "title": "Chi tiết Bài tập",
     "user_completed": "người đã hoàn thành",
-    "group_completed": "group completed",
+    "group_completed": "nhóm đã hoàn thành",
     "due_date": "Hạn nộp bài",
     "submit_date": "Ngày tải lên",
     "attached_file": "File đính kèm",

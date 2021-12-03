@@ -6,7 +6,7 @@
  **/
 import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Layout, Card, Divider, List, useTheme, Button, Icon } from '@ui-kitten/components';
+import {Layout, Card, Divider, List, useTheme, Button} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 /* COMPONENTS */
@@ -17,8 +17,9 @@ import CLoading from '~/components/CLoading';
 /* COMMON */
 import Assets from '~/utils/asset/Assets';
 import Routes from '~/navigator/Routes';
-import { cStyles } from '~/utils/style';
-import { moderateScale } from '~/utils/helper';
+import {cStyles} from '~/utils/style';
+import {moderateScale} from '~/utils/helper';
+import AttachedFile from './components/AttachedFile';
 /* REDUX */
 
 
@@ -58,6 +59,12 @@ function Assignment(props) {
           },
           {
             id: 2,
+            name: 'Senectus.zip',
+            type: 'zip',
+            size: '10'
+          },
+          {
+            id: 3,
             name: 'Senectus.zip',
             type: 'zip',
             size: '10'
@@ -115,6 +122,9 @@ function Assignment(props) {
               'http://react-material.fusetheme.com/assets/images/avatars/Tillman.jpg',
               'http://react-material.fusetheme.com/assets/images/avatars/Tyson.jpg',
               'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg',
+              'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg',
+              'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg',
+              'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg',
             ],
             name: 'Group A - Sit amet nisl suscipit',
             createdAt: '10/12/2021 09:55',
@@ -144,9 +154,6 @@ function Assignment(props) {
       }
     ];
     setExercises(tmpExercises);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
   };
 
   /****************
@@ -157,15 +164,24 @@ function Assignment(props) {
     onSetExercises();
   }, []);
 
+  useEffect(() => {
+    if (loading) {
+      if (exercises.length > 0) {
+        setLoading(false);
+      }
+    }
+  }, [
+    loading,
+    exercises,
+  ]);
+
   /************
    ** RENDER **
    ************/
   return (
     <CContainer
       safeArea={['top', 'bottom']}
-      headerComponent={
-        <CTopNavigation title={'assignment:title'} back />
-      }>
+      headerComponent={<CTopNavigation title={'assignment:title'} back />}>
       <List
         style={{backgroundColor: theme['background-basic-color-3']}}
         contentContainerStyle={cStyles.p10}
@@ -176,8 +192,10 @@ function Assignment(props) {
               disabled
               header={(propsH) => (
                 <View style={[cStyles.row, cStyles.itemsStart, cStyles.justifyBetween, cStyles.p10]}>
-                  <View style={{flex: 0.85}}>
-                    <CText category={'label'}>{`${t('assignment:exercise')} ${info.index + 1}: ${info.item.label}`}</CText>
+                  <View style={{flex: 0.9}}>
+                    <CText category={'label'}>
+                      {`${t('assignment:exercise')} ${info.index + 1}: ${info.item.label}`}
+                    </CText>
                     {info.item.userCompleted && (
                       <CText style={cStyles.mt5} category={'c1'} appearance={'hint'}>
                         {`${info.item.userCompleted.length} ${t('assignment:user_completed')}`}
@@ -189,18 +207,24 @@ function Assignment(props) {
                       </CText>
                     )}
                   </View>
-                  <Button size={'tiny'} onPress={() => handleGoDetails(info.index)}>{t('assignment:go_details')}</Button>
+                  <Button size={'tiny'} appearance={'outline'} onPress={() => handleGoDetails(info.index)}>
+                    {t('assignment:go_details')}
+                  </Button>
                 </View>
               )}
               footer={(propsF) => (
                 <View style={[cStyles.row, cStyles.itemsStart, cStyles.justifyBetween, cStyles.p10]}>
                   <View style={cStyles.itemsStart}>
                     <CText category={'p1'}>{info.item.dueDate}</CText>
-                    <CText style={[cStyles.mt5, cStyles.fontBold]} category={'c1'} status={'danger'}>{t('assignment:due_date')}</CText>
+                    <CText style={[cStyles.mt5, cStyles.fontBold]} category={'c1'} status={'danger'}>
+                      {t('assignment:due_date')}
+                    </CText>
                   </View>
                   <View style={cStyles.itemsEnd}>
                     <CText category={'p1'}>{info.item.submitDate}</CText>
-                    <CText style={[cStyles.mt5, cStyles.fontBold]} category={'c1'} status={'success'}>{t('assignment:submit_date')}</CText>
+                    <CText style={[cStyles.mt5, cStyles.fontBold]} category={'c1'} status={'info'}>
+                      {t('assignment:submit_date')}
+                    </CText>
                   </View>
                 </View>
               )}
@@ -209,32 +233,7 @@ function Assignment(props) {
                 <CText category={'p1'}>{info.item.description}</CText>
 
                 {info.item.attachedFiles.length > 0 && (
-                  <>
-                    <Divider style={cStyles.my10} />
-                    <CText category={'label'}>{t('assignment:attached_file')}</CText>
-                    {info.item.attachedFiles.map((itemFile, indexFile) => {
-                      let tmpExt = Assets[itemFile.type];
-                      if (!tmpExt) {
-                        tmpExt = Assets.file;
-                      }
-                      return (
-                        <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.rounded1, cStyles.p10, cStyles.mt10]} level={'3'}>
-                          <View style={[cStyles.row, cStyles.itemsCenter]}>
-                            <FastImage
-                              style={{height: moderateScale(40), width: moderateScale(40)}}
-                              source={tmpExt}
-                              resizeMode={'contain'}
-                            />
-
-                            <View style={cStyles.ml10}>
-                              <CText category={'p1'}>{itemFile.name}</CText>
-                              <CText category={'c1'}>{itemFile.size} Mb</CText>
-                            </View>
-                          </View>
-                        </Layout>
-                      )
-                    })}
-                  </>
+                  <AttachedFile files={info.item.attachedFiles} download={false} />
                 )}
               </View>
             </Card>

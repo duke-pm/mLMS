@@ -6,6 +6,7 @@
  **/
 import PropTypes from 'prop-types';
 import React, {useContext, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Input, Button, Icon, Spinner} from '@ui-kitten/components';
 import {Platform, View} from 'react-native';
 /* COMMON */
@@ -20,7 +21,7 @@ const ICON = {
     android: 'close',
   }
 };
-const HEIGHT = moderateScale(40);
+const HEIGHT = moderateScale(33);
 
 /*********************
  ** OTHER COMPONENT **
@@ -41,13 +42,13 @@ const RenderLeftIcon = (props, loading, handleSearch) => {
   if (loading) {
     return (
       <View style={[props.style, cStyles.center, {height: HEIGHT, width: HEIGHT}]}>
-        <Spinner size={'small'} />
+        <Spinner size={'tiny'} />
       </View>
     )
   }
   return (
     <Button
-      style={[cStyles.rounded10, {height: HEIGHT, width:HEIGHT}]}
+      size={'small'}
       appearance={'ghost'}
       accessoryLeft={RenderSearchIcon}
       onPress={handleSearch}
@@ -59,7 +60,7 @@ const RenderRightIcon = (loading, handleRemove) => {
   if (loading) return null;
   return (
     <Button
-      style={[cStyles.rounded10, {height: HEIGHT, width: HEIGHT}]}
+      size={'small'}
       appearance={'ghost'}
       accessoryLeft={RenderRemoveIcon}
       status={'danger'}
@@ -72,6 +73,7 @@ const RenderRightIcon = (loading, handleRemove) => {
  ** MAIN COMPONENT **
  ********************/
 function CSearchBar(props) {
+  const {t} = useTranslation();
   const themeContext = useContext(ThemeContext);
   const {
     autoFocus = false,
@@ -86,8 +88,9 @@ function CSearchBar(props) {
   /*****************
    ** HANDLE FUNC **
    *****************/
+  const handleRemove = () => setValue('');
+
   const handleSearch = () => {
-    console.log('[LOG] === Searching ===> ');
     setLoading(true);
     onSearch(value);
     setTimeout(() => {
@@ -96,21 +99,10 @@ function CSearchBar(props) {
     }, 2000);
   };
 
-  const handleRemove = () => {
-    console.log('[LOG] === Removing ===> ');
-    setValue('');
-  };
-
   /**********
    ** FUNC **
    **********/
-  const onChangeValue = newValue => {
-    setValue(newValue);
-  };
-
-  /****************
-   ** LIFE CYCLE **
-   ****************/
+  const onChangeValue = newValue => setValue(newValue);
 
   /************
    ** RENDER **
@@ -120,10 +112,10 @@ function CSearchBar(props) {
         disabled={loading}
         value={value}
         keyboardAppearance={themeContext.themeApp}
-        placeholder={'Input your search...'}
+        placeholder={t('common:write_something_to_search')}
         returnKeyType={'search'}
         autoFocus={autoFocus}
-        accessoryLeft={propsLeft => RenderLeftIcon(propsLeft, loading, handleSearch)}
+        accessoryLeft={propsLeft => RenderLeftIcon(propsLeft, loading, value !== ''  ? handleSearch : null)}
         accessoryRight={value !== '' 
           ? () => RenderRightIcon(loading, handleRemove)
           : undefined
