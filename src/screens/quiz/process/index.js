@@ -433,7 +433,6 @@ function QuizProcess(props) {
       headerComponent={
         <CTopNavigation
           title={(questions.current + 1) + ' / ' + questions.data.length}
-          borderBottom={false}
           back
           iconBack={'close-outline'}
           customRightComponent={

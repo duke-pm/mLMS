@@ -186,7 +186,6 @@ function QuizDetails(props) {
             titleStyle={styles.txt_white}
             iconStyle={styles.txt_white}
             title={'quiz_details:title'}
-            borderBottom={false}
             back />
           <View style={[cStyles.px10, cStyles.pb16]}>
             <View style={[cStyles.row, cStyles.itemsStart, cStyles.justifyBetween]}>

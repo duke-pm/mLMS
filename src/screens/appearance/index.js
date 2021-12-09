@@ -4,71 +4,21 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect, useContext} from 'react';
-import { useTranslation } from 'react-i18next';
+import React, {useState, useEffect, useContext} from 'react';
+import {useTranslation} from 'react-i18next';
 import {useTheme, Divider, CheckBox, Toggle, Layout} from '@ui-kitten/components';
-import {StyleSheet, View} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CText from '~/components/CText';
 /* COMMON */
-import { colors, cStyles } from '~/utils/style';
-import { moderateScale, getLocalInfo, saveLocalInfo } from '~/utils/helper';
-import { ThemeContext } from '~/configs/theme-context';
-import { AST_DARK_MODE, DARK, LIGHT } from '~/configs/constants';
+import {colors, cStyles} from '~/utils/style';
+import {moderateScale, getLocalInfo, saveLocalInfo, IS_ANDROID} from '~/utils/helper';
+import {ThemeContext} from '~/configs/theme-context';
+import {AST_DARK_MODE, DARK, LIGHT} from '~/configs/constants';
+import {usePrevious} from '~/utils/hook';
 /* REDUX */
-
-const useToggleState = (initialState = false) => {
-  const themeContext = useContext(ThemeContext);
-
-   /** Use state */
-  const [checked, setChecked] = useState(initialState);
-
-  /*****************
-   ** HANDLE FUNC **
-   *****************/
-  const onCheckedChange = isChecked => {
-    themeContext.onToggleTheme();
-    setChecked(isChecked);
-    /** Save to async storage */
-    saveLocalInfo({key: AST_DARK_MODE, value: isChecked ? DARK : LIGHT});
-  };
-
-  /****************
-   ** LIFE CYCLE **
-   ****************/
-  useEffect(async () => {
-    let astDarkMode = await getLocalInfo(AST_DARK_MODE);
-    if (astDarkMode && astDarkMode === DARK && !checked) {
-      setChecked(true);
-    }
-  }, []);
-
-  return { checked, onChange: onCheckedChange };
-};
-
-const useAutoToggleState = (initialState = false) => {
-  const themeContext = useContext(ThemeContext);
-
-   /** Use state */
-  const [checked, setChecked] = useState(initialState);
-
-  /*****************
-   ** HANDLE FUNC **
-   *****************/
-  const onCheckedChange = isChecked => {
-    setChecked(isChecked);
-  };
-
-  /****************
-   ** LIFE CYCLE **
-   ****************/
-  useEffect(() => {
-  }, []);
-
-  return { checked, onChange: onCheckedChange };
-};
 
 const RenderHolderAppearance = ({
   label = 'appearance:light_mode',
@@ -121,12 +71,63 @@ const RenderHolderAppearance = ({
   )
 };
 
+const useToggleState = (initialState = false) => {
+  const themeContext = useContext(ThemeContext);
+
+   /** Use state */
+  const [checked, setChecked] = useState(initialState);
+
+  /*****************
+   ** HANDLE FUNC **
+   *****************/
+  const onCheckedChange = isChecked => {
+    themeContext.onToggleTheme();
+    setChecked(isChecked);
+    /** Save to async storage */
+    saveLocalInfo({key: AST_DARK_MODE, value: isChecked ? DARK : LIGHT});
+  };
+
+  /****************
+   ** LIFE CYCLE **
+   ****************/
+  useEffect(async () => {
+    let astDarkMode = await getLocalInfo(AST_DARK_MODE);
+    if (astDarkMode && astDarkMode === DARK && !checked) {
+      setChecked(true);
+    }
+  }, []);
+
+  return { checked, onChange: onCheckedChange };
+};
+
+const useAutoToggleState = (initialState = false) => {
+  const themeContext = useContext(ThemeContext);
+
+   /** Use state */
+  const [checked, setChecked] = useState(initialState);
+
+  /*****************
+   ** HANDLE FUNC **
+   *****************/
+  const onCheckedChange = isChecked => {
+    setChecked(isChecked);
+  };
+
+  /****************
+   ** LIFE CYCLE **
+   ****************/
+  useEffect(() => {
+  }, []);
+
+  return { checked, onChange: onCheckedChange };
+};
 
 function Appearance(props) {
   const {t} = useTranslation();
   const theme = useTheme();
   const themeContext = useContext(ThemeContext);
   const {navigation} = props;
+  let prevTheme = usePrevious(themeContext.themeApp);
 
   /** Use state */
   const darkmodeToggle = useToggleState();
@@ -148,6 +149,15 @@ function Appearance(props) {
   /****************
    ** LIFE CYCLE **
    ****************/
+  useEffect(() => {
+    if (themeContext.themeApp !== prevTheme) {
+      IS_ANDROID &&
+        StatusBar.setBackgroundColor(theme['background-basic-color-3'], true);
+    }
+  }, [
+    prevTheme,
+    themeContext.themeApp,
+  ]);
 
   /************
    ** RENDER **
@@ -156,7 +166,7 @@ function Appearance(props) {
     <CContainer
       safeArea={['top']}
       headerComponent={<CTopNavigation title={'appearance:title'} back />}>
-      <Layout level={'1'}>
+      <Layout>
         <Layout
           style={[
             cStyles.row,
@@ -165,8 +175,7 @@ function Appearance(props) {
             cStyles.p16,
             cStyles.m16,
             cStyles.rounded1,
-          ]}
-          level={'1'}>
+          ]}>
           <RenderHolderAppearance
             label={'appearance:light_mode'}
             disabled={appearance === LIGHT}
@@ -183,7 +192,7 @@ function Appearance(props) {
 
         <Divider />
         
-        <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mx12, cStyles.py8]} level={'1'}>
+        <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mx12, cStyles.py8]}>
           <View>
             <CText category={'s2'}>{t('appearance:auto_change_appearance')}</CText>
             <CText style={cStyles.mt5} category={'c1'}>{t('appearance:holder_auto_change_appearance')}</CText>

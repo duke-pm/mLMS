@@ -6,19 +6,21 @@
  **/
 import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Layout, ViewPager, Button} from '@ui-kitten/components';
-import {StyleSheet, StatusBar, Image, LayoutAnimation, UIManager, View} from 'react-native';
+import {Layout, ViewPager, Button, useTheme} from '@ui-kitten/components';
+import {
+  StyleSheet, StatusBar, LayoutAnimation, UIManager, View,
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
 /** COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CText from '~/components/CText';
 /* COMMON */
-import {IS_ANDROID, moderateScale, sW, resetRoute} from '~/utils/helper';
 import Routes from '~/navigator/Routes';
 import Assets from '~/utils/asset/Assets';
+import {IS_ANDROID, moderateScale, sW, resetRoute} from '~/utils/helper';
 import {colors, cStyles} from '~/utils/style';
 
-/** All init */
 if (IS_ANDROID) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -28,37 +30,26 @@ if (IS_ANDROID) {
 /*********************
  ** OTHER COMPONENT **  
  *********************/
-const RenderButtonFooter = (t, onPressLeft, onPressRight) => {
-  return (
-    <View style={[cStyles.fullWidth, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt40]}>
-      <Button style={styles.btn_main} appearance='filled' onPress={onPressLeft}>
-        {t('sign_up:title')}
-      </Button>
-      <Button style={styles.btn_main} appearance='outline' onPress={onPressRight}>
-        {t('log_in:title')}
-      </Button>
+const RenderPageIntro = (t, image, title, caption) => (
+  <View style={cStyles.itemsCenter}>
+    <View style={[cStyles.itemsCenter, styles.con_layout]}>
+      <FastImage
+        style={[cStyles.mt40, styles.img_intro]}
+        source={image}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+      <CText style={[cStyles.textCenter, cStyles.mt36]} category='s1'>{t(title)}</CText>
+      <CText style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t(caption)}</CText>
     </View>
-  )
-}
-
-const RenderPageIntro = (t, image, title, caption, footer = null) => {
-  return (
-    <View style={cStyles.itemsCenter}>
-      <View style={[cStyles.itemsCenter, styles.con_layout]}>
-        <Image style={[cStyles.mt40, styles.img_intro]} source={image} resizeMode={'contain'} />
-        <CText style={[cStyles.textCenter, cStyles.mt36]} category='s1'>{t(title)}</CText>
-        <CText style={[cStyles.textCenter, cStyles.mt24]} category='p1'>{t(caption)}</CText>
-        {footer}
-      </View>
-    </View>
-  );
-}
+  </View>
+);
 
 /********************
  ** MAIN COMPONENT **  
  ********************/
 function Intro(props) {
   const {t} = useTranslation();
+  const theme = useTheme();
   const {navigation} = props;
 
   /** Use state */
@@ -68,16 +59,12 @@ function Intro(props) {
    ** HANDLE FUNC **
    *****************/
   const handleChangePage = newIndex => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setPageIndex(newIndex);
   };
 
   const handleGoLogin = () => {
     resetRoute(navigation, Routes.LOGIN_IN.name);
-  };
-
-  const handleGoSignUp = () => {
-    resetRoute(navigation, Routes.SIGN_UP.name);
   };
   
   /**********
@@ -89,7 +76,6 @@ function Intro(props) {
    ****************/
   useEffect(() => {
     StatusBar.setBarStyle('dark-content', true);
-    IS_ANDROID && StatusBar.setTranslucent(false);
   }, []);
 
   /************
@@ -100,9 +86,12 @@ function Intro(props) {
       <Layout style={cStyles.flex1} level='1'>
         {/** Header */}
         <CTopNavigation
-          borderBottom={false}
           customRightComponent={
-            <Button appearance='ghost' onPress={handleGoLogin}>{t('common:skip')}</Button>
+            <Button
+              appearance='ghost'
+              onPress={handleGoLogin}>
+              {t('common:skip')}
+            </Button>
           }
         />
 
@@ -112,27 +101,25 @@ function Intro(props) {
           onSelect={handleChangePage}>
           {RenderPageIntro(t, Assets.imgIntro1, 'intro:intro_1_title', 'intro:intro_1_content')}
           {RenderPageIntro(t, Assets.imgIntro2, 'intro:intro_2_title', 'intro:intro_2_content')}
-          {RenderPageIntro(t, Assets.imgIntro3,'intro:intro_3_title','intro:intro_3_content',
-            RenderButtonFooter(t, handleGoSignUp, handleGoLogin) )
-          }
+          {RenderPageIntro(t, Assets.imgIntro3,'intro:intro_3_title','intro:intro_3_content')}
         </ViewPager>
 
         {/** Dot paging */}
-        <Layout style={[cStyles.flex1, cStyles.itemsCenter, cStyles.justifyEnd]} level='1'>
+        <Layout style={[cStyles.flex1, cStyles.itemsCenter, cStyles.justifyEnd]}>
           <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.mb24]}>
-            <Layout style={[
+            <View style={[
               cStyles.mx6,
               cStyles.rounded1,
               styles.con_page_unactive,
               pageIndex === 0 && styles.con_page_active]}
             />
-            <Layout style={[
+            <View style={[
               cStyles.mx6,
               cStyles.rounded1,
               styles.con_page_unactive,
               pageIndex === 1 && styles.con_page_active]}
             />
-            <Layout style={[
+            <View style={[
               cStyles.mx6,
               cStyles.rounded1,
               styles.con_page_unactive,
@@ -150,8 +137,8 @@ const styles = StyleSheet.create({
     width: sW('70%'),
   },
   img_intro: {
-    height: sW('60%'),
-    width: sW('60%'),
+    height: sW('50%'),
+    width: sW('50%'),
   },
   con_page_unactive: {
     height: moderateScale(4),

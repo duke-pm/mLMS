@@ -17,6 +17,7 @@ import {moderateScale} from '~/utils/helper';
 
 /** All init */
 const SIZE = {
+  THIN: 'thin',
   TINY: 'tiny',
   SMALL: 'small',
   MEDIUM: 'medium',
@@ -47,6 +48,10 @@ function CAvatar(props) {
   let styleWithSize = {};
   let borRadWithAppearance = {};
   switch (size) {
+    case SIZE.THIN:
+      styleWithSize = styles.img_thin;
+      borRadWithAppearance = cStyles.rounded3;
+      break;
     case SIZE.TINY:
       styleWithSize = styles.img_tiny;
       borRadWithAppearance = cStyles.rounded4;
@@ -117,6 +122,7 @@ function CAvatar(props) {
 }
 
 const styles = StyleSheet.create({
+  img_thin: {height: moderateScale(15), width: moderateScale(15)},
   img_tiny: {height: moderateScale(20), width: moderateScale(20)},
   img_small: {height: moderateScale(30), width: moderateScale(30)},
   img_medium: {height: moderateScale(40), width: moderateScale(40)},
@@ -137,7 +143,7 @@ const styles = StyleSheet.create({
 CAvatar.propTypes = {
   containerStyle: PropTypes.object,
   imageStyle: PropTypes.object, 
-  size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'largest']),
+  size: PropTypes.oneOf(['thin', 'tiny', 'small', 'medium', 'large', 'largest']),
   appearance: PropTypes.oneOf(['rounded', 'squared']),
   source: PropTypes.object,
   resizeMode: PropTypes.oneOf(['contain', 'cover']),

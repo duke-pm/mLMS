@@ -126,7 +126,7 @@ function CPostImages(props) {
    ************/
   if (images.lenght === 0) return null;
   return (
-    <Layout style={[cStyles.flex1, cStyles.fullWidth, styles.con_images]} level={'3'}>
+    <Layout style={[cStyles.flex1, cStyles.fullWidth, styles.con_images]} level={'1'}>
       {images.length === 1 && (
         <Button
           style={[cStyles.px1, cStyles.py1]}
@@ -134,9 +134,9 @@ function CPostImages(props) {
           status={'basic'}
           onPress={() => toggleAlertFullImage(0)}>
           {evaProps => (
-            <Layout style={cStyles.flex1} level={'3'}>
+            <Layout style={cStyles.flex1} level={'1'}>
               <FastImage
-                style={[cStyles.fullWidth, cStyles.fullHeight]}
+                style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.rounded1]}
                 source={{
                   uri: images[0],
                   priority: FastImage.priority.high,
@@ -150,7 +150,7 @@ function CPostImages(props) {
       )}
 
       {images.length === 2 && (
-        <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'3'}>
+        <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
           <Button
             style={[cStyles.flex1, cStyles.px0, cStyles.py1]}
             appearance={'ghost'}
@@ -159,7 +159,12 @@ function CPostImages(props) {
             {evaProps => (
               <View style={cStyles.flex1}>
                 <FastImage
-                  style={[cStyles.fullWidth, cStyles.fullHeight]}
+                  style={[
+                    cStyles.fullWidth,
+                    cStyles.fullHeight,
+                    cStyles.roundedTopLeft1,
+                    cStyles.roundedBottomLeft1,
+                  ]}
                   source={{
                     uri: images[0],
                     priority: FastImage.priority.high,
@@ -178,7 +183,12 @@ function CPostImages(props) {
             {evaProps => (
               <View style={cStyles.flex1}>
                 <FastImage
-                  style={[cStyles.fullWidth, cStyles.fullHeight]}
+                  style={[
+                    cStyles.fullWidth,
+                    cStyles.fullHeight,
+                    cStyles.roundedTopRight1,
+                    cStyles.roundedBottomRight1,
+                  ]}
                   source={{
                     uri: images[1],
                     priority: FastImage.priority.high,
@@ -193,8 +203,8 @@ function CPostImages(props) {
       )}
 
       {images.length === 3 && (
-        <Layout style={cStyles.flex1} level={'3'}>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'3'}>
+        <Layout style={cStyles.flex1} level={'1'}>
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -203,7 +213,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedTopLeft1]}
                     source={{
                       uri: images[0],
                       priority: FastImage.priority.high,
@@ -222,7 +232,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedTopRight1]}
                     source={{
                       uri: images[1],
                       priority: FastImage.priority.high,
@@ -234,7 +244,7 @@ function CPostImages(props) {
               )}
             </Button>
           </Layout>
-          <Layout style={cStyles.flex1} level={'3'}>
+          <Layout style={cStyles.flex1} level={'1'}>
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -243,7 +253,12 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[
+                      cStyles.fullWidth,
+                      cStyles.fullHeight,
+                      cStyles.roundedBottomLeft1,
+                      cStyles.roundedBottomRight1,
+                    ]}
                     source={{
                       uri: images[2],
                       priority: FastImage.priority.high,
@@ -259,8 +274,8 @@ function CPostImages(props) {
       )}
 
       {images.length === 4 && (
-        <Layout style={cStyles.flex1} level={'3'}>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'3'}>
+        <Layout style={cStyles.flex1} level={'1'}>
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -269,7 +284,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedTopLeft1]}
                     source={{
                       uri: images[0],
                       priority: FastImage.priority.high,
@@ -288,7 +303,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedTopRight1]}
                     source={{
                       uri: images[1],
                       priority: FastImage.priority.high,
@@ -300,7 +315,7 @@ function CPostImages(props) {
               )}
             </Button>
           </Layout>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'3'}>
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -309,7 +324,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedBottomLeft1]}
                     source={{
                       uri: images[2],
                       priority: FastImage.priority.high,
@@ -328,7 +343,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedBottomRight1]}
                     source={{
                       uri: images[3],
                       priority: FastImage.priority.high,
@@ -344,8 +359,8 @@ function CPostImages(props) {
       )}
 
       {images.length > 4 && (
-        <Layout style={cStyles.flex1} level={'3'}>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'3'}>
+        <Layout style={cStyles.flex1} level={'1'}>
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -354,7 +369,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedTopLeft1]}
                     source={{
                       uri: images[0],
                       priority: FastImage.priority.high,
@@ -373,7 +388,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedTopRight1]}
                     source={{
                       uri: images[1],
                       priority: FastImage.priority.high,
@@ -385,7 +400,7 @@ function CPostImages(props) {
               )}
             </Button>
           </Layout>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'3'}>
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -394,7 +409,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedBottomLeft1]}
                     source={{
                       uri: images[2],
                       priority: FastImage.priority.high,
@@ -413,7 +428,7 @@ function CPostImages(props) {
               {evaProps => (
                 <View style={cStyles.flex1}>
                   <FastImage
-                    style={[cStyles.fullWidth, cStyles.fullHeight]}
+                    style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.roundedBottomRight1]}
                     source={{
                       uri: images[3],
                       priority: FastImage.priority.high,
@@ -421,7 +436,14 @@ function CPostImages(props) {
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                   />
-                  <View style={[cStyles.flexCenter, cStyles.abs, cStyles.inset0, styles.backdrop]}>
+                  <View
+                    style={[
+                      cStyles.flexCenter,
+                      cStyles.abs,
+                      cStyles.inset0,
+                      styles.backdrop,
+                      cStyles.roundedBottomRight1,
+                    ]}>
                     <CText style={styles.txt_white} category={'h5'}>+{images.length - 4}</CText>
                   </View>
                 </View>

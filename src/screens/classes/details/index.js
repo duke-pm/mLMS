@@ -4,7 +4,7 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect, useContext, useLayoutEffect} from 'react';
+import React, {useState, useEffect, useContext, useLayoutEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
@@ -30,27 +30,15 @@ import Routes from '~/navigator/Routes';
 /* REDUX */
 
 const RenderLikeIcon = props => (
-  <IoniIcon
-    name='heart-outline'
-    size={moderateScale(16)}
-    color={'gray'}
-  />
+  <Icon {...props} name='heart-outline' />
 );
 
 const RenderLikedIcon = props => (
-  <IoniIcon
-    name='heart'
-    size={moderateScale(16)}
-    color={colors.PRIMARY}
-  />
+  <Icon {...props} name='heart' />
 );
 
 const RenderCommentIcon = props => (
-  <IoniIcon
-    name='chatbubble-ellipses-outline'
-    size={moderateScale(16)}
-    color={'gray'}
-  />
+  <Icon {...props} name='message-circle-outline' />
 );
 
 const RenderCloseIcon = props => (
@@ -94,7 +82,7 @@ const RenderMenuIcon = (label, icon, color) => (
   </View>
 );
 
-const RenderHeaderPost = (info) => (
+const RenderLeftHeaderPost = (info) => (
   <CAvatar source={{uri: info.item.avatar}} />
 );
 
@@ -156,6 +144,21 @@ function ClassDetails(props) {
     navigation.navigate(Routes.ADD_POST.name);
   };
 
+  const handleGoPostDetails = (idxPost) => {
+    navigation.navigate(Routes.POST_DETAILS.name);
+  };
+
+  const handleLikePost = (idxPost) => {
+    let tmp = [...posts];
+    if (tmp[idxPost].isLiked) {
+      tmp[idxPost].numLike = tmp[idxPost].numLike - 1;
+    } else {
+      tmp[idxPost].numLike = tmp[idxPost].numLike + 1;
+    }
+    tmp[idxPost].isLiked = !tmp[idxPost].isLiked;
+    setPosts(tmp);
+  };
+
   /**********
    ** FUNC **
    **********/
@@ -186,7 +189,7 @@ function ClassDetails(props) {
         caption: 'Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin.',
         isLiked: true,
         numLike: 10,
-        numComment: 23,
+        numComment: 4,
         comments: [
           {
             id: 'cmt1',
@@ -196,11 +199,25 @@ function ClassDetails(props) {
             createdAt: '14/12/2021 16:00'
           },
           {
-            id: 'cmt1',
-            caption: 'Leo a diam sollicitudin tempor id',
+            id: 'cmt2',
+            caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
             name: 'Jane Dean',
             avatar: 'http://react-material.fusetheme.com/assets/images/avatars/jane.jpg',
             createdAt: '15/12/2021 11:45'
+          },
+          {
+            id: 'cmt3',
+            caption: 'Nisl tincidunt eget nullam non',
+            name: 'Henderson Cambias',
+            avatar: 'http://react-material.fusetheme.com/assets/images/avatars/Henderson.jpg',
+            createdAt: '15/12/2021 12:45'
+          },
+          {
+            id: 'cmt4',
+            caption: 'Quis hendrerit dolor magna eget est lorem ipsum dolor sit',
+            name: 'Josefina Lakefield',
+            avatar: 'http://react-material.fusetheme.com/assets/images/avatars/Josefina.jpg',
+            createdAt: '15/12/2021 16:45'
           }
         ]
       },
@@ -221,7 +238,7 @@ function ClassDetails(props) {
         caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         isLiked: false,
         numLike: 2,
-        numComment: 5,
+        numComment: 2,
         comments: [
           {
             id: 'cmt3',
@@ -238,6 +255,19 @@ function ClassDetails(props) {
             createdAt: '13/12/2021 20:30'
           }
         ]
+      },
+      {
+        id: 'post3',
+        images: [],
+        author: 'Boyle Winters',
+        avatar: 'http://react-material.fusetheme.com/assets/images/avatars/Boyle.jpg',
+        createdAt: '09/12/2021 18:00',
+        createdWhere: 'Class ABC',
+        caption: 'Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt eget. Leo a diam sollicitudin tempor id. A lacus vestibulum sed arcu non odio euismod lacinia.\n\nIn tellus integer feugiat scelerisque. Feugiat in fermentum posuere urna nec tincidunt praesent. Porttitor rhoncus dolor purus non enim praesent elementum facilisis. Nisi scelerisque eu ultrices vitae auctor eu augue ut lectus. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus.',
+        isLiked: false,
+        numLike: 0,
+        numComment: 0,
+        comments: []
       }
     ];
     setPosts(tmpPosts);
@@ -288,10 +318,10 @@ function ClassDetails(props) {
                 iconStyle={styles.text_white}
                 title={'class_details:title'}
                 back
-                borderBottom={false}
                 customRightComponent={
                   <OverflowMenu
                     anchor={RenderMenuAction}
+                    backdropStyle={styles.backdrop}
                     visible={functionMenu}
                     onBackdropPress={toggleFunctionMenu}>
                     <MenuItem
@@ -348,7 +378,7 @@ function ClassDetails(props) {
                     </View>
 
                     <CText style={styles.txt_num_member} status={'control'} category={'c1'}>
-                      {`${dataClass.numMember} ${t('classses:members')}`}
+                      {`${dataClass.numMember} ${t('class_details:members')}`}
                     </CText>
                   </View>
 
@@ -372,6 +402,7 @@ function ClassDetails(props) {
           cStyles.row,
           cStyles.itemsCenter,
           cStyles.justifyBetween,
+          cStyles.shadowListItem,
           {marginTop: heightBanner},
         ]}
         level={'1'}>
@@ -381,7 +412,7 @@ function ClassDetails(props) {
             disabled={loading}
             accessoryLeft={RenderMenuActionsIcon}
             onPress={toggleAlertMenu}>
-            {t('class_details:menu')} 
+            {t('class_details:menu')}
           </Button>
           <Button
             style={styles.btn_action}
@@ -393,20 +424,21 @@ function ClassDetails(props) {
         </ButtonGroup>
       </Layout>
 
-      <Divider />
+      {IS_IOS && <Divider />}
 
       {/** Posts of class */}
       {!loading && (
         <List
           style={{backgroundColor: theme['background-basic-color-3']}}
-          contentContainerStyle={[cStyles.pt10, cStyles.px10]}
+          contentContainerStyle={cStyles.p10}
           data={posts}
           renderItem={info => {
             return (
               <Card
-                disabled
+                onPress={handleGoPostDetails}
                 header={(propsH) => (
                   <ListItem
+                    disabled
                     title={evaProps =>
                       <CText style={cStyles.ml10} category={'label'}>{info.item.author}</CText>
                     }
@@ -415,46 +447,26 @@ function ClassDetails(props) {
                         {info.item.createdAt + ' . At ' + info.item.createdWhere}
                       </CText>
                     }
-                    accessoryLeft={() => RenderHeaderPost(info)}
+                    accessoryLeft={RenderLeftHeaderPost(info)}
                   />
                 )}
-                footer={(propsF) => (
+                footer={info.item.numComment > 0
+                  ? (propsF) => (
                   <Layout style={[cStyles.flex1, cStyles.p10]} level={'1'}>
-                    <ButtonGroup size={'small'} status={'basic'} appearance={'ghost'}>
-                      <Button
-                        style={styles.btn_action}
-                        accessoryLeft={info.item.isLiked ? RenderLikedIcon : RenderLikeIcon}>
-                        {evaProps => (
-                          <CText
-                            style={cStyles.ml5}
-                            status={info.item.isLiked ? 'primary' : 'basic'}
-                            category={'p1'}>
-                            {t(info.item.isLiked ? 'class_details:liked' : 'class_details:like')}
-                          </CText>
-                        )}
-                      </Button>
-                      <Button
-                        style={styles.btn_action}
-                        accessoryLeft={RenderCommentIcon}>
-                          {evaProps => (
-                            <CText style={cStyles.ml5} status={'basic'} category={'p1'}>
-                              {t('class_details:comment')}
-                            </CText>
-                          )}
-                      </Button>
-                    </ButtonGroup>
-                    
+                    {/** List of comment */}
                     <List
                       style={{backgroundColor: theme['background-basic-color-1']}}
                       data={info.item.comments}
                       renderItem={infoCmt => {
+                        if (infoCmt.index > 1) return null;
                         return (
                           <ListItem
                             style={[
+                              cStyles.itemsStart,
                               cStyles.rounded1,
                               cStyles.px10,
-                              cStyles.mt10,
-                              {backgroundColor: theme['background-basic-color-3']},
+                              infoCmt.index > 0 && cStyles.mt10,
+                              {backgroundColor: theme['background-basic-color-2']},
                             ]}
                             title={evaProps => (
                               <View style={[cStyles.ml10, cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
@@ -472,26 +484,51 @@ function ClassDetails(props) {
                         );
                       }}
                       keyExtractor={(item, index) => item.id + index}
+                      ListFooterComponent={
+                        info.item.comments.length > 2
+                        ? () => (
+                          <View style={[cStyles.pt10]}>
+                            <Button
+                              appearance={'ghost'}
+                              status={'primary'}
+                              size={'tiny'}
+                              onPress={() => handleGoPostDetails(info.index)}>
+                              {t('class_details:see_more_comment')}
+                            </Button>
+                          </View>
+                        ) : undefined
+                      }
                     />
                   </Layout>
-                )}>
+                ) : undefined}>
                 <View style={styles.bg_content_card}>
                   <View style={[cStyles.px10, cStyles.py16]}>
                     <CText category={'p1'}>{info.item.caption}</CText>
                   </View>
-                  <CPostImages
-                    images={info.item.images}
-                  />
-                  {info.item.numLike > 0 && (
-                    <View style={[cStyles.px10, cStyles.py10, cStyles.row, cStyles.itemsCenter]}>
-                      <IoniIcon
-                        name={'heart'}
-                        color={colors.PRIMARY}
-                        size={moderateScale(16)}
-                      />
-                      <CText style={cStyles.ml5} category={'p1'}>{`${info.item.numLike}`}</CText>
+                  {info.item.images.length > 0 && (
+                    <View style={cStyles.px10}>
+                      <CPostImages images={info.item.images} />
                     </View>
                   )}
+                  <View style={[cStyles.row, cStyles.itemsCenter, cStyles.my5, cStyles.px10]}>
+                    <Button
+                      appearance={'ghost'}
+                      status={info.item.isLiked ? 'primary' : 'basic'}
+                      size={'small'}
+                      accessoryLeft={info.item.isLiked ? RenderLikedIcon : RenderLikeIcon}
+                      onPress={() => handleLikePost(info.index)}>
+                      {info.item.numLike + ''}
+                    </Button>
+                    <Button
+                      style={cStyles.ml10}
+                      appearance={'ghost'}
+                      status={'basic'}
+                      size={'small'}
+                      accessoryLeft={RenderCommentIcon}
+                      onPress={handleGoPostDetails}>
+                      {info.item.comments.length + ''}
+                    </Button>
+                  </View>
                 </View>
               </Card>
             );

@@ -4,22 +4,22 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useContext, useRef, useState, useEffect} from 'react';
+import React, {useRef, useState, useEffect, useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useTheme, Layout, Divider} from '@ui-kitten/components';
-import {View, TouchableWithoutFeedback} from 'react-native';
+import {View, TouchableWithoutFeedback, StatusBar} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
-import CButtonSocial, {SOCIAL_NAME} from '~/components/CButtonSocial';
 import CText from '~/components/CText';
+import CButtonSocial, {SOCIAL_NAME} from '~/components/CButtonSocial';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {cStyles} from '~/utils/style';
-import { resetRoute } from '~/utils/helper';
-import { ThemeContext } from '~/configs/theme-context';
-import { LIGHT } from '~/configs/constants';
+import {IS_ANDROID, resetRoute} from '~/utils/helper';
+import {ThemeContext} from '~/configs/theme-context';
+import {usePrevious} from '~/utils/hook';
 /* REDUX */
 
 
@@ -34,6 +34,7 @@ function Login(props) {
   const theme = useTheme();
   const themeContext = useContext(ThemeContext);
   const {navigation} = props;
+  let prevTheme = usePrevious(themeContext.themeApp);
 
   /** use ref */
   const formRef = useRef();
@@ -73,7 +74,15 @@ function Login(props) {
   /****************
    ** LIFE CYCLE **
    ****************/
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (themeContext.themeApp !== prevTheme) {
+      IS_ANDROID &&
+        StatusBar.setBackgroundColor(theme['background-basic-color-3'], true);
+    }
+  }, [
+    prevTheme,
+    themeContext.themeApp,
+  ]);
 
   /************
    ** RENDER **
@@ -85,7 +94,6 @@ function Login(props) {
       {/** Header */}
       <CTopNavigation
         style={{backgroundColor: theme['background-basic-color-3']}}
-        borderBottom={false}
         darkmode
         leftTitle={'log_in:title'} />
 
@@ -140,8 +148,9 @@ function Login(props) {
             <View style={[cStyles.itemsEnd, cStyles.mt16]}>
               <TouchableWithoutFeedback onPress={handleGoForgotPassword}>
                 <CText
-                  style={[cStyles.textUnderline, {color: theme['color-primary-500']}]}
-                  category={'p1'}>
+                  style={cStyles.textUnderline}
+                  category={'p1'}
+                  status={'primary'}>
                   {t('log_in:is_forgot_password')}
                 </CText>
               </TouchableWithoutFeedback>
@@ -157,8 +166,9 @@ function Login(props) {
           <CText category='p1'>{t('log_in:dont_have_account')}</CText>
           <TouchableWithoutFeedback onPress={handleSignUp}>
             <CText 
-              style={[cStyles.textUnderline, cStyles.ml6, {color: theme['color-primary-500']}]}
-              category={'p1'}>
+              style={[cStyles.textUnderline, cStyles.ml6]}
+              category={'p1'}
+              status={'primary'}>
               {t('log_in:sign_up')}
             </CText>
           </TouchableWithoutFeedback>
@@ -166,9 +176,11 @@ function Login(props) {
 
         {/** Login with other socials */}
         <View style={[cStyles.row, cStyles.itemsCenter, cStyles.mt24]}>
-          <Divider style={[cStyles.flex1, {backgroundColor: theme['color-basic-500']}]} />
-            <CText style={cStyles.mx10} category={'c1'}>{t('log_in:login_with_socials')}</CText>
-          <Divider style={[cStyles.flex1, {backgroundColor: theme['color-basic-500']}]} />
+          <Divider style={cStyles.flex1} />
+          <CText style={cStyles.mx10} category={'c1'} appearance='hint'>
+            {t('log_in:login_with_socials')}
+          </CText>
+          <Divider style={cStyles.flex1} />
         </View>
 
         <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyEvenly, cStyles.mt24]}>

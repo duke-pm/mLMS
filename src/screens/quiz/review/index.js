@@ -8,7 +8,7 @@ import React, {useRef, useState, useEffect, useLayoutEffect, useContext} from 'r
 import {useTranslation} from 'react-i18next';
 import {
   useTheme, Layout, List, Card, Button, OverflowMenu,
-  MenuItem, Icon,
+  MenuItem, Icon, TopNavigationAction
 } from '@ui-kitten/components';
 import {StyleSheet, StatusBar, View, TouchableOpacity} from 'react-native';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
@@ -34,6 +34,9 @@ const TYPE_QUESTION = {
   YES_NO: 'yesNo',
 };
 
+const MenuIcon = props => (
+  <Icon {...props} name={'more-vertical-outline'} />
+);
 
 const RenderFeedbackIcon = (props) => (
   <Icon {...props} name='undo-outline'/>
@@ -185,7 +188,10 @@ function QuizReview(props) {
   /************
    ** RENDER **
    ************/
-  console.log('[LOG] === idxMenuAnswer ===> ', idxMenuAnswer);
+  const RenderMenuAction = (id) => (
+    <TopNavigationAction icon={MenuIcon} onPress={() => toggleFunctionMenu(id)}/>
+  );
+
   return (
     <CContainer
       safeArea={['top']}
@@ -198,7 +204,6 @@ function QuizReview(props) {
             titleStyle={styles.txt_white}
             iconStyle={styles.txt_white}
             title={'quiz_review:title'}
-            borderBottom={false}
             back />
           <View style={[cStyles.itemsCenter, cStyles.px16, cStyles.pb16]}>
             <CText status={'control'} category={'h1'}>{`${dataQuiz.score}`}</CText>
@@ -277,15 +282,7 @@ function QuizReview(props) {
                   </View>
                   <View style={[cStyles.itemsEnd, {flex: 0.05}]}>
                     <OverflowMenu
-                      anchor={() => 
-                        <TouchableOpacity onPress={() => toggleFunctionMenu(info.index + '')}>
-                          <IoniIcon
-                            name={'ellipsis-vertical'}
-                            size={moderateScale(16)}
-                            color={theme['text-basic-color']}
-                          />
-                        </TouchableOpacity>
-                      }
+                      anchor={() => RenderMenuAction(info.index + '')}
                       backdropStyle={styles.backdrop}
                       visible={menuAnswers[info.index]}
                       onBackdropPress={() => toggleFunctionMenu(null)}>

@@ -7,7 +7,6 @@
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Layout, useTheme} from '@ui-kitten/components';
 import {StatusBar} from 'react-native';
 /* COMMON */
@@ -55,12 +54,8 @@ function CContainer(props) {
       style={[cStyles.flex1, {backgroundColor: backgroundColor || theme['background-basic-color-1']}]}
       edges={safeAreaScreen}>
       {headerComponent}
-      <Layout style={cStyles.flex1} level='3'>
-        <KeyboardAwareScrollView contentContainerStyle={cStyles.flex1} scrollEnabled={scrollEnabled}>
-          <Layout style={[cStyles.flex1, padder && cStyles.px16, padder && cStyles.py10]} level='3'>
-            {children}
-          </Layout>
-        </KeyboardAwareScrollView>
+      <Layout style={[cStyles.flex1, padder && cStyles.px16, padder && cStyles.py10]} level='3'>
+        {children}
       </Layout>
     </SafeAreaView>
   );

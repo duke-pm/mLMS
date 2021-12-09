@@ -4,31 +4,24 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useContext, useRef, useState, useEffect} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Layout, Button, useTheme} from '@ui-kitten/components';
-import {View, LayoutAnimation, UIManager} from 'react-native';
+import {View} from 'react-native';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 import {showMessage} from 'react-native-flash-message';
+import * as Animatable from 'react-native-animatable';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
 import CForm from '~/components/CForm';
 import CText from '~/components/CText';
 /* COMMON */
-import Routes from '~/navigator/Routes';
-import {colors, cStyles} from '~/utils/style';
-import {IS_ANDROID, moderateScale} from '~/utils/helper';
-import { ThemeContext } from '~/configs/theme-context';
-import { LIGHT } from '~/configs/constants';
+import {cStyles} from '~/utils/style';
+import {moderateScale} from '~/utils/helper';
 /* REDUX */
 
-
-if (IS_ANDROID) {
-  if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
-}
+const MyIconAnim = Animatable.createAnimatableComponent(IoniIcon);
 
 /** All init */
 const INPUT_NAME = {
@@ -38,7 +31,6 @@ const INPUT_NAME = {
 function ForgotPassword(props) {
   const {t} = useTranslation();
   const theme = useTheme();
-  const themeContext = useContext(ThemeContext);
   const {navigation} = props;
   
   /** use ref */
@@ -71,7 +63,6 @@ function ForgotPassword(props) {
     setTimeout(() => {
       setLoading(false);
       let rdAlert = Math.random();
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       if (rdAlert > 0.5) {
         setShowAlert({
           status: true,
@@ -92,8 +83,7 @@ function ForgotPassword(props) {
   /****************
    ** LIFE CYCLE **
    ****************/
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   /************
    ** RENDER **
@@ -105,7 +95,6 @@ function ForgotPassword(props) {
       {/** Header */}
       <CTopNavigation
         style={{backgroundColor: theme['background-basic-color-3']}}
-        borderBottom={false}
         back
         leftTitle={'forgot_password:title'} />
 
@@ -149,6 +138,7 @@ function ForgotPassword(props) {
             ]}
             leftButton={loading}
             labelButton={'forgot_password:send'}
+            disabledButton={loading}
             onSubmit={onSubmitSend}
           />
         </Layout>
@@ -165,9 +155,15 @@ function ForgotPassword(props) {
             cStyles.py16,
             cStyles.px32,
           ]}
-          level={'3'}>
-          <View style={[cStyles.itemsCenter, cStyles.mt60]}>
-            <IoniIcon name={'checkmark-circle-outline'} size={moderateScale(150)} color={colors.PRIMARY}  />
+          level={'1'}>
+          <View style={cStyles.itemsCenter}>
+            <MyIconAnim
+              name={'checkmark-circle-outline'}
+              size={moderateScale(150)}
+              color={theme['color-success-500']}
+              animation='pulse'
+              easing='ease-out'
+            />
           </View>
 
           {/** Sub-title & Caption */}
@@ -179,6 +175,7 @@ function ForgotPassword(props) {
           <Button
             style={cStyles.mt24}
             appearance={'filled'}
+            disabled={loading}
             onPress={handleGoBack}>
             {t('common:go_back')}
           </Button>

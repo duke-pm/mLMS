@@ -4,9 +4,9 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useContext, useRef, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {useTranslation } from 'react-i18next';
-import {Layout, List, useTheme, Button, Icon, Avatar} from '@ui-kitten/components';
+import {Layout, List, useTheme, Button, Icon, Avatar, Spinner} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 /* COMPONENTS */
@@ -21,10 +21,16 @@ import {moderateScale} from '~/utils/helper';
 import {ThemeContext} from '~/configs/theme-context';
 /* REDUX */
 
+/*********************
+ ** OTHER COMPONENT **
+ *********************/
 const RenderStarIcon = (props) => (
   <Icon {...props} name={'star-outline'} />
 );
  
+/********************
+ ** MAIN COMPONENT **
+ ********************/
 function Classes(props) {
   const {t} = useTranslation();
   const theme = useTheme();
@@ -232,8 +238,11 @@ function Classes(props) {
           extraData={classes}
         />
       )}
-
-      <CLoading show={loading} />
+      {loading && (
+        <Layout style={cStyles.flexCenter} level={'3'}>
+          <Spinner />
+        </Layout>
+      )}
     </CContainer>
   );
 }

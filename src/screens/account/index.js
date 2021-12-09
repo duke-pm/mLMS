@@ -4,7 +4,7 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useTranslation } from 'react-i18next';
 import {Layout, Icon, Text, Menu, MenuItem, useTheme} from '@ui-kitten/components';
 import {StyleSheet, View, TouchableOpacity, ImageBackground} from 'react-native';
@@ -25,8 +25,15 @@ import {moderateScale, resetRoute} from '~/utils/helper';
 /*********************
  ** OTHER COMPONENT **
  *********************/
-const RenderForwardIcon = (props) => (
-  <Icon {...props} name='arrow-ios-forward' />
+const RenderForwardIcon = (props, theme, info) => (
+  <View style={[cStyles.row, cStyles.itemsCenter]}>
+    {info.alert && (
+      <View style={[{height: moderateScale(16), width: moderateScale(16), backgroundColor: theme['color-danger-500']}, cStyles.rounded4, cStyles.center]}>
+        <Text category={'c1'} status={'control'}>{info.alert}</Text>
+      </View>
+    )}
+    <Icon {...props} name='arrow-ios-forward' />
+  </View>
 );
 
 const RenderLeftIcon = (props, nameIcon) => (
@@ -52,6 +59,25 @@ function Account(props) {
       renderNext: true,
       nextRoute: Routes.PROFILE.name,
       value: null,
+      alert: null,
+    },
+    {
+      id: 'notification',
+      label: 'account:notification',
+      icon: 'bell-outline',
+      renderNext: true,
+      nextRoute: Routes.NOTIFICATION.name,
+      value: null,
+      alert: 2, 
+    },
+    {
+      id: 'schedule',
+      label: 'account:schedule',
+      icon: 'calendar-outline',
+      renderNext: true,
+      nextRoute: Routes.SCHEDULE.name,
+      value: null,
+      alert: 1,
     },
     {
       id: 'favourite',
@@ -60,6 +86,7 @@ function Account(props) {
       renderNext: true,
       nextRoute: Routes.FAVOURITE.name,
       value: null,
+      alert: null,
     },
     {
       id: 'settings',
@@ -68,6 +95,7 @@ function Account(props) {
       renderNext: true,
       nextRoute: Routes.SETTINGS.name,
       value: null,
+      alert: null,
     },
     {
       id: 'help',
@@ -76,6 +104,7 @@ function Account(props) {
       renderNext: true,
       nextRoute: Routes.HELP.name,
       value: null,
+      alert: null,
     },
     {
       id: 'log_out',
@@ -84,6 +113,7 @@ function Account(props) {
       renderNext: false,
       nextRoute: null,
       value: null,
+      alert: null,
     },
   ]);
 
@@ -127,46 +157,49 @@ function Account(props) {
   return (
     <CContainer
       safeArea={['top']}
-      headerComponent={<CTopNavigation title={t('account:title')} borderBottom={false} />}>
-      <Layout style={[cStyles.flex1]} level={'1'}>
-        <Layout style={[cStyles.itemsCenter, cStyles.pb20, cStyles.pt10]} level='1'>
-          <TouchableOpacity onPress={toggleAlertAvatar}>
-            <ImageBackground
-              style={styles.img_avatar}
-              borderRadius={moderateScale(50)}
-              resizeMode={'cover'}
-              source={{uri: 'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg'}}>
-              <View 
-                style={[
-                  cStyles.ofHidden,
-                  cStyles.center,
-                  cStyles.rounded5,
-                  cStyles.abs,
-                  styles.con_camera,
-                  {backgroundColor: theme['color-basic-200']}
-                ]}>
-                <IoniIcon name={'camera'} color={theme['color-primary-500']} size={moderateScale(13)} />
-              </View>
-            </ImageBackground>
-          </TouchableOpacity>
-          <CText style={cStyles.mt16} category='h6'>{'Wayne Rooney'}</CText>
-          <CText style={cStyles.mt5} category='c1'>{'WayneRooney@gmail.com'}</CText>
-        </Layout>
-
-        <Menu style={{backgroundColor: theme['background-basic-color-1']}}>
-          {menu.map((item, index) => {
-            return (
-              <MenuItem
-                key={item.id + '_' + index}
-                title={t(item.label)}
-                accessoryLeft={propsIc => RenderLeftIcon(propsIc, item.icon)}
-                accessoryRight={item.renderNext ? RenderForwardIcon : undefined}
-                onPress={item.renderNext ? () => handleGoMenuItem(item.nextRoute) : toggleAlertLogout}
-              />
-            )
-          })}
-        </Menu>
+      headerComponent={
+        <CTopNavigation
+          title={t('account:title')}
+        />
+      }
+    >
+      <Layout style={[cStyles.itemsCenter, cStyles.pb20, cStyles.pt10]} level='1'>
+        <TouchableOpacity onPress={toggleAlertAvatar}>
+          <ImageBackground
+            style={styles.img_avatar}
+            borderRadius={moderateScale(50)}
+            resizeMode={'cover'}
+            source={{uri: 'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg'}}>
+            <View 
+              style={[
+                cStyles.ofHidden,
+                cStyles.center,
+                cStyles.rounded5,
+                cStyles.abs,
+                styles.con_camera,
+                {backgroundColor: theme['color-basic-200']}
+              ]}>
+              <IoniIcon name={'camera'} color={theme['color-primary-500']} size={moderateScale(13)} />
+            </View>
+          </ImageBackground>
+        </TouchableOpacity>
+        <CText style={cStyles.mt16} category='h6'>{'Wayne Rooney'}</CText>
+        <CText style={cStyles.mt5} category='c1'>{'WayneRooney@gmail.com'}</CText>
       </Layout>
+
+      <Menu scrollEnabled={false} style={{backgroundColor: theme['background-basic-color-3']}}>
+        {menu.map((item, index) => {
+          return (
+            <MenuItem
+              key={item.id + '_' + index}
+              title={t(item.label)}
+              accessoryLeft={propsIc => RenderLeftIcon(propsIc, item.icon)}
+              accessoryRight={item.renderNext ? propsR => RenderForwardIcon(propsR, theme, item) : undefined}
+              onPress={item.renderNext ? () => handleGoMenuItem(item.nextRoute) : toggleAlertLogout}
+            />
+          )
+        })}
+      </Menu>
 
       <CAlert
         contentStyle={cStyles.m0}

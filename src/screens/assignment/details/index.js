@@ -20,10 +20,6 @@ import {moderateScale} from '~/utils/helper';
 import AttachedFile from '../components/AttachedFile';
 /* REDUX */
 
-const RenderDownloadIcon = props => (
-  <Icon {...props} name={'download-outline'} />
-);
-
 function AssignmentDetails(props) {
   const {t} = useTranslation();
   const theme = useTheme();
@@ -88,20 +84,25 @@ function AssignmentDetails(props) {
               if (!tmpExt) tmpExt = Assets.file;
               return (
                 <Card disabled>
-                  <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
-                    <View style={[cStyles.row, cStyles.itemsCenter, styles.bg_content_card]}>
+                  <View style={[cStyles.row, cStyles.itemsCenter, styles.bg_content_card]}>
+                    <View style={[cStyles.itemsCenter, {flex: 0.15}]}>
                       <FastImage
                         style={{height: moderateScale(40), width: moderateScale(40)}}
                         source={tmpExt}
                         resizeMode={'contain'}
                       />
-                      <View style={cStyles.ml10}>
-                        <CText style={cStyles.mt5} category={'label'}>{info.item.attachedFiles.name}</CText>
-                        <CText style={cStyles.mt5} category={'c1'} appearance={'hint'}>{info.item.createdAt}</CText>
+                      <CText category={'c1'} appearance={'hint'}>{info.item.attachedFiles.size} Mb</CText>
+                    </View>
+                    <View style={[cStyles.ml10, {flex: 0.85}]}>
+                      <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
+                        <CText category={'p1'}>{info.item.attachedFiles.name}</CText>
+                        <CText category={'c1'} appearance={'hint'}>{info.item.createdAt}</CText>
+                      </View>
+                      <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt5]}>
                         <Avatar style={cStyles.mt5} source={{uri: info.item.avatar}} size={'small'} />
+                        <Button size={'tiny'} appearance={'outline'}>{t('assignment_details:review')}</Button>
                       </View>
                     </View>
-                    <Button size={'tiny'}>{t('assignment_details:review')}</Button>
                   </View>
                 </Card>
               )
@@ -121,34 +122,45 @@ function AssignmentDetails(props) {
               if (!tmpExt) tmpExt = Assets.file;
               return (
                 <Card disabled>
-                  <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
-                    <View style={[cStyles.row, cStyles.itemsCenter, styles.bg_content_card, cStyles.py5]}>
+                  <View style={[cStyles.row, cStyles.itemsCenter, styles.bg_content_card]}>
+                    <View style={[cStyles.itemsCenter, {flex: 0.15}]}>
                       <FastImage
                         style={{height: moderateScale(40), width: moderateScale(40)}}
                         source={tmpExt}
                         resizeMode={'contain'}
                       />
-                      <View style={cStyles.ml10}>
-                        <CText category={'label'}>{info.item.attachedFiles.name}</CText>
-                        <CText style={cStyles.mt5} category={'c1'} appearance={'hint'}>{info.item.createdAt}</CText>
+                      <CText category={'c1'} appearance={'hint'}>{info.item.attachedFiles.size} Mb</CText>
+                    </View>
+                    <View style={[cStyles.ml10, {flex: 0.85}]}>
+                      <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
+                        <CText category={'p1'}>{info.item.attachedFiles.name}</CText>
+                        <CText category={'c1'} appearance={'hint'}>{info.item.createdAt}</CText>
+                      </View>
+                      <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt5]}>
                         <View style={[cStyles.row, cStyles.itemsCenter, cStyles.mt5]}>
                           {info.item.avatar.map((item, index) => {
-                            if (index === 3) {
+                            if (index === 2) {
                               return (
-                                <View style={[cStyles.rounded7, cStyles.center, {height: 32, width: 32, backgroundColor: theme['background-basic-color-3']}]}>
-                                  <CText category={'p1'}>{'+1'}</CText>
+                                <View
+                                  style={[
+                                    cStyles.rounded7,
+                                    cStyles.center,
+                                    styles.holder_more_avatar, 
+                                    {backgroundColor: theme['background-basic-color-3']},
+                                  ]}>
+                                  <CText category={'p1'}>+{info.item.avatar.length - 2}</CText>
                                 </View>
                               )
-                            } else if (index < 3) {
+                            } else if (index < 2) {
                               return <Avatar style={cStyles.mr5} source={{uri: item}} size={'small'} />
                             } else {
                               return null;
                             }
                           })}
                         </View>
+                        <Button size={'tiny'} appearance={'outline'}>{t('assignment_details:review')}</Button>
                       </View>
                     </View>
-                    <Button size={'tiny'}>{t('assignment_details:review')}</Button>
                   </View>
                 </Card>
               )
@@ -166,7 +178,11 @@ const styles = StyleSheet.create({
   bg_content_card: {
     marginHorizontal: -14,
     marginVertical: -6,
-  }
+  },
+  holder_more_avatar: {
+    height: moderateScale(31),
+    width: moderateScale(31),
+  },
 });
 
 export default AssignmentDetails;

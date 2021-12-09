@@ -107,11 +107,11 @@ function CText(props) {
           <Button
             appearance={'ghost'}
             size={'small'}
-            status={'basic'}
+            status={'primary'}
             accessoryRight={showMore ? RanderShowMoreIcon : RanderShowLessIcon}
             onPress={handleShowMore}>
             {evaProps => (
-              <CText style={cStyles.fontBold} category={'c1'}>{t('common:show_more')}</CText>
+              <CText style={cStyles.fontBold} category={'c1'} status={'primary'}>{t('common:show_more')}</CText>
             )}
           </Button>
         </LinearGradient>

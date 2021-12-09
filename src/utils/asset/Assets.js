@@ -12,6 +12,7 @@ const Assets = {
   imgIntro2: require('../../../assets/images/intro/intro_2.png'),
   imgIntro3: require('../../../assets/images/intro/intro_3.png'),
   
+  imgEmptyList: require('../../../assets/images/empty/empty_list.png'),
   imgHelp: require('../../../assets/images/help/help.png'),
   imgAuth: require('../../../assets/images/auth/auth.jpg'),
   imgFlagVietnam: require('../../../assets/images/flag/vietnam.png'),

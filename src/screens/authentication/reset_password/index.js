@@ -93,7 +93,6 @@ function ResetPassword(props) {
       {/** Header */}
       <CTopNavigation
         style={{backgroundColor: theme['background-basic-color-3']}}
-        borderBottom={false}
         back
         leftTitle={'reset_password:title'} />
 

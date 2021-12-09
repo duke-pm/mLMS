@@ -9,12 +9,13 @@ import {useTranslation} from 'react-i18next';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {enableScreens} from 'react-native-screens';
-import {useTheme, Text} from '@ui-kitten/components';
+import {useTheme} from '@ui-kitten/components';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 /** COMPONENTS */
 import CText from '~/components/CText';
 /** COMMON */
 import Routes from './Routes';
+import { moderateScale } from '~/utils/helper';
 
 /** INIT NAVIGATOR OF APP */
 enableScreens(true);
@@ -29,10 +30,6 @@ export function BottomTabMain(props) {
       initialRouteName={Routes.TAB.HOME.name}
       backBehavior={'history'}
       screenOptions={({route}) => ({
-        tabBarStyle: {
-          borderTopWidth: 0,
-          backgroundColor: theme['background-basic-color-2'],
-        },
         tabBarActiveTintColor: theme['color-primary-500'],
         headerShown: false,
         lazy: true,
@@ -41,6 +38,9 @@ export function BottomTabMain(props) {
           switch (route.name) {
             case Routes.TAB.ACCOUNT.name:
               iconName = focused ? 'person' : 'person-outline';
+              break;
+            case Routes.TAB.CONVERSATION.name:
+              iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
               break;
             case Routes.TAB.CLASSES.name:
               iconName = focused ? 'library' : 'library-outline';
@@ -57,6 +57,9 @@ export function BottomTabMain(props) {
             case Routes.TAB.ACCOUNT.name:
               label = 'account:title';
               break;
+            case Routes.TAB.CONVERSATION.name:
+              label = 'conversation:title';
+              break;
             case Routes.TAB.CLASSES.name:
                 label = 'classes:title';
                 break;
@@ -70,6 +73,23 @@ export function BottomTabMain(props) {
       <TabMain.Screen
         name={Routes.TAB.HOME.name}
         component={Routes.TAB.HOME.path}
+      />
+      <TabMain.Screen
+        name={Routes.TAB.CONVERSATION.name}
+        component={Routes.TAB.CONVERSATION.path}
+        options={{
+          tabBarBadge: true,
+          tabBarBadgeStyle: {
+            height: 12,
+            width: 12,
+            minHeight: 12,
+            minWidth: 12,
+            borderRadius: 6,
+            lineHeight: 10,
+            paddingHorizontal: 0,
+            backgroundColor: theme['color-danger-500'],
+          }
+        }}
       />
       <TabMain.Screen
         name={Routes.TAB.CLASSES.name}
@@ -155,6 +175,10 @@ export function RootMain(props) {
         component={Routes.STUDENTS.path}
       />
       <StackMain.Screen
+        name={Routes.STUDENT_DETAILS.name}
+        component={Routes.STUDENT_DETAILS.path}
+      />
+      <StackMain.Screen
         name={Routes.QUIZ.name}
         component={Routes.QUIZ.path}
       />
@@ -206,6 +230,29 @@ export function RootMain(props) {
       <StackMain.Screen
         name={Routes.ASSIGNMENT_DETAILS.name}
         component={Routes.ASSIGNMENT_DETAILS.path}
+      />
+      <StackMain.Screen
+        name={Routes.CONVERSATION_DETAILS.name}
+        component={Routes.CONVERSATION_DETAILS.path}
+      />
+      <StackMain.Screen
+        name={Routes.ADD_CONVERSATION.name}
+        component={Routes.ADD_CONVERSATION.path}
+        options={{
+          animation: 'slide_from_bottom',
+        }}
+      />
+      <StackMain.Screen
+        name={Routes.POST_DETAILS.name}
+        component={Routes.POST_DETAILS.path}
+      />
+      <StackMain.Screen
+        name={Routes.SCHEDULE.name}
+        component={Routes.SCHEDULE.path}
+      />
+      <StackMain.Screen
+        name={Routes.NOTIFICATION.name}
+        component={Routes.NOTIFICATION.path}
       />
     </StackMain.Navigator>
   );

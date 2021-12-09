@@ -4,10 +4,9 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect, useContext} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Layout, useTheme, Text, CheckBox} from '@ui-kitten/components';
-import {showMessage} from "react-native-flash-message";
+import {Layout, useTheme, CheckBox} from '@ui-kitten/components';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
@@ -15,8 +14,7 @@ import CForm from '~/components/CForm';
 import CAlert from '~/components/CAlert';
 /* COMMON */
 import {cStyles} from '~/utils/style';
-import { ThemeContext } from '~/configs/theme-context';
-import { LIGHT } from '~/configs/constants';
+import CText from '~/components/CText';
 /* REDUX */
 
 
@@ -38,10 +36,9 @@ const useCheckboxState = (initialCheck = false) => {
 function SignUp(props) {
   const {t} = useTranslation();
   const theme = useTheme();
-  const themeContext = useContext(ThemeContext);
   const {navigation} = props;
 
-  /** use ref */
+  /** Use ref */
   const formRef = useRef();
 
   /** Use State */
@@ -111,7 +108,6 @@ function SignUp(props) {
       {/** Header */}
       <CTopNavigation
         style={{backgroundColor: theme['background-basic-color-3']}}
-        borderBottom={false}
         back
         leftTitle={'sign_up:title'}
         leftSubtitle={'sign_up:subtitle'}
@@ -201,7 +197,7 @@ function SignUp(props) {
                 status='basic'
                 disabled={loading}
                 {...policyCheckbox}>
-                {t('sign_up:policy')}
+                {propsCb => <CText style={cStyles.mx10} category={'p1'}>{t('sign_up:policy')}</CText>}
               </CheckBox>
             }
             disabledButton={!policyCheckbox.checked || loading}

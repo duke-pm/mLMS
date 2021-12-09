@@ -22,6 +22,7 @@ import {ThemeContext} from '~/configs/theme-context';
 import {cStyles} from '~/utils/style';
 import {getLocalInfo, IS_ANDROID, moderateScale, saveLocalInfo} from '~/utils/helper';
 import {AST_DARK_MODE, DARK, LIGHT} from '~/configs/constants';
+import Routes from '~/navigator/Routes';
 
 if (IS_ANDROID) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -52,7 +53,7 @@ const RenderTopLeft = (theme, iconStyle, t, title, subtitle, onPress, iconBack) 
       <View>
         <CText category='h4'>{t(title)}</CText>
         {subtitle && (
-          <CText category='c1'>{t(subtitle)}</CText>
+          <CText category='c1' appearance={'hint'}>{t(subtitle)}</CText>
         )}
       </View>
     </View>
@@ -103,6 +104,16 @@ const RenderTopRight = (type, theme, iconStyle, t, onPress, onPress2) => {
       </View>
     )
   }
+  if (type === 'notification') {
+    return (
+      <TouchableOpacity style={[cStyles.px10, cStyles.py6]} onPress={onPress}>
+        <IoniIcon
+          name={'notifications-outline'}
+          size={iconStyle.size || moderateScale(20)}
+          color={iconStyle.color || theme['text-basic-color']} />
+      </TouchableOpacity>
+    )
+  }
   return null;
 };
 
@@ -148,8 +159,8 @@ function CTopNavigation(props) {
     titleStyle = {},
     subtitleStyle = {},
     iconStyle = {},
-    borderBottom = true,
     translution = false,
+    notification = false,
     add = false,
     search = false,
     searchAdd = false,
@@ -161,6 +172,7 @@ function CTopNavigation(props) {
     leftTitle = null,
     leftSubtitle = null,
     alignment = 'center',
+    customTitle = null,
     customLeftComponent = null,
     customRightComponent = null,
     onPressAdd = () => null,
@@ -178,6 +190,10 @@ function CTopNavigation(props) {
     onPressCustomBack
       ? onPressCustomBack()
       : navigation.goBack();
+  };
+
+  const handleGoNotification = () => {
+    navigation.navigate(Routes.NOTIFICATION.name);
   };
 
   const toggleShowSearch = () => {
@@ -202,6 +218,9 @@ function CTopNavigation(props) {
   if (searchAdd) {
     rightComponent = RenderTopRight('searchAdd', theme, iconStyle, t, toggleShowSearch, onPressAdd);
   }
+  if (notification) {
+    rightComponent = RenderTopRight('notification', theme, iconStyle, t, handleGoNotification);
+  }
   if (customLeftComponent) {
     leftComponent = customLeftComponent;
   }
@@ -217,21 +236,23 @@ function CTopNavigation(props) {
         containerStyle]}>
       <TopNavigation
         style={style}
-        title={evaProps =>
+        title={evaProps => 
+        customTitle || (
           <CText {...evaProps}
             style={[cStyles.textCenter, titleStyle]}
-            category={'s1'}>{title !== '' ? t(title) : ''}</CText>}
+            category={'s1'}>{title !== '' ? t(title) : ''}</CText>
+        )}
         subtitle={subtitle 
           ? evaProps =>
-              <CText {...evaProps}
+              <CText
               style={[cStyles.textCenter, subtitleStyle]}
-              category={'c1'}>{t(subtitle)}</CText> 
+              category={'c1'}
+              appearance='hint'>{t(subtitle)}</CText> 
           : undefined}
         alignment={alignment}
         accessoryLeft={leftComponent}
         accessoryRight={rightComponent}
       />
-      {borderBottom && !showSearch && <Divider />}
       {showSearch && (
         <View style={[cStyles.mx16, cStyles.mb16]}>
           <CSearchBar autoFocus />
@@ -247,8 +268,8 @@ CTopNavigation.propTypes = {
   titleStyle: PropTypes.object,
   subtitleStyle: PropTypes.object,
   iconStyle: PropTypes.object,
-  borderBottom: PropTypes.bool,
   translution: PropTypes.bool,
+  notification: PropTypes.bool,
   add: PropTypes.bool,
   search: PropTypes.bool,
   searchAdd: PropTypes.bool,
@@ -260,6 +281,7 @@ CTopNavigation.propTypes = {
   leftTitle: PropTypes.string,
   leftSubtitle: PropTypes.string,
   alignment: PropTypes.oneOf(['center', 'start']),
+  customTitle: PropTypes.element,
   customLeftComponent: PropTypes.element,
   customRightComponent: PropTypes.element,
   onPressAdd: PropTypes.func,

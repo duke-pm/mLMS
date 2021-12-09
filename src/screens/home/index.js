@@ -40,7 +40,7 @@ function Home(props) {
   return (
     <CContainer
       safeArea={['top', 'bottom']}
-      headerComponent={<CTopNavigation title={t('home:title')} search />}>
+      headerComponent={<CTopNavigation title={t('home:title')} notification />}>
       <Layout style={cStyles.flex1} level={'1'}>
         
       </Layout>

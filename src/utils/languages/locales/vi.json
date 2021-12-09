@@ -96,8 +96,10 @@
   "account": {
     "title": "Tài khoản",
     "edit_account": "Cập nhật tài khoản",
+    "notification": "Thông báo",
     "favourite": "Yêu thích",
     "settings": "Cài đặt",
+    "schedule": "Thời khóa biểu",
     "help": "Câu hỏi thường gặp",
     "log_out": "Đăng xuất",
     "alert_log_out": "Đăng xuất",
@@ -182,7 +184,7 @@
   },
   "class_details": {
     "title": "Chi tiết Lớp học",
-    "menu": "Menu",
+    "menu": "Danh mục",
     "add_post": "Viết bài",
     "like": "Thích",
     "liked": "Đã thích",
@@ -192,10 +194,19 @@
     "quiz": "D/s bài kiểm tra",
     "questions": "D/s câu hỏi",
     "teaching_material": "D/s tài liệu",
-    "list_students": "D/s học viên"
+    "list_students": "D/s học viên",
+    "members": "học viên",
+    "post_details": "Chi tiết",
+    "see_more_comment": "Xem thêm bình luận..."
   },
   "students": {
-    "title": "Danh sách học viên"
+    "title": "Danh sách Học viên"
+  },
+  "student_details": {
+    "title": "Chi tiết Học viên",
+    "informations": "Thông tin",
+    "history_sessions": "Lịch sử",
+    "fee_invoice": "Học phí"
   },
   "add_post": {
     "title": "Thêm bài viết",
@@ -325,5 +336,42 @@
     "submit_date": "Ngày tải lên",
     "attached_file": "File đính kèm",
     "review": "Đánh giá"
+  },
+  "conversation": {
+    "title": "Trò Chuyện"
+  },
+  "conversation_details": {
+    "holder_write_something": "Tin nhắn...",
+    "invite_member": "Thêm người khác",
+    "leave_group": "Thoát cuộc trò chuyện",
+    "empty": "Trống! Hãy là người đầu tiên trò chuyện..."
+  },
+  "add_conversation": {
+    "title": "Thêm Trò Chuyện",
+    "member": "Cá nhân",
+    "group": "Nhóm"
+  },
+  "notification": {
+    "title": "Thông Báo",
+    "clear_all": "Xóa tất cả",
+    "upcoming_assignment": "Bài tập\nsắp tới",
+    "upcoming_quiz": "Bài kiểm tra\nsắp tới",
+    "upcoming_question": "Câu hỏi\nđược gắn thẻ",
+    "upcoming_conference": "Cuộc họp\nsắp diễn ra",
+    "upcoming": "sắp tới",
+    "title_clear_all": "Xóa Tin Nhắn",
+    "holder_clear_all": "Bạn muốn xóa tất cả thông báo?",
+    "confirm_clear_all_no": "Trở lại",
+    "confirm_clear_all_yes": "Đúng vậy"
+  },
+  "post_details": {
+    "title": "Chi tiết Bài viết",
+    "holder_write_something": "Nhập bình luận...",
+    "empty": "Trống! Hãy là người đầu tiên bình luận...",
+    "share": "Chia sẻ",
+    "report": "Báo xấu"
+  },
+  "schedule": {
+    "title": "Thời Khóa Biểu"
   }
 }

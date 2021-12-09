@@ -96,9 +96,11 @@
   "account": {
     "title": "Account",
     "edit_account": "Edit account",
+    "notification": "Notifications",
     "favourite": "Favourite",
     "settings": "Settings",
-    "help": "help",
+    "schedule": "Schedule",
+    "help": "Helps",
     "log_out": "Log out",
     "alert_log_out": "Log Out",
     "alert_msg_log_out": "Do you want to log out?"
@@ -178,7 +180,7 @@
   "classes": {
     "title": "Classes",
     "todo_item": "Exercise",
-    "members": "Members"
+    "members": "member"
   },
   "class_details": {
     "title": "Class Detail",
@@ -192,10 +194,44 @@
     "quiz": "Quiz",
     "questions": "Questions",
     "teaching_material": "Teaching Material",
-    "list_students": "List students"
+    "list_students": "List students",
+    "members": "member",
+    "post_details": "See details",
+    "see_more_comment": "See more comments..."
   },
   "students": {
-    "title": "List students"
+    "title": "List Students"
+  },
+  "student_details": {
+    "title": "Student Details",
+    "informations": "Informations",
+    "history_sessions": "History Sessions",
+    "fee_invoice": "Fee Invoice",
+    "basic": "Basic",
+    "full_name": "Full Name",
+    "email": "E-mail",
+    "phone_number": "Phone Number",
+    "date_of_birth": "Date of Birth",
+    "address": "Address",
+    "gender": "Gender",
+    "dob": "Date of Birth",
+    "job": "Job",
+    "group": "Group",
+    "company": "Company",
+    "interests": "Interests",
+    "school": "School",
+    "majors": "Majors",
+    "contact_person": "Contact Person",
+    "contact_person_name": "Full Name",
+    "contact_person_phone": "Phone",
+    "contact_person_email": "E-mail",
+    "protector": "Protector",
+    "protector_dad": "Dad",
+    "protector_dad_phone": "Phone",
+    "protector_dad_email": "E-mail",
+    "protector_mom": "Mom",
+    "protector_mom_phone": "Phone",
+    "protector_mom_email": "E-mail"
   },
   "add_post": {
     "title": "Add Post",
@@ -325,5 +361,42 @@
     "submit_date": "Submit date",
     "attached_file": "Attachment",
     "review": "Review"
+  },
+  "conversation": {
+    "title": "Conversations"
+  },
+  "conversation_details": {
+    "holder_write_something": "Message...",
+    "invite_member": "Invite more people",
+    "leave_group": "Leave conversation",
+    "empty": "Empty! Be the first to chat..."
+  },
+  "add_conversation": {
+    "title": "Add Conversation",
+    "member": "People",
+    "group": "Group"
+  },
+  "notification": {
+    "title": "Notifications",
+    "clear_all": "Clear all",
+    "upcoming_assignment": "Upcoming\nAssignment",
+    "upcoming_quiz": "Upcoming\nQuiz",
+    "upcoming_question": "Tags\nQuestions",
+    "upcoming_conference": "Upcoming\nConference",
+    "upcoming": "upcoming",
+    "title_clear_all": "Clear All Notifications",
+    "holder_clear_all": "Are you sure you want to delete all these notifications?",
+    "confirm_clear_all_no": "Cancel",
+    "confirm_clear_all_yes": "That right"
+  },
+  "post_details": {
+    "title": "Post Details",
+    "holder_write_something": "Write your comment...",
+    "empty": "Empty! Be the first to comment...",
+    "share": "Share",
+    "report": "Report"
+  },
+  "schedule": {
+    "title": "Schedule "
   }
 }
