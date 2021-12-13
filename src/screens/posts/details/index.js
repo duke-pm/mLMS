@@ -4,131 +4,92 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Input, Layout, List, ListItem, Button, useTheme, Icon, TopNavigationAction, OverflowMenu, MenuItem} from '@ui-kitten/components';
+import {
+  Input, Layout, List, ListItem, Button, useTheme,
+} from '@ui-kitten/components';
 import {KeyboardAvoidingView, View, ScrollView, StyleSheet} from 'react-native';
 import {ifIphoneX} from 'react-native-iphone-x-helper';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
-import CText from '~/components/CText';
-import CAvatar from '~/components/CAvatar';
+import COverflowMenu from '~/components/COverflowMenu';
 import CPostImages from '~/components/CPostImages';
+import CAvatar from '~/components/CAvatar';
+import CText from '~/components/CText';
+import CLoading from '~/components/CLoading';
+import CIcon from '~/components/CIcon';
 /* COMMON */
-import {colors, cStyles} from '~/utils/style';
-import {IS_IOS, moderateScale} from '~/utils/helper';
+import {cStyles} from '~/utils/style';
+import {IS_ANDROID, IS_IOS, moderateScale} from '~/utils/helper';
 /* REDUX */
 
-const RenderLikeIcon = props => (
-  <Icon {...props} name='heart-outline' />
-);
+const mockupPost = {
+  id: 'post1',
+  images: [
+    'https://picsum.photos/id/100/500/300',
+    'https://picsum.photos/id/1000/500/300',
+    'https://picsum.photos/id/1004/500/300',
+    'https://picsum.photos/id/1005/500/300',
+  ],
+  author: 'Brent Morgan',
+  avatar: 'http://react-material.fusetheme.com/assets/images/avatars/garry.jpg',
+  createdAt: '12/12/2021 08:00',
+  createdWhere: 'University',
+  caption: 'Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin.',
+  isLiked: true,
+  numLike: 10,
+  numComment: 23,
+  comments: [
+    {
+      id: 'cmt1',
+      caption: 'Libero id faucibus nisl tincidunt eget',
+      name: 'Judith Burton',
+      avatar: 'http://react-material.fusetheme.com/assets/images/avatars/joyce.jpg',
+      createdAt: '14/12/2021 16:00'
+    },
+    {
+      id: 'cmt2',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      name: 'Jane Dean',
+      avatar: 'http://react-material.fusetheme.com/assets/images/avatars/jane.jpg',
+      createdAt: '15/12/2021 11:45'
+    },
+    {
+      id: 'cmt3',
+      caption: 'Nisl tincidunt eget nullam non',
+      name: 'Henderson Cambias',
+      avatar: 'http://react-material.fusetheme.com/assets/images/avatars/Henderson.jpg',
+      createdAt: '15/12/2021 12:45'
+    },
+    {
+      id: 'cmt4',
+      caption: 'Quis hendrerit dolor magna eget est lorem ipsum dolor sit',
+      name: 'Josefina Lakefield',
+      avatar: 'http://react-material.fusetheme.com/assets/images/avatars/Josefina.jpg',
+      createdAt: '15/12/2021 16:45'
+    }
+  ]
+};
+const pAddingKeyboard = ifIphoneX(moderateScale(100), moderateScale(78));
 
-const RenderLikedIcon = props => (
-  <Icon {...props} name='heart' />
-);
-
-const RenderCommentIcon = props => (
-  <Icon {...props} name='message-circle-outline' />
-);
-
-const RenderPhotoIcon = props => (
-  <Icon {...props} name={'image-outline'} />
-);
-
-const RenderSendIcon = props => (
-  <Icon {...props} name={'paper-plane-outline'} />
-);
-
-const MenuIcon = props => (
-  <Icon {...props} name={'more-vertical-outline'} />
-);
-
-const RenderShareIcon = props => (
-  <Icon {...props} name='share-outline' />
-);
-
-const RenderReportIcon = props => (
-  <Icon {...props} name='alert-triangle-outline' />
-);
-
-const RenderMenuAction = (toggleFunctionMenu) => (
-  <TopNavigationAction icon={MenuIcon} onPress={toggleFunctionMenu}/>
-);
-
-const RenderLeftHeaderPost = (info) => (
-  <CAvatar source={{uri: info.avatar}} />
-);
-
-const RenderHeaderComment = (info) => (
-  <CAvatar source={{uri: info.item.avatar}} />
-);
-
+/********************
+ ** MAIN COMPONENT **
+ ********************/
 function PostDetails(props) {
   const {t} = useTranslation();
   const theme = useTheme();
   const {navigation} = props;
 
   /** Use state */
-  const [functionMenu, setFunctionMenu] = useState(false);
-  const [post, setPost] = useState(
-    {
-      id: 'post1',
-      images: [
-        'https://picsum.photos/id/100/500/300',
-        'https://picsum.photos/id/1000/500/300',
-        'https://picsum.photos/id/1004/500/300',
-        'https://picsum.photos/id/1005/500/300',
-      ],
-      author: 'Brent Morgan',
-      avatar: 'http://react-material.fusetheme.com/assets/images/avatars/garry.jpg',
-      createdAt: '12/12/2021 08:00',
-      createdWhere: 'University',
-      caption: 'Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin.',
-      isLiked: true,
-      numLike: 10,
-      numComment: 23,
-      comments: [
-        {
-          id: 'cmt1',
-          caption: 'Libero id faucibus nisl tincidunt eget',
-          name: 'Judith Burton',
-          avatar: 'http://react-material.fusetheme.com/assets/images/avatars/joyce.jpg',
-          createdAt: '14/12/2021 16:00'
-        },
-        {
-          id: 'cmt2',
-          caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-          name: 'Jane Dean',
-          avatar: 'http://react-material.fusetheme.com/assets/images/avatars/jane.jpg',
-          createdAt: '15/12/2021 11:45'
-        },
-        {
-          id: 'cmt3',
-          caption: 'Nisl tincidunt eget nullam non',
-          name: 'Henderson Cambias',
-          avatar: 'http://react-material.fusetheme.com/assets/images/avatars/Henderson.jpg',
-          createdAt: '15/12/2021 12:45'
-        },
-        {
-          id: 'cmt4',
-          caption: 'Quis hendrerit dolor magna eget est lorem ipsum dolor sit',
-          name: 'Josefina Lakefield',
-          avatar: 'http://react-material.fusetheme.com/assets/images/avatars/Josefina.jpg',
-          createdAt: '15/12/2021 16:45'
-        }
-      ]
-    }
-  );
+  const [loading, setLoading] = useState(true);
+  const [post, setPost] = useState(mockupPost);
   const [valueText, setValueText] = useState('');
 
   /*****************
    ** HANDLE FUNC **
    *****************/
-  const toggleFunctionMenu = () => {
-    setFunctionMenu(!functionMenu);
-  };
-
   const handleLike = () => {
     let tmpPost = {...post};
     if (tmpPost.isLiked) {
@@ -152,10 +113,6 @@ function PostDetails(props) {
   
   };
 
-  const handleMenu = (info) => {
-    
-  };
-
   const handleShare = () => {
   
   };
@@ -171,6 +128,9 @@ function PostDetails(props) {
   /****************
    ** LIFE CYCLE **
    ****************/
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   /************
    ** RENDER **
@@ -178,17 +138,37 @@ function PostDetails(props) {
   return (
     <CContainer
       safeArea={['top', 'bottom']}
-      backgroundColor={theme['background-basic-color-1']}
       headerComponent={
         <CTopNavigation
+          style={[
+            IS_ANDROID && cStyles.shadowListItem,
+            IS_IOS && cStyles.borderBottom,
+          ]}
           title={'post_details:title'}
           back
-        />
+          customRightComponent={
+            <COverflowMenu
+              menus={[
+                {
+                  id: 'menuShare',
+                  icon: 'share-outline',
+                  label: 'post_details:share',
+                  onPress: handleShare,
+                },
+                {
+                  id: 'menuReport',
+                  icon: 'alert-triangle-outline',
+                  label: 'post_details:report',
+                  onPress: handleReport,
+                },
+              ]}
+            />
+          } />
       }>
       <KeyboardAvoidingView
         style={cStyles.flex1}
         behavior={IS_IOS ? 'padding' : undefined}
-        keyboardVerticalOffset={ifIphoneX(moderateScale(100), moderateScale(78))}>
+        keyboardVerticalOffset={pAddingKeyboard}>
         <View style={cStyles.flex1}>
           <ScrollView style={cStyles.flex1}>
             <Layout style={cStyles.flex1}>
@@ -202,28 +182,12 @@ function PostDetails(props) {
                     {post.createdAt + ' . At ' + post.createdWhere}
                   </CText>
                 }
-                accessoryLeft={RenderLeftHeaderPost(post)}
-                accessoryRight={() => (
-                  <OverflowMenu
-                    anchor={() => RenderMenuAction(toggleFunctionMenu)}
-                    backdropStyle={styles.backdrop}
-                    visible={functionMenu}
-                    onBackdropPress={toggleFunctionMenu}>
-                    <MenuItem
-                      accessoryLeft={RenderShareIcon}
-                      title={t('post_details:share')}
-                      onPress={handleShare} />
-                    <MenuItem
-                      accessoryLeft={RenderReportIcon}
-                      title={t('post_details:report')}
-                      onPress={handleReport} />
-                  </OverflowMenu>
-                )}
+                accessoryLeft={<CAvatar source={{uri: post.avatar}} />}
               />
 
               <Layout style={[cStyles.flex1, cStyles.px10]}>
                 <View style={[cStyles.py16, cStyles.pt0]}>
-                  <CText category={'p1'}>{post.caption}</CText>
+                  <CText >{post.caption}</CText>
                 </View>
                 {post.images.length > 0 && <CPostImages images={post.images} />}
                 <View style={[cStyles.row, cStyles.itemsCenter, cStyles.my5]}>
@@ -231,7 +195,10 @@ function PostDetails(props) {
                     appearance={'ghost'}
                     status={post.isLiked ? 'primary' : 'basic'}
                     size={'small'}
-                    accessoryLeft={post.isLiked ? RenderLikedIcon : RenderLikeIcon}
+                    accessoryLeft={propsI => post.isLiked
+                      ? CIcon(propsI, 'eva', 'heart', theme['color-primary-500'])
+                      : CIcon(propsI, 'eva', 'heart')
+                    }
                     onPress={handleLike}>
                     {post.numLike}
                   </Button>
@@ -240,20 +207,19 @@ function PostDetails(props) {
                     appearance={'ghost'}
                     status={'basic'}
                     size={'small'}
-                    accessoryLeft={RenderCommentIcon}>
+                    accessoryLeft={propsI => CIcon(propsI, 'eva', 'message-square')}>
                     {post.comments.length}
                   </Button>
                 </View>
               </Layout>
 
-              <Layout style={[cStyles.flex1, cStyles.p10]} level={'1'}>
+              <Layout style={[cStyles.flex1, cStyles.p10]}>
                 {/** List of comment */}
                 <List
                   style={{backgroundColor: theme['background-basic-color-1']}}
                   scrollEnabled={false}
                   data={post.comments}
                   renderItem={infoCmt => {
-                    // if (infoCmt.index > 1) return null;
                     return (
                       <ListItem
                         style={[
@@ -270,11 +236,11 @@ function PostDetails(props) {
                           </View>
                         )}
                         description={evaProps =>
-                          <CText style={[cStyles.ml10, cStyles.mt5]} category={'p1'}>
+                          <CText style={[cStyles.ml10, cStyles.mt5]} >
                             {infoCmt.item.caption}
                           </CText>
                         }
-                        accessoryLeft={() => RenderHeaderComment(infoCmt)}
+                        accessoryLeft={<CAvatar source={{uri: infoCmt.item.avatar}} />}
                       />
                     );
                   }}
@@ -284,11 +250,11 @@ function PostDetails(props) {
             </Layout>
           </ScrollView>
 
-          <Layout style={[cStyles.row, cStyles.itemsCenter]} level={'1'}>
+          <Layout style={[cStyles.row, cStyles.itemsCenter]}>
             <Button
               style={[cStyles.px0, cStyles.mr10]}
               appearance={'ghost'}
-              accessoryLeft={RenderPhotoIcon}
+              accessoryLeft={propsI => CIcon(propsI, 'eva', 'image')}
               onPress={handleChoosePhoto}
             />
             <Input
@@ -301,20 +267,19 @@ function PostDetails(props) {
             <Button
               appearance={'ghost'}
               status={valueText === '' ? 'basic' : 'primary'}
-              accessoryLeft={RenderSendIcon}
+              accessoryLeft={propsI => CIcon(propsI, 'eva', 'paper-plane')}
               onPress={handleSendMessage}
             />
           </Layout>
         </View>
       </KeyboardAvoidingView>
+
+      <CLoading show={loading} />
     </CContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  backdrop: {
-    backgroundColor: colors.BG_BACKDROP,
-  },
 });
 
 

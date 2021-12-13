@@ -120,7 +120,7 @@ function Login(props) {
               label: 'log_in:input_label_username',
               holder: 'log_in:input_holder_username',
               value: values.userName,
-              required: true,
+              required: false,
               password: false,
               email: false,
               phone: false,
@@ -134,14 +134,14 @@ function Login(props) {
               label: 'log_in:input_label_password',
               holder: 'log_in:input_holder_password',
               value: values.password,
-              required: true,
+              required: false,
               password: true,
               email: false,
               phone: false,
               number: false,
               next: false,
               return: 'done',
-              validate: {type: 'min_length', helper: '6'},
+              // validate: {type: 'min_length', helper: '6'},
             },
           ]}
           customAddingForm={
@@ -149,7 +149,7 @@ function Login(props) {
               <TouchableWithoutFeedback onPress={handleGoForgotPassword}>
                 <CText
                   style={cStyles.textUnderline}
-                  category={'p1'}
+                  
                   status={'primary'}>
                   {t('log_in:is_forgot_password')}
                 </CText>
@@ -167,7 +167,6 @@ function Login(props) {
           <TouchableWithoutFeedback onPress={handleSignUp}>
             <CText 
               style={[cStyles.textUnderline, cStyles.ml6]}
-              category={'p1'}
               status={'primary'}>
               {t('log_in:sign_up')}
             </CText>

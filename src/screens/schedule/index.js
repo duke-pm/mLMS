@@ -29,7 +29,7 @@ const RenderDayCalendar = (date, style, markers) => {
   let fMarkerOfDate = markers.filter(f => f.date === dateFormat);
   return (
     <View style={[cStyles.flexCenter, style.container]}>
-      <Text style={style.text} category={'p1'}>{date.date()}</Text>
+      <Text style={style.text} >{date.date()}</Text>
       {fMarkerOfDate.length > 0 && (
         <View style={[cStyles.row, cStyles.center, cStyles.abs, {bottom: 5}]}>
           {fMarkerOfDate[0].markers.map((itemM, indexM) => (
@@ -57,15 +57,15 @@ const RenderContentDate = (info) => {
         return (
           <View style={[cStyles.row, cStyles.itemsStart, cStyles.mt16]}>
             <View style={[cStyles.itemsCenter, {flex: 0.3}]}>
-              <CText category={'p1'} appearance='hint'>{itemM.timeStart}</CText>
-              <CText category={'p1'} appearance='hint'>&#8675;</CText>
-              <CText category={'p1'} appearance='hint'>{itemM.timeEnd}</CText>
+              <CText  appearance='hint'>{itemM.timeStart}</CText>
+              <CText  appearance='hint'>&#8675;</CText>
+              <CText  appearance='hint'>{itemM.timeEnd}</CText>
             </View>
             <View style={[cStyles.row, cStyles.itemsStart, {flex: 0.7}]}>
               <View style={[cStyles.mt5, cStyles.rounded2, {height: moderateScale(10), width: moderateScale(10), backgroundColor: itemM.color}]} />
               <View style={cStyles.ml10}>
                 <CText category={'label'}>{itemM.title}</CText>
-                <CText style={cStyles.mt5} category={'p1'}>{itemM.description}</CText>
+                <CText style={cStyles.mt5} >{itemM.description}</CText>
               </View>
             </View>
           </View>

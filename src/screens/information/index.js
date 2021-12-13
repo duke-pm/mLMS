@@ -69,30 +69,30 @@ function Information(props) {
         </View>
       </Layout>
 
-      <Layout style={[cStyles.flex1, cStyles.roundedTopLeft5, cStyles.roundedTopRight5]} level={'1'}>
+      <Layout style={[cStyles.flex1, cStyles.roundedTopLeft5, cStyles.roundedTopRight5]} >
         <View style={cStyles.m16}>
           <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.py12]}>
             <CText category={'s2'}>{t('information:name_app')}</CText>
-            <CText category={'p1'}>{Configs.nameOfApp}</CText>
+            <CText >{Configs.nameOfApp}</CText>
           </View>
 
           <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.py12]}>
             <CText category={'s2'}>{t('information:version_app')}</CText>
-            <CText category={'p1'}>{Configs.versionOfApp}</CText>
+            <CText >{Configs.versionOfApp}</CText>
           </View>
 
           <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.py12]}>
             <CText category={'s2'}>{t('information:develop_by')}</CText>
-            <CText category={'p1'}>{Configs.developBy}</CText>
+            <CText >{Configs.developBy}</CText>
           </View>
 
           <View style={cStyles.py12}>
             <CText category={'s2'}>{t('information:info_important')}</CText>
-            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_1')}</CText>
-            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_2')}</CText>
-            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_3')}</CText>
-            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_4')}</CText>
-            <CText style={cStyles.mt10} category={'p1'}>  &#10041;  {t('information:info_important_5')}</CText>
+            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_1')}</CText>
+            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_2')}</CText>
+            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_3')}</CText>
+            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_4')}</CText>
+            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_5')}</CText>
           </View>
         </View>
       </Layout>

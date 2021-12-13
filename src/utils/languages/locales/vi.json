@@ -206,7 +206,32 @@
     "title": "Chi tiết Học viên",
     "informations": "Thông tin",
     "history_sessions": "Lịch sử",
-    "fee_invoice": "Học phí"
+    "fee_invoice": "Học phí",
+    "basic": "Cơ bản",
+    "full_name": "Họ và Tên",
+    "email": "E-mail",
+    "phone_number": "Số điện thoại",
+    "date_of_birth": "Ngày sinh",
+    "address": "Địa chỉ",
+    "gender": "Giới tính",
+    "dob": "Ngày sinh",
+    "job": "Công việc",
+    "group": "Nhóm",
+    "company": "Công ty",
+    "interests": "Sở thích",
+    "school": "Trung tâm",
+    "majors": "Chuyên ngành",
+    "contact_person": "Người liên lạc",
+    "contact_person_name": "Họ và Tên",
+    "contact_person_phone": "Số điện thoại",
+    "contact_person_email": "E-mail",
+    "protector": "Người bảo trợ",
+    "protector_dad": "Cha",
+    "protector_dad_phone": "Số điện thoại",
+    "protector_dad_email": "E-mail",
+    "protector_mom": "Mẹ",
+    "protector_mom_phone": "Số điện thoại",
+    "protector_mom_email": "E-mail"
   },
   "add_post": {
     "title": "Thêm bài viết",
@@ -321,12 +346,12 @@
   "assignment": {
     "title": "Bài Tập",
     "exercise": "Bài",
-    "user_completed": "người đã hoàn thành",
-    "group_completed": "nhóm đã hoàn thành",
+    "user_completed": "hoàn thành",
+    "group_completed": "hoàn thành",
     "due_date": "Hạn nộp bài",
     "submit_date": "Ngày tải lên",
     "attached_file": "File đính kèm",
-    "go_details": "Xem chi tiết"
+    "go_details": "Chi tiết"
   },
   "assignment_details": {
     "title": "Chi tiết Bài tập",
@@ -335,16 +360,28 @@
     "due_date": "Hạn nộp bài",
     "submit_date": "Ngày tải lên",
     "attached_file": "File đính kèm",
-    "review": "Đánh giá"
+    "review": "Đánh giá",
+    "review_this_answer": "Đánh giá Trả lời của",
+    "holder_review": "Viết nhận xét của bạn...",
+    "msg_review_success": "Bạn đã đánh giá câu trả lời này thành công!",
+    "msg_review_error": "Đã xảy ra lỗi! Vui lòng đánh giá lại sau!",
+    "holder_empty_file": "File rỗng!",
+    "holder_review_from_teacher": "Nhận xét từ giáo viên"
   },
   "conversation": {
-    "title": "Trò Chuyện"
+    "title": "Trò Chuyện",
+    "other": "Khác"
   },
   "conversation_details": {
     "holder_write_something": "Tin nhắn...",
-    "invite_member": "Thêm người khác",
-    "leave_group": "Thoát cuộc trò chuyện",
-    "empty": "Trống! Hãy là người đầu tiên trò chuyện..."
+    "invite_member": "Thêm người",
+    "leave_group": "Thoát khỏi",
+    "empty": "Trống! Hãy là người đầu tiên trò chuyện...",
+    "call": "Gọi ngay",
+    "details_member": "Chi tiết Thành viên",
+    "details_group": "Chi tiết Nhóm",
+    "group": "Nhóm",
+    "member": "Thành viên"
   },
   "add_conversation": {
     "title": "Thêm Trò Chuyện",

@@ -23,7 +23,6 @@ function CContainer(props) {
     safeArea = [],
     backgroundColor = null,
     padder = false,
-    scrollEnabled = true,
     headerComponent = null,
     children = null,
   } = props;
@@ -65,7 +64,6 @@ CContainer.propTypes = {
   safeArea: PropTypes.array,
   backgroundColor: PropTypes.string,
   padder: PropTypes.bool,
-  scrollEnabled: PropTypes.bool,
   headerComponent: PropTypes.element,
   children: PropTypes.element,
 }

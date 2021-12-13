@@ -346,12 +346,12 @@
   "assignment": {
     "title": "Assignment",
     "exercise": "Exercise",
-    "user_completed": "people completed",
-    "group_completed": "group completed",
+    "user_completed": "completed",
+    "group_completed": "completed",
     "due_date": "Due date",
     "submit_date": "Submit date",
     "attached_file": "Attachment",
-    "go_details": "Go Details"
+    "go_details": "Details"
   },
   "assignment_details": {
     "title": "Chi tiết Bài tập",
@@ -360,16 +360,28 @@
     "due_date": "Due date",
     "submit_date": "Submit date",
     "attached_file": "Attachment",
-    "review": "Review"
+    "review": "Review",
+    "review_this_answer": "Review Answer's",
+    "holder_review": "Writing your review...",
+    "msg_review_success": "You have rated this answer successfully!",
+    "msg_review_error": "An error occurred! Please try review again later!",
+    "holder_empty_file": "Empty file!",
+    "holder_review_from_teacher": "Review from Teacher"
   },
   "conversation": {
-    "title": "Conversations"
+    "title": "Conversations",
+    "other": "Other"
   },
   "conversation_details": {
     "holder_write_something": "Message...",
-    "invite_member": "Invite more people",
-    "leave_group": "Leave conversation",
-    "empty": "Empty! Be the first to chat..."
+    "invite_member": "Add People",
+    "leave_group": "Leave Group",
+    "empty": "Empty! Be the first to chat...",
+    "call": "Call Now",
+    "details_member": "Details Member",
+    "details_group": "Details Group",
+    "group": "Group",
+    "member": "Member"
   },
   "add_conversation": {
     "title": "Add Conversation",

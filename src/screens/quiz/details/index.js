@@ -4,7 +4,7 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect, useLayoutEffect, useContext} from 'react';
+import React, {useState, useEffect, useLayoutEffect, useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Button, Divider, Layout, List, useTheme} from '@ui-kitten/components';
 import {StatusBar, StyleSheet, View, Alert} from 'react-native';
@@ -177,7 +177,6 @@ function QuizDetails(props) {
   return (
     <CContainer
       safeArea={['top']}
-      scrollEnabled={false}
       backgroundColor={theme['color-primary-500']}
       headerComponent={
         <Layout style={{backgroundColor: theme['color-primary-500']}}>
@@ -194,7 +193,7 @@ function QuizDetails(props) {
                 <View style={[cStyles.flexWrap, cStyles.row, cStyles.itemsCenter, cStyles.mt10]}>
                   {dataQuiz.subjects.map((item, index) => {
                     return (
-                      <CText style={cStyles.mt5} status={'control'} category={'p1'}>&#10041; {item}  </CText>
+                      <CText style={cStyles.mt5} status={'control'} >&#10041; {item}  </CText>
                     )
                   })}
                 </View>
@@ -219,20 +218,20 @@ function QuizDetails(props) {
               )}
             </View>
             <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt16]}>
-              <CText style={styles.txt_white} category={'p1'}>
+              <CText style={styles.txt_white} >
                 {txtOnTime === 'ago'
                 ? `${Math.abs(chkOnTime)} ${t('quiz_details:ago')}` 
                 : txtOnTime}
               </CText>
-              <CText style={styles.txt_white} category={'p1'}>
+              <CText style={styles.txt_white} >
                 {`${dataQuiz.numParticipants}/50 ${t('quiz_details:participants')}`}
               </CText>
             </View>
             <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.mt16]}>
-              <CText style={styles.txt_white} category={'p1'}>
+              <CText style={styles.txt_white} >
                 {`${t('quiz_details:durations')}: ${dataQuiz.timeout} ${t('common:minutes')}`}
               </CText>
-              <CText style={styles.txt_white} category={'p1'}>
+              <CText style={styles.txt_white} >
                 {`${dataQuiz.numQuestions} ${t('quiz_details:questions')}`}
               </CText>
             </View>
@@ -256,7 +255,7 @@ function QuizDetails(props) {
             <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween]}>
               <View style={[cStyles.row, cStyles.itemsCenter]}>
                 <CAvatar source={{uri: info.item.avatar}} />
-                <CText style={cStyles.ml10} category={'p1'}>{info.item.name}</CText>
+                <CText style={cStyles.ml10} >{info.item.name}</CText>
               </View>
 
               <Button

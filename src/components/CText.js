@@ -34,7 +34,7 @@ function CText(props) {
   const themeContext = useContext(ThemeContext);
   const {
     style = {},
-    category = '',
+    category = 'p1',
     maxLines = 5,
   } = props;
   let lineHeight = 0;

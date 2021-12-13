@@ -256,7 +256,7 @@ function AddAnswer(props) {
         />
       }
     >
-      <Layout style={cStyles.flex1} level={'1'}>
+      <Layout style={cStyles.flex1} >
         <View style={cStyles.p10}>
           <Input
             style={{maxHeight: sW('100%')}}
@@ -284,7 +284,7 @@ function AddAnswer(props) {
                         size={moderateScale(30)}
                         color={theme['color-primary-500']}
                       />
-                      <CText style={cStyles.mt10} category={'p1'}>{t('add_post:add_file')}</CText>
+                      <CText style={cStyles.mt10} >{t('add_post:add_file')}</CText>
                     </View>
                   )}
                 </Button>
@@ -300,7 +300,7 @@ function AddAnswer(props) {
                         size={moderateScale(30)}
                         color={theme['color-primary-500']}
                       />
-                      <CText style={cStyles.mt10} category={'p1'}>{t('add_post:add_image')}</CText>
+                      <CText style={cStyles.mt10} >{t('add_post:add_image')}</CText>
                     </View>
                   )}
                 </Button>
@@ -319,7 +319,7 @@ function AddAnswer(props) {
                         color={theme['color-primary-500']}
                       />
                       <View style={[cStyles.flex1, cStyles.ml8]}>
-                        <CText category={'p1'} numberOfLines={2}>{itemAsset.name}</CText>
+                        <CText  numberOfLines={2}>{itemAsset.name}</CText>
                         <CText style={cStyles.mt5} category={'c1'} numberOfLines={1}>{itemAsset.size}</CText>
                       </View>
                     </View>
@@ -407,10 +407,10 @@ function AddAnswer(props) {
         hideModalContentWhileAnimating={true}
         onBackButtonPress={toggleAlertChooseImgVid}
         onBackdropPress={toggleAlertChooseImgVid}>
-        <Layout level={'1'}>
+        <Layout >
           <SafeAreaView>
             <View style={cStyles.m16}>
-              <CText category={'p1'}>{t('common:title_choose_photos_videos')}</CText>
+              <CText >{t('common:title_choose_photos_videos')}</CText>
             </View>
             <Menu>
               <MenuItem

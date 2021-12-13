@@ -73,8 +73,8 @@ function Languages(props) {
     <CContainer
       safeArea={['top']}
       headerComponent={<CTopNavigation title={'languages:title'} back />}>
-      <Layout style={cStyles.p16} level={'1'}>
-        <CText category={'p1'}>{t('languages:holder_choose')}</CText>
+      <Layout style={cStyles.p16} >
+        <CText >{t('languages:holder_choose')}</CText>
         <RadioGroup style={cStyles.mt16} selectedIndex={language.active} onChange={handleChange}>
           {language.languages.map((item, index) => {
             return (

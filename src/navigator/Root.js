@@ -15,7 +15,6 @@ import IoniIcon from 'react-native-vector-icons/Ionicons';
 import CText from '~/components/CText';
 /** COMMON */
 import Routes from './Routes';
-import { moderateScale } from '~/utils/helper';
 
 /** INIT NAVIGATOR OF APP */
 enableScreens(true);
@@ -30,6 +29,9 @@ export function BottomTabMain(props) {
       initialRouteName={Routes.TAB.HOME.name}
       backBehavior={'history'}
       screenOptions={({route}) => ({
+        tabBarStyle: {
+          backgroundColor: theme['background-basic-color-1'],
+        },
         tabBarActiveTintColor: theme['color-primary-500'],
         headerShown: false,
         lazy: true,

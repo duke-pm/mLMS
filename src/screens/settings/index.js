@@ -30,7 +30,7 @@ const RenderForwardIcon = (props, value) => {
   return (
     <View style={[cStyles.row, cStyles.itemsCenter]}>
       {value && (
-        <CText style={{color: theme['color-basic-500']}} category={'p1'}>{t(value)}</CText>
+        <CText style={{color: theme['color-basic-500']}} >{t(value)}</CText>
       )}
       <Icon {...props} name='arrow-ios-forward' />
     </View>
@@ -142,7 +142,7 @@ function Settings(props) {
     <CContainer
       safeArea={['top']}
       headerComponent={<CTopNavigation title={'settings:title'} back />}>
-      <Layout level={'1'}>
+      <Layout >
         <Menu style={{backgroundColor: theme['background-basic-color-1']}}>
           {menu.map((item, index) => {
             return (

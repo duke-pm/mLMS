@@ -4,20 +4,27 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Layout, Icon, Tab, TabView, useTheme, Divider, Card} from '@ui-kitten/components';
+import {
+  Layout, Icon, Tab, TabView, useTheme, Card, Button,
+} from '@ui-kitten/components';
 import {View, SectionList, ScrollView, StyleSheet} from 'react-native';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
 import CTopNavigation from '~/components/CTopNavigation';
-import CText from '~/components/CText';
+import CLoading from '~/components/CLoading';
 import CAvatar from '~/components/CAvatar';
+import CText from '~/components/CText';
+import CIcon from '~/components/CIcon';
 /* COMMON */
-import {cStyles} from '~/utils/style';
+import {colors, cStyles} from '~/utils/style';
 import {moderateScale} from '~/utils/helper';
 /* REDUX */
 
+/********************
+ ** OTHER COMPONENT **
+ ********************/
 const RenderRowTitle = (data) => (
   <View style={[cStyles.row, cStyles.itemsCenter, cStyles.p10]}>
     <CText category={'label'}>&#10019;</CText>
@@ -29,20 +36,25 @@ const RenderRowInformations = (theme, iconName,  label, data) => (
   <View style={[cStyles.row, cStyles.itemsStart, cStyles.py10]}>
     <Icon style={styles.icon_row} fill={theme['color-basic-600']} name={iconName} />
     <View style={[cStyles.ml5, styles.con_row_left]}>
-      <CText category={'p1'} appearance='hint'>{label}</CText>
+      <CText  appearance='hint'>{label}</CText>
     </View>
     <View style={[cStyles.pl10, styles.con_row_right]}>
-      <CText category={'p1'}>{data || '-'}</CText>
+      <CText >{data || '-'}</CText>
     </View>
   </View>
 );
 
+/********************
+ ** MAIN COMPONENT **
+ ********************/
 function StudentDetails(props) {
   const {t} = useTranslation();
   const theme = useTheme();
   const {navigation, route} = props;
   const dataStudent = route.params.data;
 
+  /** Use state */
+  const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
 
   /*****************
@@ -56,6 +68,9 @@ function StudentDetails(props) {
   /****************
    ** LIFE CYCLE **
    ****************/
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   /************
    ** RENDER **
@@ -64,26 +79,38 @@ function StudentDetails(props) {
     <CContainer
       safeArea={['top', 'bottom']}
       headerComponent={
-        <CTopNavigation
-          title={'student_details:title'}
-          back
-        />
+        <CTopNavigation title={'student_details:title'} back />
       }>
-      <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.pb16, cStyles.px16]} level='1'>
+      <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.pb16, cStyles.px16]}>
         <CAvatar size={'largest'} source={{uri: dataStudent.avatar}} />
-        <View style={cStyles.ml10}>
-          <CText category={'label'}>{`${dataStudent.firstName} ${dataStudent.lastName}`}</CText>
-          <CText category={'p1'}>{`${dataStudent.email}`}</CText>
+        <View style={[cStyles.flex1, cStyles.ml10, cStyles.mb10]}>
+          <View style={[cStyles.row, cStyles.itemsEnd, cStyles.justifyBetween]}>
+            <CText category={'label'}>{`${dataStudent.firstName} ${dataStudent.lastName}`}</CText>
+            <View style={[cStyles.row, cStyles.itemsCenter]}>
+              <Button
+                appearance={'ghost'}
+                size={'small'}
+                accessoryLeft={propsI => CIcon(propsI, 'eva', 'facebook', colors.FACEBOOK)}
+              />
+              <Button
+                appearance={'ghost'}
+                size={'small'}
+                accessoryLeft={propsI => CIcon(propsI, 'eva', 'google', colors.GOOGLE)}
+              />
+            </View>
+          </View>
+          <CText category={'c1'} appearance='hint'>{`${dataStudent.job}`}</CText>
         </View>
       </Layout>
 
       <TabView
         style={cStyles.flex1}
+        tabBarStyle={cStyles.shadowListItem}
         selectedIndex={selectedTab}
         onSelect={setSelectedTab}>
         <Tab title={t('student_details:informations')}>
           <ScrollView style={cStyles.flex1}>
-            <Layout style={cStyles.p10} level='3'>
+            <View style={cStyles.p10}>
               <Card disabled header={propsH => RenderRowTitle(t('student_details:basic'))}>
                 <View style={styles.bg_content_card}>
                   {RenderRowInformations(theme,
@@ -204,7 +231,7 @@ function StudentDetails(props) {
                   )}
                 </View>
               </Card>
-            </Layout>
+            </View>
           </ScrollView>
         </Tab>
 
@@ -219,24 +246,24 @@ function StudentDetails(props) {
               else statusText = 'success';
               return (
                 <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.rounded1, cStyles.p10]}>
-                  <View style={[{flex: 0.2}]}>
+                  <View style={{flex: 0.15}}>
                     <CText category={'c1'} appearance='hint'>{`${info.item.start}`}</CText>
                     <CText category={'c1'} appearance='hint'>&#8675;</CText>
                     <CText category={'c1'} appearance='hint'>{`${info.item.end}`}</CText>
                   </View>
                   <View style={[cStyles.px10, {flex: 0.6}]}>
-                    <CText category={'p1'}>{`${info.item.name}`}</CText>
+                    <CText >{`${info.item.name}`}</CText>
                   </View>
-                  <View style={[cStyles.itemsEnd, {flex: 0.2}]}>
-                    <CText category={'label'} status={statusText}>
+                  <View style={[cStyles.itemsEnd, {flex: 0.25}]}>
+                    <Button appearance={'outline'} status={statusText} size={'tiny'}>
                       {`${info.item.status}`.toUpperCase()}
-                    </CText>
+                    </Button>
                   </View>
                 </Layout>
               )
             }}
             renderSectionHeader={({section: { title }}) => (
-              <View style={[cStyles.itemsCenter, cStyles.py5]}>
+              <View style={[cStyles.itemsCenter, cStyles.pb5, cStyles.pt16]}>
                 <CText category={'label'}>{title}</CText>
               </View>
             )}
@@ -252,29 +279,29 @@ function StudentDetails(props) {
             sections={dataStudent.feeInvoices}
             renderItem={info => {
               let statusText = 'basic';
-              if (info.item.status === 'paid') statusText = 'success';
-              else statusText = 'warning';
+              if (info.item.status === 'paid') statusText = 'basic';
+              else statusText = 'danger';
               return (
                 <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.rounded1, cStyles.p10]}>
-                  <View style={[{flex: 0.4}]}>
-                    <CText category={'p1'}>{`${info.item.name}`}</CText>
+                  <View style={{flex: 0.4}}>
+                    <CText >{`${info.item.name}`}</CText>
                   </View>
                   <View style={[cStyles.itemsEnd, {flex: 0.2}]}>
-                    <CText category={'p1'}>{`${info.item.price}$ x${info.item.qty}`}</CText>
+                    <CText >{`${info.item.price}$ x${info.item.qty}`}</CText>
                   </View>
                   <View style={[cStyles.itemsEnd, {flex: 0.2}]}>
-                    <CText category={'label'}>{`${info.item.amount}$`}</CText>
+                    <CText category={'label'} status={statusText}>{`${info.item.amount}$`}</CText>
                   </View>
                   <View style={[cStyles.itemsEnd, {flex: 0.2}]}>
-                    <CText category={'label'} status={statusText}>
+                    <Button appearance={'outline'} status={statusText} size={'tiny'}>
                       {`${info.item.status}`.toUpperCase()}
-                    </CText>
+                    </Button>
                   </View>
                 </Layout>
               )
             }}
             renderSectionHeader={({section: { title }}) => (
-              <View style={[cStyles.itemsCenter, cStyles.py5]}>
+              <View style={[cStyles.itemsCenter, cStyles.pb5, cStyles.pt16]}>
                 <CText category={'label'}>{title}</CText>
               </View>
             )}
@@ -284,6 +311,8 @@ function StudentDetails(props) {
           />
         </Tab>
       </TabView>
+
+      <CLoading show={loading} />
     </CContainer>
   );
 }

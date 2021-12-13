@@ -101,7 +101,7 @@ function Profile(props) {
       safeArea={['top']}
       padder
       headerComponent={<CTopNavigation title={'profile:title'} back />}>
-      <Layout style={[cStyles.rounded1, cStyles.p16]} level={'1'}>
+      <Layout style={[cStyles.rounded1, cStyles.p16]} >
         <CForm
           ref={formRef}
           loading={loading}

@@ -4,7 +4,7 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect, useLayoutEffect, useContext} from 'react';
+import React, {useState, useEffect, useLayoutEffect, useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   useTheme, Layout, List, Card, Button, OverflowMenu,
@@ -195,7 +195,6 @@ function QuizReview(props) {
   return (
     <CContainer
       safeArea={['top']}
-      scrollEnabled={false}
       backgroundColor={theme['color-primary-500']}
       headerComponent={
         <Layout style={{backgroundColor: theme['color-primary-500']}}>
@@ -207,7 +206,7 @@ function QuizReview(props) {
             back />
           <View style={[cStyles.itemsCenter, cStyles.px16, cStyles.pb16]}>
             <CText status={'control'} category={'h1'}>{`${dataQuiz.score}`}</CText>
-            <CText style={cStyles.mt6} status={'control'} category={'p1'}>{t('quiz_review:total_score')}</CText>
+            <CText style={cStyles.mt6} status={'control'} >{t('quiz_review:total_score')}</CText>
           </View>
         </Layout>
       }>
@@ -246,23 +245,23 @@ function QuizReview(props) {
                     
                     <CText style={cStyles.mt10} category={'c1'}>{t('quiz_review:correct_answer')}:</CText>
                     {info.item.type === TYPE_QUESTION.TEXT_INPUT && (
-                      <CText style={cStyles.mt10} category={'p1'}>{info.item.correctAnswer}</CText>
+                      <CText style={cStyles.mt10} >{info.item.correctAnswer}</CText>
                     )}
                     {info.item.type === TYPE_QUESTION.YES_NO && (
-                      <CText style={cStyles.mt10} category={'p1'}>{t('quiz_review:' + info.item.correctAnswer)}</CText>
+                      <CText style={cStyles.mt10} >{t('quiz_review:' + info.item.correctAnswer)}</CText>
                     )}
                     {info.item.type === TYPE_QUESTION.CHOOSE_ONE && (
-                      <CText style={cStyles.mt10} category={'p1'}>&#10003; {info.item.answers[info.item.correctAnswer]}</CText>
+                      <CText style={cStyles.mt10} >&#10003; {info.item.answers[info.item.correctAnswer]}</CText>
                     )}
                     {info.item.type === TYPE_QUESTION.CHOOSE_MULTI && info.item.correctAnswer.map((itemAns, indexAns) => (
-                      <CText key={itemAns + '_' + indexAns} style={cStyles.mt10} category={'p1'}>
+                      <CText key={itemAns + '_' + indexAns} style={cStyles.mt10} >
                         &#10003; {info.item.answers[itemAns]}
                       </CText>
                     ))}
                     {info.item.type === TYPE_QUESTION.SELECT_BLANK && (
                       <View style={[cStyles.row, cStyles.itemsCenter]}>
                         {info.item.correctAnswer.map((itemAns, indexAns) => (
-                          <CText key={itemAns + '_' + indexAns} style={[cStyles.mt10, cStyles.ml10]} category={'p1'}>
+                          <CText key={itemAns + '_' + indexAns} style={[cStyles.mt10, cStyles.ml10]} >
                             &#10003; {info.item.answers[itemAns]}
                           </CText>
                         ))}
@@ -272,7 +271,7 @@ function QuizReview(props) {
                       <View style={[cStyles.row, cStyles.itemsCenter, cStyles.flexWrap]}>
                         {info.item.correctAnswer.map((itemAns, indexAns) => (
                           <Layout style={[cStyles.center, cStyles.px10, cStyles.py4, cStyles.mt5, cStyles.mr5, cStyles.rounded1]} level={'4'}>
-                            <CText key={itemAns + '_' + indexAns} category={'p1'}>
+                            <CText key={itemAns + '_' + indexAns} >
                               {info.item.answers[itemAns]}
                             </CText>
                           </Layout>
@@ -318,23 +317,23 @@ function QuizReview(props) {
               <View style={styles.bg_content_card}>
                 <CText category={'c1'}>{t('quiz_review:your_answer')}:</CText>
                 {info.item.type === TYPE_QUESTION.TEXT_INPUT && (
-                  <CText style={cStyles.mt10} category={'p1'}>{info.item.userAnswer}</CText>
+                  <CText style={cStyles.mt10} >{info.item.userAnswer}</CText>
                 )}
                 {info.item.type === TYPE_QUESTION.YES_NO && (
-                  <CText style={cStyles.mt10} category={'p1'}>{t('quiz_review:' + info.item.userAnswer)}</CText>
+                  <CText style={cStyles.mt10} >{t('quiz_review:' + info.item.userAnswer)}</CText>
                 )}
                 {info.item.type === TYPE_QUESTION.CHOOSE_ONE && (
-                  <CText style={cStyles.mt10} category={'p1'}>{info.item.answers[info.item.userAnswer]}</CText>
+                  <CText style={cStyles.mt10} >{info.item.answers[info.item.userAnswer]}</CText>
                 )}
                 {info.item.type === TYPE_QUESTION.CHOOSE_MULTI && info.item.userAnswer.map((itemAns, indexAns) => (
-                  <CText key={itemAns + '_' + indexAns} style={cStyles.mt10} category={'p1'}>
+                  <CText key={itemAns + '_' + indexAns} style={cStyles.mt10} >
                     &#10003; {info.item.answers[itemAns]}
                   </CText>
                 ))}
                 {info.item.type === TYPE_QUESTION.SELECT_BLANK && (
                   <View style={[cStyles.row, cStyles.itemsCenter]}>
                     {info.item.userAnswer.map((itemAns, indexAns) => (
-                      <CText key={itemAns + '_' + indexAns} style={[cStyles.mt10, cStyles.ml10]} category={'p1'}>
+                      <CText key={itemAns + '_' + indexAns} style={[cStyles.mt10, cStyles.ml10]} >
                         &#10003; {info.item.answers[itemAns]}
                       </CText>
                     ))}
@@ -344,7 +343,7 @@ function QuizReview(props) {
                   <View style={[cStyles.row, cStyles.itemsCenter, cStyles.flexWrap]}>
                     {info.item.userAnswer.map((itemAns, indexAns) => (
                       <Layout style={[cStyles.center, cStyles.px10, cStyles.py4, cStyles.mt5, cStyles.mr5, cStyles.rounded1]} level={'4'}>
-                        <CText key={itemAns + '_' + indexAns} category={'p1'}>
+                        <CText key={itemAns + '_' + indexAns} >
                           {info.item.answers[itemAns]}
                         </CText>
                       </Layout>

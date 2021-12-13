@@ -7,20 +7,17 @@
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Layout, Button, Icon, useTheme} from '@ui-kitten/components';
+import {Layout, Button, useTheme} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import * as Progress from 'react-native-progress';
 /* COMPONENTS */
 import CText from '~/components/CText';
+import CIcon from '~/components/CIcon';
 /* COMMON */
 import Assets from '~/utils/asset/Assets';
 import {cStyles} from '~/utils/style';
 import {moderateScale} from '~/utils/helper';
-
-const RenderDownloadIcon = props => (
-  <Icon {...props} name={'download-outline'} />
-);
 
 function AttachedFile(props) {
   const {t} = useTranslation();
@@ -84,7 +81,7 @@ function AttachedFile(props) {
   if (downloadFiles.length === 0) return null;
   return (
     <View style={containerStyle}>
-      <CText category={'label'}>{t('common:attached_files')}</CText>
+      <CText >{t('common:attached_files')}:</CText>
       <View style={[cStyles.row, cStyles.itemsCenter, cStyles.flexWrap, cStyles.mt5]}>
         {downloadFiles.map((itemFile, indexFile) => {
           let tmpExt = Assets[itemFile.type];
@@ -92,8 +89,7 @@ function AttachedFile(props) {
             tmpExt = Assets.file;
           }
           return (
-            <Layout
-              key={itemFile.id + '_' + indexFile}
+            <Layout key={itemFile.id + '_' + indexFile}
               style={[
                 cStyles.row,
                 cStyles.itemsCenter,
@@ -126,8 +122,7 @@ function AttachedFile(props) {
                   style={cStyles.mx10}
                   appearance={'outline'}
                   size={'tiny'}
-                  status={'basic'}
-                  accessoryLeft={RenderDownloadIcon}
+                  accessoryLeft={propsI => CIcon(propsI, 'eva', 'download', theme['color-primary-500'])}
                   onPress={() => handleDownloadFile(indexFile, itemFile)}
                 />
               )}

@@ -197,7 +197,7 @@ function SignUp(props) {
                 status='basic'
                 disabled={loading}
                 {...policyCheckbox}>
-                {propsCb => <CText style={cStyles.mx10} category={'p1'}>{t('sign_up:policy')}</CText>}
+                {propsCb => <CText style={cStyles.mx10} >{t('sign_up:policy')}</CText>}
               </CheckBox>
             }
             disabledButton={!policyCheckbox.checked || loading}

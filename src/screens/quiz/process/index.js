@@ -429,7 +429,6 @@ function QuizProcess(props) {
   return (
     <CContainer
       safeArea={['top', 'bottom']}
-      scrollEnabled={false}
       headerComponent={
         <CTopNavigation
           title={(questions.current + 1) + ' / ' + questions.data.length}
@@ -448,7 +447,7 @@ function QuizProcess(props) {
           onPressCustomBack={handleBack}
         />
       }>
-      <Layout style={cStyles.flex1} level={'1'}>
+      <Layout style={cStyles.flex1} >
         <View style={cStyles.itemsCenter}>
           {!loading.main && questions.data.length > 0 && (
             <List
@@ -487,7 +486,7 @@ function QuizProcess(props) {
                       {`${t('quiz_process:sentence')} ${index + 1}:`}
                     </CText>
 
-                    <CText category={'p1'}>{t('quiz_process:choose_blank')}</CText>
+                    <CText >{t('quiz_process:choose_blank')}</CText>
 
                     <Layout
                       style={[
@@ -502,13 +501,13 @@ function QuizProcess(props) {
                       {item.questions.map((itemQus, indexQus) => {
                         if (indexQus === item.questions.length - 1) {
                           return (
-                            <CText key={itemQus + indexQus} style={cStyles.my5} category={'p1'}>{itemQus}</CText>
+                            <CText key={itemQus + indexQus} style={cStyles.my5} >{itemQus}</CText>
                           )
                         }
                         if (indexQus >= 0) {
                           return (
                             <View key={itemQus + indexQus} style={[cStyles.itemsStart, cStyles.fullWidth, cStyles.my5]}>
-                              <CText category={'p1'}>{itemQus}</CText>
+                              <CText >{itemQus}</CText>
                               <Select
                                 style={[cStyles.my5, cStyles.fullWidth]}
                                 status={'primary'}
@@ -532,7 +531,7 @@ function QuizProcess(props) {
                 return (
                   <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
                     <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
-                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
+                    <CText style={cStyles.mt5} >{item.question}</CText>
   
                     <CText style={cStyles.mt32} category={'s1'}>{t('quiz_process:your_answer_is')}</CText>
                     <Input
@@ -548,7 +547,7 @@ function QuizProcess(props) {
                 return (
                   <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
                     <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
-                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
+                    <CText style={cStyles.mt5} >{item.question}</CText>
   
                     <CText style={cStyles.mt32} category={'s1'}>{t('quiz_process:choose_one_answer')}</CText>
                     <RadioGroup style={cStyles.mt16} selectedIndex={radio} onChange={setRadio}>
@@ -563,7 +562,7 @@ function QuizProcess(props) {
                 return (
                   <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
                     <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
-                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
+                    <CText style={cStyles.mt5} >{item.question}</CText>
   
                     <CText style={cStyles.mt32} category={'s1'}>{t('quiz_process:choose_multi_answer')}</CText>
                     <View style={[cStyles.mt16]}>
@@ -586,7 +585,7 @@ function QuizProcess(props) {
                 return (
                   <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
                     <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
-                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
+                    <CText style={cStyles.mt5} >{item.question}</CText>
                     
                     <GestureHandlerRootView style={[cStyles.flex1, cStyles.mt10]}>
                       <DraxProvider>
@@ -655,7 +654,7 @@ function QuizProcess(props) {
                 return (
                   <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
                     <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
-                    <CText style={cStyles.mt5} category={'p1'}>{item.question}</CText>
+                    <CText style={cStyles.mt5} >{item.question}</CText>
   
                     <CText style={cStyles.mt32} category={'s1'}>{t('quiz_process:your_answer_is')}</CText>
                     <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyEvenly, cStyles.mt16]}>
@@ -682,7 +681,7 @@ function QuizProcess(props) {
               return (
                 <Layout key={item.id + '_' + index} style={[cStyles.flex1, cStyles.px10, cStyles.py16]}>
                   <CText category='label'>{`${t('quiz_process:sentence')} ${index + 1}:`}</CText>
-                  <CText style={cStyles.mt10} category={'p1'}>{item.question}</CText>
+                  <CText style={cStyles.mt10} >{item.question}</CText>
                 </Layout>
               )
             })}
@@ -690,7 +689,7 @@ function QuizProcess(props) {
         )}
 
         {!loading.main && questions.data.length > 0 && (
-          <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyEvenly]} level={'1'}>
+          <Layout style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyEvenly]} >
             <Button
               appearance={'ghost'}
               accessoryLeft={RenderPreviousIcon}
@@ -729,7 +728,7 @@ function QuizProcess(props) {
         error={result.type === TYPE_RESULT.BAD}
         customMessage={
           <View style={cStyles.center}>
-            <CText category={'p1'}>{t('quiz_process:holder_finish_quiz_process')}</CText>
+            <CText >{t('quiz_process:holder_finish_quiz_process')}</CText>
             <CText
               style={cStyles.mt32}
               status={result.type === TYPE_RESULT.GOOD ? 'success' : result.type === TYPE_RESULT.MID ? 'warning' : 'danger'}

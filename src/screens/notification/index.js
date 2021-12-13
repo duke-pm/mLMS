@@ -54,7 +54,7 @@ const RenderButtonActions = (
               <CText style={cStyles.ml16} category={'label'} numberOfLines={2}>{t(title)}</CText>
             </View>
           </View>
-          <CText style={cStyles.mt10} category={'p1'} appearance='hint'>{holder}</CText>
+          <CText style={cStyles.mt10}  appearance='hint'>{holder}</CText>
         </Layout>
       )}
     </Button>

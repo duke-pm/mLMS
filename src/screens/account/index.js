@@ -224,10 +224,10 @@ function Account(props) {
         hideModalContentWhileAnimating={true}
         onBackButtonPress={toggleAlertAvatar}
         onBackdropPress={toggleAlertAvatar}>
-        <Layout level={'1'}>
+        <Layout >
           <SafeAreaView>
               <View style={cStyles.m16}>
-                <CText category={'p1'}>{'Choose your input picture'}</CText>
+                <CText >{'Choose your input picture'}</CText>
               </View>
               <Menu>
                 <MenuItem

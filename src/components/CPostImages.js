@@ -126,7 +126,7 @@ function CPostImages(props) {
    ************/
   if (images.lenght === 0) return null;
   return (
-    <Layout style={[cStyles.flex1, cStyles.fullWidth, styles.con_images]} level={'1'}>
+    <Layout style={[cStyles.flex1, cStyles.fullWidth, styles.con_images]} >
       {images.length === 1 && (
         <Button
           style={[cStyles.px1, cStyles.py1]}
@@ -134,7 +134,7 @@ function CPostImages(props) {
           status={'basic'}
           onPress={() => toggleAlertFullImage(0)}>
           {evaProps => (
-            <Layout style={cStyles.flex1} level={'1'}>
+            <Layout style={cStyles.flex1} >
               <FastImage
                 style={[cStyles.fullWidth, cStyles.fullHeight, cStyles.rounded1]}
                 source={{
@@ -150,7 +150,7 @@ function CPostImages(props) {
       )}
 
       {images.length === 2 && (
-        <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
+        <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} >
           <Button
             style={[cStyles.flex1, cStyles.px0, cStyles.py1]}
             appearance={'ghost'}
@@ -203,8 +203,8 @@ function CPostImages(props) {
       )}
 
       {images.length === 3 && (
-        <Layout style={cStyles.flex1} level={'1'}>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
+        <Layout style={cStyles.flex1} >
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} >
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -244,7 +244,7 @@ function CPostImages(props) {
               )}
             </Button>
           </Layout>
-          <Layout style={cStyles.flex1} level={'1'}>
+          <Layout style={cStyles.flex1} >
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -274,8 +274,8 @@ function CPostImages(props) {
       )}
 
       {images.length === 4 && (
-        <Layout style={cStyles.flex1} level={'1'}>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
+        <Layout style={cStyles.flex1} >
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} >
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -315,7 +315,7 @@ function CPostImages(props) {
               )}
             </Button>
           </Layout>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} >
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -359,8 +359,8 @@ function CPostImages(props) {
       )}
 
       {images.length > 4 && (
-        <Layout style={cStyles.flex1} level={'1'}>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
+        <Layout style={cStyles.flex1} >
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} >
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}
@@ -400,7 +400,7 @@ function CPostImages(props) {
               )}
             </Button>
           </Layout>
-          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} level={'1'}>
+          <Layout style={[cStyles.flex1, cStyles.row, cStyles.itemsCenter]} >
             <Button
               style={[cStyles.flex1, cStyles.px0, cStyles.py0]}
               appearance={'ghost'}

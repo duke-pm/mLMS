@@ -293,12 +293,13 @@ function AddPost(props) {
       safeArea={['top']}
       headerComponent={
         <CTopNavigation
-          back
           title={'add_post:title'}
+          back
+          iconBack={'close-outline'}
           customRightComponent={RenderRightHeader(handleAddPost)} />
       }>
       <ScrollView style={cStyles.flex1}>
-        <Layout style={cStyles.p16} level={'1'}>
+        <Layout style={cStyles.p16} >
           <Input
             style={[cStyles.fullWidth, {maxHeight: moderateScale(150)}]}
             value={valueText}
@@ -325,7 +326,7 @@ function AddPost(props) {
                         size={moderateScale(30)}
                         color={theme['color-primary-500']}
                       />
-                      <CText style={cStyles.mt10} category={'p1'}>{t('add_post:add_file')}</CText>
+                      <CText style={cStyles.mt10} >{t('add_post:add_file')}</CText>
                     </View>
                   )}
                 </Button>
@@ -341,7 +342,7 @@ function AddPost(props) {
                         size={moderateScale(30)}
                         color={theme['color-primary-500']}
                       />
-                      <CText style={cStyles.mt10} category={'p1'}>{t('add_post:add_image')}</CText>
+                      <CText style={cStyles.mt10} >{t('add_post:add_image')}</CText>
                     </View>
                   )}
                 </Button>
@@ -360,7 +361,7 @@ function AddPost(props) {
                         color={theme['color-primary-500']}
                       />
                       <View style={[cStyles.flex1, cStyles.ml8]}>
-                        <CText category={'p1'} numberOfLines={2}>{itemAsset.name}</CText>
+                        <CText  numberOfLines={2}>{itemAsset.name}</CText>
                         <CText style={cStyles.mt5} category={'c1'} numberOfLines={1}>{itemAsset.size}</CText>
                       </View>
                     </View>
@@ -479,10 +480,10 @@ function AddPost(props) {
         hideModalContentWhileAnimating={true}
         onBackButtonPress={toggleAlertChooseImgVid}
         onBackdropPress={toggleAlertChooseImgVid}>
-        <Layout level={'1'}>
+        <Layout >
           <SafeAreaView>
             <View style={cStyles.m16}>
-              <CText category={'p1'}>{t('common:title_choose_photos_videos')}</CText>
+              <CText >{t('common:title_choose_photos_videos')}</CText>
             </View>
             <Menu>
               <MenuItem

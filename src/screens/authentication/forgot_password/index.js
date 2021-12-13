@@ -109,7 +109,7 @@ function ForgotPassword(props) {
             cStyles.py16,
             cStyles.px32,
           ]}
-          level={'1'}>
+          >
           {/** Caption */}
           <View style={cStyles.mt16}>
             <CText style={cStyles.textCenter} category='p1'>{t('forgot_password:caption')}</CText>
@@ -155,7 +155,7 @@ function ForgotPassword(props) {
             cStyles.py16,
             cStyles.px32,
           ]}
-          level={'1'}>
+          >
           <View style={cStyles.itemsCenter}>
             <MyIconAnim
               name={'checkmark-circle-outline'}

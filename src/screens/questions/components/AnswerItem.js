@@ -119,7 +119,7 @@ function AnswerItem(props) {
         )}
       >
         <View style={styles.bg_content_card}>
-          <CText category={'p1'}>{data.description}</CText>
+          <CText >{data.description}</CText>
         </View>
       </Card>
 
@@ -130,6 +130,7 @@ function AnswerItem(props) {
       customMessage={
         <StarRating
           containerStyle={cStyles.px36}
+          animation='tada'
           starSize={moderateScale(30)}
           rating={rate}
           fullStarColor={theme['color-warning-500']}

@@ -39,11 +39,9 @@ function Home(props) {
    ************/
   return (
     <CContainer
-      safeArea={['top', 'bottom']}
+      safeArea={['top']}
       headerComponent={<CTopNavigation title={t('home:title')} notification />}>
-      <Layout style={cStyles.flex1} level={'1'}>
-        
-      </Layout>
+      
     </CContainer>
   );
 }

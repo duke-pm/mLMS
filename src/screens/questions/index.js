@@ -233,11 +233,11 @@ function Questions(props) {
               footer={(propsF) => (
                 <View style={[cStyles.row, cStyles.itemsCenter, cStyles.p10]}>
                   <View style={[cStyles.itemsCenter, {flex: 0.2}]}>
-                    <CText category={'p1'}>{info.item.views}</CText>
+                    <CText >{info.item.views}</CText>
                     <CText style={cStyles.mt5} category={'c1'} appearance='hint'>{t('questions:views')}</CText>
                   </View>
                   <View style={[cStyles.itemsCenter, {flex: 0.2}]}>
-                    <CText category={'p1'}>{info.item.answers.length}</CText>
+                    <CText >{info.item.answers.length}</CText>
                     <CText style={cStyles.mt5} category={'c1'} appearance='hint'>{t('questions:responses')}</CText>
                   </View>
                   <View style={[cStyles.itemsEnd, {flex: 0.6}]}>
@@ -255,7 +255,7 @@ function Questions(props) {
               )}>
               <View style={[styles.bg_content_card]}>
                 <CText category={'label'}>{`${t('questions:question')} ${info.index + 1}: ${info.item.label}`}</CText>
-                <CText style={cStyles.mt5} category={'p1'}>{info.item.description}</CText>
+                <CText style={cStyles.mt5} >{info.item.description}</CText>
               </View>
             </Card>
           )

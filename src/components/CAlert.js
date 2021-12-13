@@ -7,14 +7,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Modal, Card, Button, useTheme} from '@ui-kitten/components';
+import {Card, Button, Spinner, useTheme} from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
+import Modal from 'react-native-modal';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 /* COMPONENTS */
 import CText from './CText';
+import CIcon from './CIcon';
 /* COMMON */
-import {colors, cStyles} from '~/utils/style';
+import {cStyles} from '~/utils/style';
 import {moderateScale} from '~/utils/helper';
+
+/** All init */
+const sIconStatus = moderateScale(60);
+
+const RenderLoadingIndicator = (props) => (
+  <View style={[props.style, cStyles.center]}>
+    <Spinner size='small' status='control' />
+  </View>
+);
 
 function CAlert(props) {
   const theme = useTheme();
@@ -22,10 +33,12 @@ function CAlert(props) {
   const {
     contentStyle = {},
     show = false,
+    loading = false,
     success = false,
     error = false,
     cancel = false,
-    label = '',
+    label = 'common:alert',
+    customLabel = null,
     message = '',
     customMessage = null,
     textOk = 'common:ok',
@@ -56,27 +69,51 @@ function CAlert(props) {
    ************/
   return (
     <Modal
-      visible={show}
-      backdropStyle={styles.backdrop}
+      style={cStyles.m0}
+      isVisible={show}
+      animationIn={'fadeInUp'}
+      animationOut={'fadeOutDown'}
+      renderToHardwareTextureAndroid={true}
+      coverScreen={true}
+      useNativeDriver={true}
+      useNativeDriverForBackdrop={true}
+      hideModalContentWhileAnimating={true}
+      avoidKeyboard={true}
+      onBackButtonPress={handleBackdrop}
       onBackdropPress={handleBackdrop}>
       <Card disabled style={[cStyles.mx16, contentStyle]}>
         {(success || error || label) && (
-          <View style={[cStyles.flex1, cStyles.itemsCenter]}>
+          <View style={cStyles.itemsCenter}>
             {success && (
               <View style={cStyles.itemsCenter}>
-                <IoniIcon name={'checkmark-circle-outline'} size={moderateScale(60)} color={theme['color-success-500']} />
-                <CText style={cStyles.mt10} category={'h6'}>{t(label !== '' ? label : 'common:success')}</CText>
+                <IoniIcon
+                  name={'checkmark-circle-outline'}
+                  size={sIconStatus}
+                  color={theme['color-success-500']} />
+                <CText style={[cStyles.mt10, cStyles.textCenter]} category={'h6'}>
+                  {t(label !== '' ? label : 'common:success')}
+                </CText>
               </View>
             )}
             {error && (
               <View style={cStyles.itemsCenter}>
-                <IoniIcon name={'close-circle-outline'} size={moderateScale(60)} color={theme['color-danger-500']} />
-                <CText style={cStyles.mt10} category={'h6'}>{t(label !== '' ? label : 'common:error')}</CText>
+                <IoniIcon
+                  name={'close-circle-outline'}
+                  size={sIconStatus}
+                  color={theme['color-danger-500']} />
+                <CText style={[cStyles.mt10, cStyles.textCenter]} category={'h6'}>
+                  {t(label !== '' ? label : 'common:error')}
+                </CText>
               </View>
             )}
-            {!success && !error && (
+            {!success && !error && !customLabel && (
               <View style={cStyles.itemsCenter}>
-                <CText category={'s1'}>{t(label)}</CText>
+                <CText style={cStyles.textCenter} category={'s1'}>{t(label)}</CText>
+              </View>
+            )}
+            {!success && !error && customLabel && (
+              <View style={cStyles.itemsCenter}>
+                {customLabel}
               </View>
             )}
           </View>
@@ -84,7 +121,7 @@ function CAlert(props) {
 
         {message !== '' && !customMessage && (
           <View style={[cStyles.my16, styles.content]}>
-            <CText style={cStyles.textCenter} category={'p1'}>{t(message)}</CText>
+            <CText style={cStyles.textCenter} >{t(message)}</CText>
           </View>
         )}
         {customMessage && (
@@ -104,9 +141,10 @@ function CAlert(props) {
             ]}>
             {cancel && (
               <Button
-                style={[styles.btn_main, cancel && styles.btn_cancel]}
+                style={[styles.btn_main, cancel && onOk && styles.btn_cancel]}
                 status={'basic'}
                 appearance={'filled'}
+                disabled={loading}
                 onPress={handleCancel}>
                 {t(textCancel)}
               </Button>
@@ -116,6 +154,8 @@ function CAlert(props) {
                 style={[styles.btn_main, cancel && styles.btn_cancel]}
                 status={statusOk}
                 appearance={'filled'}
+                disabled={loading}
+                accessoryLeft={loading ? RenderLoadingIndicator : undefined}
                 onPress={handleOk}>
                 {t(textOk)}
               </Button>
@@ -137,9 +177,6 @@ const styles = StyleSheet.create({
   footer: {
 
   },
-  backdrop: {
-    backgroundColor: colors.BG_BACKDROP,
-  },
   btn_main: {
     width: '100%',
   },
@@ -151,10 +188,12 @@ const styles = StyleSheet.create({
 CAlert.propTypes = {
   contentStyle: PropTypes.object,
   show: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   success: PropTypes.bool,
   error: PropTypes.bool,
   cancel: PropTypes.bool,
   label: PropTypes.string,
+  customLabel: PropTypes.element,
   message: PropTypes.string,
   customMessage: PropTypes.element,
   textOk: PropTypes.string,

@@ -4,7 +4,7 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Button, Divider, Layout, ListItem, useTheme,
@@ -90,7 +90,6 @@ function QuestionDetails(props) {
 
   const onSubmitRateQuestion = () => {
     toggleRateQuestion();
-    console.log('[LOG] === onSubmitRateQuestion ===> ', rateQuestion);
   };
 
   /****************
@@ -107,37 +106,36 @@ function QuestionDetails(props) {
   return (
     <CContainer
       safeArea={['top']}
-      scrollEnabled={false}
       headerComponent={
         <CTopNavigation
           title={'question_details:title'}
           back />
       }>
       <ScrollView style={cStyles.flex1} contentContainerStyle={cStyles.pb10}>
-        <Layout level={'1'}>
+        <Layout>
           <ListItem
-            style={cStyles.px12}
+            style={cStyles.px10}
             title={() => <CText style={cStyles.ml10} category={'label'}>{dataQuestion.createdUser}</CText>}
             description={() => <CText style={cStyles.ml10} category={'c1'} appearance='hint'>{dataQuestion.createdAt}</CText>}
             accessoryLeft={() => RenderLeftHeaderQuestion(dataQuestion)}
             accessoryRight={() => RenderRightHeaderQuestion(toggleRateQuestion)}
           />
 
-          <Divider style={cStyles.my5} />
+          <Divider style={cStyles.m10} />
 
-          <View style={[cStyles.px16, cStyles.py10]}>
-            <CText category={'p1'}>{dataQuestion.description}</CText>
+          <View style={cStyles.px10}>
+            <CText >{dataQuestion.description}</CText>
           </View>
 
-          <Divider style={cStyles.my5} />
+          <Divider style={cStyles.m10} />
 
-          <View style={[cStyles.row, cStyles.itemsCenter, cStyles.px16, cStyles.py10]}>
+          <View style={[cStyles.row, cStyles.itemsCenter, cStyles.px10]}>
             <View style={[cStyles.itemsCenter, {flex: 0.2}]}>
-              <CText category={'p1'}>{dataQuestion.views}</CText>
+              <CText >{dataQuestion.views}</CText>
               <CText style={cStyles.mt5} category={'c2'}>{t('question_details:views')}</CText>
             </View>
             <View style={[cStyles.itemsCenter, {flex: 0.2}]}>
-              <CText category={'p1'}>{dataQuestion.answers.length}</CText>
+              <CText >{dataQuestion.answers.length}</CText>
               <CText style={cStyles.mt5} category={'c2'}>{t('question_details:responses')}</CText>
             </View>
             <View style={[cStyles.itemsEnd, {flex: 0.6}]}>
@@ -153,9 +151,9 @@ function QuestionDetails(props) {
             </View>
           </View>
 
-          <Divider style={cStyles.my5} />
+          <Divider style={[cStyles.mx10, cStyles.my10]} />
 
-          <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.px16, cStyles.py5]}>
+          <View style={[cStyles.row, cStyles.itemsCenter, cStyles.justifyBetween, cStyles.px10]}>
             <CText category={'label'}>{`${t('question_details:most_vote_answers')}`}</CText>
             <Button appearance={'ghost'} size={'small'} status={'basic'} onPress={handleSeeAllAnswer}>
               {evaProps => (
@@ -189,6 +187,7 @@ function QuestionDetails(props) {
         customMessage={
           <StarRating
             containerStyle={cStyles.px36}
+            animation='tada'
             starSize={moderateScale(30)}
             rating={rateQuestion}
             fullStarColor={theme['color-warning-500']}

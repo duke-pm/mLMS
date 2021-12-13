@@ -36,16 +36,16 @@ const RenderFooterQuiz = (propsF, info) => {
   return (
     <View style={[cStyles.row, cStyles.itemsStart, cStyles.justifyBetween, cStyles.p10]}>
       <View>
-        <CText category={'p1'}>{info.item.numQuestions}</CText>
+        <CText >{info.item.numQuestions}</CText>
         <CText style={cStyles.mt5} category={'c1'} appearance='hint'>{t('quiz:questions')}</CText>
       </View>
       <View>
-        <CText category={'p1'}>{info.item.timeout} {t('common:minutes')}</CText>
+        <CText >{info.item.timeout} {t('common:minutes')}</CText>
         <CText style={cStyles.mt5} category={'c1'} appearance='hint'>{t('quiz:durations')}</CText>
       </View>
       <View>
-        <CText category={'p1'}>{info.item.createdDateAt}</CText>
-        <CText style={cStyles.mt5} category={'p1'}>{info.item.createdTimeAt}</CText>
+        <CText >{info.item.createdDateAt}</CText>
+        <CText style={cStyles.mt5} >{info.item.createdTimeAt}</CText>
       </View>
       {info.item.score && (
         <Button
@@ -172,7 +172,7 @@ function Quiz(props) {
           back
           search />
       }>
-      <Layout level={'1'}>
+      <Layout >
         {!loading && (
           <List
             style={{backgroundColor: theme['background-basic-color-3']}}
@@ -193,7 +193,7 @@ function Quiz(props) {
                   <View style={[cStyles.row, cStyles.itemsCenter, styles.bg_content_card]}>
                     {info.item.subjects.map((item, index) => {
                       return (
-                        <CText category={'p1'}>&#10041; {item}  </CText>
+                        <CText >&#10041; {item}  </CText>
                       )
                     })}
                   </View>

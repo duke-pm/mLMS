@@ -108,7 +108,7 @@ function Help(props) {
         />
       </Layout>
       
-      <Layout level={'1'}>
+      <Layout >
         {!loading && (
           <Menu
             selectedIndex={selectedQuest}
@@ -121,7 +121,7 @@ function Help(props) {
                       <MenuItem
                         key={item1.idItem}
                         title={evaProps => 
-                          <CText style={cStyles.flex1} category={'p1'}>{item1.titleItem}</CText>
+                          <CText style={cStyles.flex1} >{item1.titleItem}</CText>
                         }
                         accessoryLeft={RenderQuestionIcon} />
                     )
