@@ -7,7 +7,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {useTranslation } from 'react-i18next';
 import {Layout, List, useTheme, Button, Spinner} from '@ui-kitten/components';
-import {StyleSheet, View} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
@@ -18,7 +18,7 @@ import CAvatar from '~/components/CAvatar';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {cStyles, colors} from '~/utils/style';
-import {moderateScale} from '~/utils/helper';
+import {IS_ANDROID, moderateScale} from '~/utils/helper';
 import {ThemeContext} from '~/configs/theme-context';
 /* REDUX */
 
@@ -130,6 +130,15 @@ function Classes(props) {
   /****************
    ** LIFE CYCLE **
    ****************/
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      StatusBar.setBarStyle('dark-content', true);
+      IS_ANDROID &&
+        StatusBar.setBackgroundColor('white', true);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   useEffect(() => {
     setLoading(false);
   }, []);

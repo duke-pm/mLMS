@@ -7,7 +7,7 @@
 import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Button, Icon, Layout, Spinner, useTheme} from '@ui-kitten/components';
-import {StyleSheet, View, SectionList, Animated} from 'react-native';
+import {StyleSheet, View, SectionList, Animated, StatusBar} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 /* COMPONENTS */
@@ -19,7 +19,7 @@ import CSearchBar from '~/components/CSearchBar';
 /* COMMON */
 import Routes from '~/navigator/Routes';
 import {cStyles} from '~/utils/style';
-import {moderateScale} from '~/utils/helper';
+import {IS_ANDROID, moderateScale} from '~/utils/helper';
 /* REDUX */
 
 const mockupFavorite = [
@@ -484,6 +484,15 @@ function Conversation(props) {
   /****************
    ** LIFE CYCLE **
    ****************/
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      StatusBar.setBarStyle('dark-content', true);
+      IS_ANDROID &&
+        StatusBar.setBackgroundColor('white', true);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   useEffect(() => {
     onPrepareData();
   }, []);

@@ -4,10 +4,10 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useTranslation } from 'react-i18next';
-import {Layout, Icon, Text, Menu, MenuItem, useTheme} from '@ui-kitten/components';
-import {StyleSheet, View, TouchableOpacity, ImageBackground} from 'react-native';
+import {Layout, Icon, Text, Menu, MenuItem, useTheme, ListItem} from '@ui-kitten/components';
+import {StyleSheet, View, TouchableOpacity, ImageBackground, StatusBar} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
@@ -18,8 +18,9 @@ import CAlert from '~/components/CAlert';
 import CText from '~/components/CText';
 /* COMMON */
 import Routes from '~/navigator/Routes';
-import {cStyles} from '~/utils/style';
-import {moderateScale, resetRoute} from '~/utils/helper';
+import {colors, cStyles} from '~/utils/style';
+import {IS_ANDROID, moderateScale, resetRoute} from '~/utils/helper';
+import { ThemeContext } from '~/configs/theme-context';
 /* REDUX */
 
 /*********************
@@ -46,6 +47,7 @@ const RenderLeftIcon = (props, nameIcon) => (
 function Account(props) {
   const {t} = useTranslation();
   const theme = useTheme();
+  const themeContext = useContext(ThemeContext);
   const {navigation} = props;
 
   /** Use state */
@@ -55,6 +57,7 @@ function Account(props) {
     {
       id: 'edit_account',
       label: 'account:edit_account',
+      subtitle: 'account:holder_edit_account',
       icon: 'person-outline',
       renderNext: true,
       nextRoute: Routes.PROFILE.name,
@@ -148,58 +151,62 @@ function Account(props) {
    ** LIFE CYCLE **
    ****************/
   useEffect(() => {
-    
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      StatusBar.setBarStyle('light-content', true);
+      IS_ANDROID &&
+        StatusBar.setBackgroundColor(theme['color-primary-400'], true);
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   /************
    ** RENDER **
    ************/
   return (
-    <CContainer
-      safeArea={['top']}
-      headerComponent={
-        <CTopNavigation
-          title={t('account:title')}
-        />
-      }
-    >
-      <Layout style={[cStyles.itemsCenter, cStyles.pb20, cStyles.pt10]} level='1'>
+    <CContainer safeArea={['top']} backgroundColor={theme['color-primary-400']}>
+      <Layout style={[cStyles.itemsCenter, cStyles.pb20, cStyles.pt10, cStyles.roundedBottomLeft10, cStyles.roundedBottomRight10, {backgroundColor: theme['color-primary-400']}]}>
         <TouchableOpacity onPress={toggleAlertAvatar}>
-          <ImageBackground
-            style={styles.img_avatar}
-            borderRadius={moderateScale(50)}
-            resizeMode={'cover'}
-            source={{uri: 'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg'}}>
-            <View 
-              style={[
-                cStyles.ofHidden,
-                cStyles.center,
-                cStyles.rounded5,
-                cStyles.abs,
-                styles.con_camera,
-                {backgroundColor: theme['color-basic-200']}
-              ]}>
-              <IoniIcon name={'camera'} color={theme['color-primary-500']} size={moderateScale(13)} />
-            </View>
-          </ImageBackground>
+          <View style={[styles.con_avatar, cStyles.center]}>
+            <ImageBackground
+              style={styles.img_avatar}
+              borderRadius={moderateScale(50)}
+              resizeMode={'cover'}
+              source={{uri: 'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg'}}>
+              <View 
+                style={[
+                  cStyles.ofHidden,
+                  cStyles.center,
+                  cStyles.rounded5,
+                  cStyles.abs,
+                  styles.con_camera,
+                  {backgroundColor: theme['color-basic-200']}
+                ]}>
+                <IoniIcon name={'camera'} color={theme['color-primary-500']} size={moderateScale(13)} />
+              </View>
+            </ImageBackground>
+          </View>
         </TouchableOpacity>
-        <CText style={cStyles.mt16} category='h6'>{'Wayne Rooney'}</CText>
-        <CText style={cStyles.mt5} category='c1'>{'WayneRooney@gmail.com'}</CText>
+        <CText style={cStyles.mt16} category='h6' status='control'>{'Wayne Rooney'}</CText>
+        <CText category='c1' status='control'>{'WayneRooney@gmail.com'}</CText>
       </Layout>
 
-      <Menu scrollEnabled={false} style={{backgroundColor: theme['background-basic-color-3']}}>
-        {menu.map((item, index) => {
-          return (
-            <MenuItem
-              key={item.id + '_' + index}
-              title={t(item.label)}
-              accessoryLeft={propsIc => RenderLeftIcon(propsIc, item.icon)}
-              accessoryRight={item.renderNext ? propsR => RenderForwardIcon(propsR, theme, item) : undefined}
-              onPress={item.renderNext ? () => handleGoMenuItem(item.nextRoute) : toggleAlertLogout}
-            />
-          )
-        })}
-      </Menu>
+      <Layout style={[cStyles.m16, cStyles.rounded2]}>
+        <Menu scrollEnabled={false} style={[cStyles.rounded2, {backgroundColor: colors.TRANSPARENT}]}>
+          {menu.map((item, index) => {
+            return (
+              <ListItem
+                key={item.id + '_' + index}
+                style={cStyles.rounded2}
+                title={t(item.label)}
+                description={t(item.subtitle)}
+                accessoryLeft={propsIc => RenderLeftIcon(propsIc, item.icon)}
+                accessoryRight={item.renderNext ? propsR => RenderForwardIcon(propsR, theme, item) : undefined}
+                onPress={item.renderNext ? () => handleGoMenuItem(item.nextRoute) : toggleAlertLogout}
+              />
+            )
+          })}
+        </Menu>
+      </Layout>
 
       <CAlert
         contentStyle={cStyles.m0}
@@ -249,9 +256,15 @@ function Account(props) {
 }
 
 const styles = StyleSheet.create({
+  con_avatar: {
+    height: moderateScale(100),
+    width: moderateScale(100),
+    borderRadius: moderateScale(90),
+    backgroundColor: 'rgba(255,255,255,.5)',
+  },
   img_avatar: {
-    height: moderateScale(50),
-    width: moderateScale(50)
+    height: moderateScale(80),
+    width: moderateScale(80)
   },
   con_camera: {
     height: moderateScale(20),
