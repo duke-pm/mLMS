@@ -88,11 +88,11 @@ function Information(props) {
 
           <View style={cStyles.py12}>
             <CText category={'s2'}>{t('information:info_important')}</CText>
-            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_1')}</CText>
-            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_2')}</CText>
-            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_3')}</CText>
-            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_4')}</CText>
-            <CText style={cStyles.mt10} >  &#10041;  {t('information:info_important_5')}</CText>
+            <CText style={cStyles.mt10} >  &#10019;  {t('information:info_important_1')}</CText>
+            <CText style={cStyles.mt10} >  &#10019;  {t('information:info_important_2')}</CText>
+            <CText style={cStyles.mt10} >  &#10019;  {t('information:info_important_3')}</CText>
+            <CText style={cStyles.mt10} >  &#10019;  {t('information:info_important_4')}</CText>
+            <CText style={cStyles.mt10} >  &#10019;  {t('information:info_important_5')}</CText>
           </View>
         </View>
       </Layout>

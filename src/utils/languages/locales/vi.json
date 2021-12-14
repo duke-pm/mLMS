@@ -26,7 +26,8 @@
     "no": "Không",
     "write_something_to_search": "Nhập thông tin tìm kiếm...",
     "attached_files": "File đính kèm",
-    "show_more": "Nhấn để xem tất cả"
+    "show_more": "Nhấn để xem tất cả",
+    "all": "Tất cả"
   },
   "error": {
     "format_email": "Định dạng e-mail! chưa chính xác!",
@@ -98,9 +99,13 @@
     "edit_account": "Hồ sơ",
     "holder_edit_account": "Cập nhật tên, e-mail, ảnh đại diện",
     "notification": "Thông báo",
+    "holder_notification": "Thông báo, tin nhắn, nhắc nhở",
     "favourite": "Yêu thích",
+    "holder_favourite": "Sở thích cá nhân hóa",
     "settings": "Cài đặt",
+    "holder_settings": "Giao diện, ngôn ngữ, đánh giá",
     "schedule": "Thời khóa biểu",
+    "holder_schedule": "Nhắc nhở sự kiện sắp hoặc đang diễn ra",
     "help": "Câu hỏi thường gặp",
     "log_out": "Đăng xuất",
     "alert_log_out": "Đăng xuất",

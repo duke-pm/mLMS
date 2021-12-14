@@ -193,7 +193,7 @@ function QuizDetails(props) {
                 <View style={[cStyles.flexWrap, cStyles.row, cStyles.itemsCenter, cStyles.mt10]}>
                   {dataQuiz.subjects.map((item, index) => {
                     return (
-                      <CText style={cStyles.mt5} status={'control'} >&#10041; {item}  </CText>
+                      <CText style={cStyles.mt5} status={'control'} >&#10019; {item}  </CText>
                     )
                   })}
                 </View>

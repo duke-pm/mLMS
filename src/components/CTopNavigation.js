@@ -9,8 +9,7 @@ import React, {useContext, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {
-  TopNavigation, TopNavigationAction, Toggle, useTheme, Divider, Button,
-  Icon,
+  TopNavigation, TopNavigationAction, Toggle, useTheme, Icon,
 } from '@ui-kitten/components';
 import {TouchableOpacity, View, LayoutAnimation, UIManager} from 'react-native';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
@@ -18,11 +17,11 @@ import IoniIcon from 'react-native-vector-icons/Ionicons';
 import CSearchBar from './CSearchBar';
 import CText from './CText';
 /* COMMON */
+import Routes from '~/navigator/Routes';
 import {ThemeContext} from '~/configs/theme-context';
 import {cStyles} from '~/utils/style';
 import {getLocalInfo, IS_ANDROID, moderateScale, saveLocalInfo} from '~/utils/helper';
 import {AST_DARK_MODE, DARK, LIGHT} from '~/configs/constants';
-import Routes from '~/navigator/Routes';
 
 if (IS_ANDROID) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -159,6 +158,7 @@ function CTopNavigation(props) {
     titleStyle = {},
     subtitleStyle = {},
     iconStyle = {},
+    borderBottom = false,
     translution = false,
     notification = false,
     add = false,
@@ -235,7 +235,11 @@ function CTopNavigation(props) {
         translution && cStyles.top0,
         containerStyle]}>
       <TopNavigation
-        style={style}
+        style={[
+          !showSearch && borderBottom && cStyles.borderBottom,
+          !showSearch && borderBottom && {borderColor: theme['border-basic-color-3']},
+          style,
+        ]}
         title={evaProps => 
         customTitle || (
           <CText {...evaProps}
@@ -268,6 +272,7 @@ CTopNavigation.propTypes = {
   titleStyle: PropTypes.object,
   subtitleStyle: PropTypes.object,
   iconStyle: PropTypes.object,
+  borderBottom: PropTypes.bool,
   translution: PropTypes.bool,
   notification: PropTypes.bool,
   add: PropTypes.bool,

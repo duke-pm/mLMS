@@ -4,42 +4,23 @@
  ** CreateAt: 2021
  ** Description: Description of index.js
  **/
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useTranslation } from 'react-i18next';
-import {Layout, Icon, Text, Menu, MenuItem, useTheme, ListItem} from '@ui-kitten/components';
-import {StyleSheet, View, TouchableOpacity, ImageBackground, StatusBar} from 'react-native';
+import {Layout, Menu, useTheme} from '@ui-kitten/components';
+import {StyleSheet, View, ImageBackground, StatusBar, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import IoniIcon from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
 /* COMPONENTS */
 import CContainer from '~/components/CContainer';
-import CTopNavigation from '~/components/CTopNavigation';
 import CAlert from '~/components/CAlert';
 import CText from '~/components/CText';
+import CMenuAccount from '~/components/CMenuAccount';
 /* COMMON */
 import Routes from '~/navigator/Routes';
-import {colors, cStyles} from '~/utils/style';
+import {cStyles} from '~/utils/style';
 import {IS_ANDROID, moderateScale, resetRoute} from '~/utils/helper';
-import { ThemeContext } from '~/configs/theme-context';
 /* REDUX */
 
-/*********************
- ** OTHER COMPONENT **
- *********************/
-const RenderForwardIcon = (props, theme, info) => (
-  <View style={[cStyles.row, cStyles.itemsCenter]}>
-    {info.alert && (
-      <View style={[{height: moderateScale(16), width: moderateScale(16), backgroundColor: theme['color-danger-500']}, cStyles.rounded4, cStyles.center]}>
-        <Text category={'c1'} status={'control'}>{info.alert}</Text>
-      </View>
-    )}
-    <Icon {...props} name='arrow-ios-forward' />
-  </View>
-);
-
-const RenderLeftIcon = (props, nameIcon) => (
-  <Icon {...props} name={nameIcon} />
-);
  
 /********************
  ** MAIN COMPONENT **
@@ -47,7 +28,6 @@ const RenderLeftIcon = (props, nameIcon) => (
 function Account(props) {
   const {t} = useTranslation();
   const theme = useTheme();
-  const themeContext = useContext(ThemeContext);
   const {navigation} = props;
 
   /** Use state */
@@ -56,9 +36,11 @@ function Account(props) {
   const [menu, setMenu] = useState([
     {
       id: 'edit_account',
-      label: 'account:edit_account',
+      title: 'account:edit_account',
       subtitle: 'account:holder_edit_account',
       icon: 'person-outline',
+      color: 'color-primary-600',
+      bgColor: 'color-primary-transparent-500',
       renderNext: true,
       nextRoute: Routes.PROFILE.name,
       value: null,
@@ -66,8 +48,11 @@ function Account(props) {
     },
     {
       id: 'notification',
-      label: 'account:notification',
+      title: 'account:notification',
+      subtitle: 'account:holder_notification',
       icon: 'bell-outline',
+      color: 'color-success-600',
+      bgColor: 'color-success-transparent-500',
       renderNext: true,
       nextRoute: Routes.NOTIFICATION.name,
       value: null,
@@ -75,8 +60,11 @@ function Account(props) {
     },
     {
       id: 'schedule',
-      label: 'account:schedule',
+      title: 'account:schedule',
+      subtitle: 'account:holder_schedule',
       icon: 'calendar-outline',
+      color: 'color-info-600',
+      bgColor: 'color-info-transparent-500',
       renderNext: true,
       nextRoute: Routes.SCHEDULE.name,
       value: null,
@@ -84,8 +72,11 @@ function Account(props) {
     },
     {
       id: 'favourite',
-      label: 'account:favourite',
+      title: 'account:favourite',
+      subtitle: 'account:holder_favourite',
       icon: 'star-outline',
+      color: 'color-warning-600',
+      bgColor: 'color-warning-transparent-500',
       renderNext: true,
       nextRoute: Routes.FAVOURITE.name,
       value: null,
@@ -93,17 +84,24 @@ function Account(props) {
     },
     {
       id: 'settings',
-      label: 'account:settings',
+      title: 'account:settings',
+      subtitle: 'account:holder_settings',
       icon: 'settings-2-outline',
+      color: 'color-basic-600',
+      bgColor: 'color-basic-transparent-500',
       renderNext: true,
       nextRoute: Routes.SETTINGS.name,
       value: null,
       alert: null,
     },
+  ]);
+  const [menu2, setMenu2] = useState([
     {
       id: 'help',
-      label: 'account:help',
+      title: 'account:help',
       icon: 'question-mark-circle-outline',
+      color: 'color-primary-500',
+      bgColor: 'color-primary-transparent-500',
       renderNext: true,
       nextRoute: Routes.HELP.name,
       value: null,
@@ -111,12 +109,15 @@ function Account(props) {
     },
     {
       id: 'log_out',
-      label: 'account:log_out',
+      title: 'account:log_out',
       icon: 'log-out-outline',
+      color: 'color-danger-500',
+      bgColor: 'color-danger-transparent-500',
       renderNext: false,
       nextRoute: null,
       value: null,
       alert: null,
+      onPress: () => toggleAlertLogout()
     },
   ]);
 
@@ -133,14 +134,6 @@ function Account(props) {
 
   const handleLogout = () => {
     resetRoute(navigation, Routes.LOGIN_IN.name);
-  };
-
-  const handleChangeAvatar = () => {
-
-  };
-
-  const handleGoMenuItem = nextRoute => {
-    navigation.navigate(nextRoute);
   };
 
   /**********
@@ -164,49 +157,44 @@ function Account(props) {
    ************/
   return (
     <CContainer safeArea={['top']} backgroundColor={theme['color-primary-400']}>
-      <Layout style={[cStyles.itemsCenter, cStyles.pb20, cStyles.pt10, cStyles.roundedBottomLeft10, cStyles.roundedBottomRight10, {backgroundColor: theme['color-primary-400']}]}>
-        <TouchableOpacity onPress={toggleAlertAvatar}>
-          <View style={[styles.con_avatar, cStyles.center]}>
-            <ImageBackground
-              style={styles.img_avatar}
-              borderRadius={moderateScale(50)}
-              resizeMode={'cover'}
-              source={{uri: 'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg'}}>
-              <View 
-                style={[
-                  cStyles.ofHidden,
-                  cStyles.center,
-                  cStyles.rounded5,
-                  cStyles.abs,
-                  styles.con_camera,
-                  {backgroundColor: theme['color-basic-200']}
-                ]}>
-                <IoniIcon name={'camera'} color={theme['color-primary-500']} size={moderateScale(13)} />
-              </View>
-            </ImageBackground>
-          </View>
-        </TouchableOpacity>
+      <View
+        style={[
+          cStyles.itemsCenter,
+          cStyles.pb20,
+          cStyles.pt10,
+          cStyles.roundedBottomLeft8,
+          cStyles.roundedBottomRight8,
+          {backgroundColor: theme['color-primary-400']}
+        ]}>
+        <View style={[styles.con_avatar, cStyles.center]}>
+          <ImageBackground
+            style={styles.img_avatar}
+            borderRadius={moderateScale(50)}
+            resizeMode={'cover'}
+            source={{uri: 'http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg'}}>
+            {/* <View 
+              style={[
+                cStyles.ofHidden,
+                cStyles.center,
+                cStyles.rounded5,
+                cStyles.abs,
+                styles.con_camera,
+                {backgroundColor: theme['color-basic-200']}
+              ]}>
+              <IoniIcon name={'camera'} color={theme['color-primary-500']} size={moderateScale(13)} />
+            </View> */}
+          </ImageBackground>
+        </View>
         <CText style={cStyles.mt16} category='h6' status='control'>{'Wayne Rooney'}</CText>
         <CText category='c1' status='control'>{'WayneRooney@gmail.com'}</CText>
-      </Layout>
+      </View>
 
-      <Layout style={[cStyles.m16, cStyles.rounded2]}>
-        <Menu scrollEnabled={false} style={[cStyles.rounded2, {backgroundColor: colors.TRANSPARENT}]}>
-          {menu.map((item, index) => {
-            return (
-              <ListItem
-                key={item.id + '_' + index}
-                style={cStyles.rounded2}
-                title={t(item.label)}
-                description={t(item.subtitle)}
-                accessoryLeft={propsIc => RenderLeftIcon(propsIc, item.icon)}
-                accessoryRight={item.renderNext ? propsR => RenderForwardIcon(propsR, theme, item) : undefined}
-                onPress={item.renderNext ? () => handleGoMenuItem(item.nextRoute) : toggleAlertLogout}
-              />
-            )
-          })}
-        </Menu>
-      </Layout>
+      <ScrollView style={cStyles.flex1}>
+        <>
+          <CMenuAccount data={menu} />
+          <CMenuAccount containerStyle={cStyles.mb10} data={menu2} />
+        </>
+      </ScrollView>
 
       <CAlert
         contentStyle={cStyles.m0}
@@ -237,7 +225,7 @@ function Account(props) {
                 <CText >{'Choose your input picture'}</CText>
               </View>
               <Menu>
-                <MenuItem
+                {/* <MenuItem
                   title='Camera'
                   accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'camera-outline')}
                   accessoryRight={RenderForwardIcon}
@@ -246,7 +234,7 @@ function Account(props) {
                   title='Gallery'
                   accessoryLeft={propsIc => RenderLeftIcon(propsIc, 'folder-outline')}
                   accessoryRight={RenderForwardIcon}
-                />
+                /> */}
               </Menu>
           </SafeAreaView>
         </Layout>

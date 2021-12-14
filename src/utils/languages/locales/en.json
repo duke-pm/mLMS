@@ -26,7 +26,8 @@
     "no": "No",
     "write_something_to_search": "Write something to search...",
     "attached_files": "Attached file",
-    "show_more": "Click to show all"
+    "show_more": "Click to show all",
+    "all": "All"
   },
   "error": {
     "format_email": "Format e-mail is not correct!",
@@ -96,10 +97,15 @@
   "account": {
     "title": "Account",
     "edit_account": "Edit account",
+    "holder_edit_account": "Update name, e-mail, profile picture",
     "notification": "Notifications",
+    "holder_notification": "Notifications, messages, reminders",
     "favourite": "Favourite",
+    "holder_favourite": "Personalized preferences",
     "settings": "Settings",
+    "holder_settings": "Interface, language, evaluation",
     "schedule": "Schedule",
+    "holder_schedule": "Reminder of upcoming or ongoing events",
     "help": "Helps",
     "log_out": "Log out",
     "alert_log_out": "Log Out",
@@ -250,7 +256,7 @@
     "level_my_group": "My group"
   },
   "quiz": {
-    "title": "Quiz",
+    "title": "Quizzes",
     "quiz_number": "Quiz ",
     "durations": "Durations",
     "questions": "Questions",

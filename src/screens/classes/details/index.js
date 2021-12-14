@@ -287,7 +287,7 @@ function ClassDetails(props) {
                         style={cStyles.mt5}
                         status={'control'}
                         
-                        numberOfLines={2}>&#10041; {itemSub}  </CText>
+                        numberOfLines={2}>&#10019; {itemSub}  </CText>
                     );
                   })}
                 </View>
